@@ -44,7 +44,7 @@ int main(void) {
 
         fprintf(fptr, "Subject,%s,Credit,%.2f,%.2f", arr->code, arr->credit, arr->grade);
 
-        if (arr->next == NULL) break;
+        if (arr->next == NULL) break; 
 
         fprintf(fptr, "\n");
         

@@ -27,7 +27,7 @@ int main(void) {
         printf("Not able to open the file.");
     }
 
-    // printf("%", )
+    // printf("%", ) 
 
     subjects *subTmp;
 
