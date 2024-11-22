@@ -3,14 +3,7 @@
 #include <errno.h>
 #include <string.h>
 #include "crudHandler.h"
-
-char* copyString(char *s, int size) {
-    char* s2;
-    s2 = (char*)malloc(size);
-
-    strcpy(s2, s);
-    return (char*)s2;
-}
+#include "utils.h"
 
 void printProduct(FILE *file) {
     char *name = (char*) malloc(99 * sizeof(char));
@@ -100,7 +93,7 @@ int deleteProduct(FILE *file, char* productName) {
     }
 
     if (!flag) {
-        printf("Product named %s doesn't exist.\n", productName);
+        printf("Product named '%s' doesn't exist.\n", productName);
         return 1;
     }
 

@@ -1,3 +1,5 @@
+#include <time.h>
+
 typedef struct Product {
     int id;
     char *name;
