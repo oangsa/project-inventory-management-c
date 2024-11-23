@@ -190,9 +190,9 @@ int updateProduct(FILE *file, char* productName, Product newData) {
     // Loop until EOF
     while (!feof(file)) {
         fscanf(file, "%d,%[^,],%f,%d\n", &id, name, &price, &remain);
-        // If the product in the current location is the same as the given product
-        // If yes, just skip the part where putting the data in the array.
 
+        // If the product in the current location is the same as the given product
+        // If yes, just put the provided data into the array instead.
         if (!strcmp(name, productName)) {
 
             // Update the data
