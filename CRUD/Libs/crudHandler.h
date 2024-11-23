@@ -22,6 +22,14 @@ typedef struct Setting {
     time_t lastCheck;
 } Setting;
 
+typedef struct Coupon {
+    int id;
+    char *code;
+    int isUse;
+
+    time_t expirationDate;
+} Coupon;
+
 // Product Handling
 void printProduct(FILE *file);
 
@@ -29,9 +37,15 @@ void printProductFilterBy(char *filter, FILE *file);
 
 int createProduct(FILE *file, Product product);
 
-int updateProduct(FILE *file, char* productName);
+int updateProduct(FILE *file, char* productName, Product newData);
 
 int deleteProduct(FILE *file, char* productName);
 
 
 // User Handling
+
+
+// Coupon Handling
+
+
+// Setting Handling

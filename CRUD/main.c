@@ -13,13 +13,27 @@ int main(void) {
         w+ - opens a file in both read and write mode
     */
 
-    newProduct.name = "Fried Rice";
-    newProduct.id = 8;
-    newProduct.price = 49.99;
+    newProduct.name = "Instant Noodle";
+    // newProduct.price = 99.99;
+    // newProduct.remain = 99;
 
     myFile = fopen("Data/MockUpProduct.csv", "a+");
 
-    printf("%d\n", deleteProduct(myFile, "Pad Thai"));
+    // if (createProduct(myFile, newProduct)) {
+    //     printf("There's error during the product creation...\n");
+
+    //     return 1;
+    // }
+
+    if (updateProduct(myFile, "Pad Krapao Moo", newProduct)) {
+        printf("There's error during the product creation...\n");
+
+        return 1;
+    }
+
+    // printProduct(myFile);
+
+    // printf("%d\n", createProduct(myFile, newProduct));
 
     fclose(myFile);
 
