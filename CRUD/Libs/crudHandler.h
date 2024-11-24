@@ -41,6 +41,8 @@ int updateProduct(FILE *file, char* productName, Product newData);
 
 int deleteProduct(FILE *file, char* productName);
 
+void Restock(FILE *file, Setting *setting);
+
 
 // User Handling
 
@@ -49,3 +51,6 @@ int deleteProduct(FILE *file, char* productName);
 
 
 // Setting Handling
+int checkSetting(Setting *targetSetting, FILE *file);
+
+int createSetting(FILE *file, Setting setting);

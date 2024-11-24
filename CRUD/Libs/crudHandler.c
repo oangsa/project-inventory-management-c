@@ -146,7 +146,7 @@ int deleteProduct(FILE *file, char* productName) {
     fclose(file);
     fclose(tmpFile);
 
-    // Delete the old file and rename the temporaly file to the deleted file.
+    // Delete the old file and rename the temporarily file to the deleted file.
     remove("Data/MockUpProduct.csv");
     rename("Data/__MockUpProduct.csv", "Data/MockUpProduct.csv");
 
@@ -233,9 +233,167 @@ int updateProduct(FILE *file, char* productName, Product newData) {
     fclose(file);
     fclose(tmpFile);
 
-    // Delete the old file and rename the temporaly file to the deleted file.
+    // Delete the old file and rename the temporarily file to the deleted file.
     remove("Data/MockUpProduct.csv");
     rename("Data/__MockUpProduct.csv", "Data/MockUpProduct.csv");
 
     return 0;
+}
+
+void Restock(FILE *file, Setting *setting) {
+    /*
+        Restocking the product that have the remaining stock below
+        the threshold
+
+        return nothing
+    */
+
+    char name[99];
+    float price;
+    int id, remain;
+    int i = 0, flag = 0;
+
+    float expectLeastStock = (float) ((float) setting->ThresholdPercent / 100.00) * (float) setting->fullStock;
+
+    Header test;
+
+    Product products[999];
+
+    FILE *tmpFile = fopen("Data/__MockUpProduct.csv", "w+");
+
+    // Checking if unable to open file.
+    if (tmpFile == NULL) {
+        printf("Cant open file\n");
+        return;
+    }
+
+    if (ferror(file)) {
+        printf("%s\n", strerror(errno));
+        return;
+    }
+
+    // Get rid of the header
+    fscanf(file, "%[^,],%[^,],%[^,],%[^,\n]", test.no, test.name, test.price, test.remain);
+
+    // Loop until EOF
+    while (!feof(file)) {
+        fscanf(file, "%d,%[^,],%f,%d\n", &id, name, &price, &remain);
+
+        if (expectLeastStock > (float) remain) {
+            remain = setting->fullStock;
+        }
+
+        products[i].id = id;
+        products[i].name = copyString(name, strlen(name) + 1); // We add +1 because of the '\0'
+        products[i].price = price;
+        products[i].remain = remain;
+
+        i++;
+    }
+
+    // Write data in the temporaly file.
+    fprintf(tmpFile, "%s,%s,%s,%s\n", test.no, test.name, test.price, test.remain);
+
+    for (int j = 0; j < i; j++) {
+        fprintf(tmpFile, "%d,%s,%.2f,%d\n", j+1, products[j].name, products[j].price, products[j].remain);
+    }
+
+    fclose(file);
+    fclose(tmpFile);
+
+    // Delete the old file and rename the temporarily file to the deleted file.
+    remove("Data/MockUpProduct.csv");
+    rename("Data/__MockUpProduct.csv", "Data/MockUpProduct.csv");
+
+    return;
+}
+
+
+// Setting Handler
+
+int checkSetting(Setting *targetSetting, FILE *file) {
+    /*
+        This function use to check if the setting is already set
+
+        return 1 if the process is fail
+        return 0 if the process success
+
+        and also if the setting exist, it should update the setting into the given variable.
+
+    */
+    Header test;
+
+    Setting tmp;
+
+    long time;
+
+    if (ferror(file)) {
+        printf("%s\n", strerror(errno));
+        return 1;
+    }
+
+    // Checking if the content in the file is empty
+    // fseek (file, 0, SEEK_END);
+    // long size = ftell(file);
+
+    // if (!size) {
+    //     printf("file is empty\n");
+    //     return 1;
+    // }
+
+    fscanf(file, "%[^,],%[^,],%[^,\n]\n", test.no, test.name, test.price);
+
+    fscanf(file, "%d,%d,%ld", &tmp.ThresholdPercent, &tmp.fullStock, &time);
+
+    targetSetting->fullStock = tmp.fullStock;
+    targetSetting->ThresholdPercent = tmp.ThresholdPercent;
+    targetSetting->lastCheck = time;
+
+
+    return 0;
+
+}
+
+int createSetting(FILE *file, Setting setting) {
+    /*
+        This function use to create the new setting.
+
+        *CAUTION* : This function will overwrite the exist setting.
+
+        return 1 if the process is fail
+        return 0 if the process success
+
+    */
+    if (ferror(file)) {
+        printf("%s\n", strerror(errno));
+        return 1;
+    }
+
+    // Checking if the content in the file is empty
+    fseek (file, 0, SEEK_END);
+    long size = ftell(file);
+
+    if (size) {
+        printf("Setting file is already setup!\n");
+        return 1;
+    }
+
+    FILE *tmpFile = fopen("Data/__Setting.csv", "w+");
+
+    // Write the provided setting into the file
+    fprintf(tmpFile, "%s,%s,%s\n", "Threshold", "Fullstock", "Last check");
+
+
+    fprintf(tmpFile, "%d,%d,%ld\n", setting.ThresholdPercent, setting.fullStock, (long) setting.lastCheck);
+
+    fclose(file);
+    fclose(tmpFile);
+
+    // Delete the old file and rename the temporarily file to the deleted file.
+    remove("Data/Setting.csv");
+    rename("Data/__Setting.csv", "Data/Setting.csv");
+
+    return 0;
+
+
 }
