@@ -31,17 +31,19 @@ typedef struct Coupon {
 } Coupon;
 
 // Product Handling
-void printProduct(FILE *file);
+void printProduct();
 
-void printProductFilterBy(char *filter, FILE *file);
+void printProductFilterBy(char *filter);
 
-int createProduct(FILE *file, Product product);
+int createProduct(Product product);
 
-int updateProduct(FILE *file, char* productName, Product newData);
+int updateProduct(char* productName, Product newData);
 
-int deleteProduct(FILE *file, char* productName);
+int deleteProduct(char* productName);
 
-void Restock(FILE *file, Setting *setting);
+void checkStock(Setting *setting);
+
+void Restock(Setting *setting);
 
 
 // User Handling
@@ -51,6 +53,6 @@ void Restock(FILE *file, Setting *setting);
 
 
 // Setting Handling
-int checkSetting(Setting *targetSetting, FILE *file);
+int checkSetting(Setting *targetSetting);
 
-int createSetting(FILE *file, Setting setting);
+int createSetting(Setting setting);

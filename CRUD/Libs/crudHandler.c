@@ -13,12 +13,14 @@ typedef struct Header {
     char remain[99];
 } Header;
 
-void printProduct(FILE *file) {
+void printProduct() {
     char name[99];
     float price;
     int id, remain;
 
     Header test;
+
+    FILE *file = fopen("Data/MockUpProduct.csv", "a+");
 
     fscanf(file, "%[^,],%[^,],%[^,],%[^,\n]", test.no, test.name, test.price, test.remain);
     printf("-----------------------[Products]------------------------\n");
@@ -30,9 +32,11 @@ void printProduct(FILE *file) {
 
         printf("%-6d%-30s%-7.2f%-8s%-6d\n", id, name, price, "THB", remain);
     }
+
+    fclose(file);
 }
 
-int createProduct(FILE *file, Product product) {
+int createProduct(Product product) {
     /*
         Use to create a product
 
@@ -45,6 +49,9 @@ int createProduct(FILE *file, Product product) {
     int id, remain;
 
     Header test;
+
+    FILE *file = fopen("Data/MockUpProduct.csv", "a+");
+
     // Error handling
     if (ferror(file)) {
         printf("%s\n", strerror(errno));
@@ -73,10 +80,12 @@ int createProduct(FILE *file, Product product) {
 
     fprintf(file, "%d,%s,%.2f,%d\n", id + 1, product.name, product.price, product.remain);
 
+    fclose(file);
+
     return 0;
 }
 
-int deleteProduct(FILE *file, char* productName) {
+int deleteProduct(char* productName) {
     /*
         Delete product by given the name
 
@@ -93,6 +102,8 @@ int deleteProduct(FILE *file, char* productName) {
     Header test;
 
     Product products[999];
+
+    FILE *file = fopen("Data/MockUpProduct.csv", "a+");
 
     FILE *tmpFile = fopen("Data/__MockUpProduct.csv", "w+");
 
@@ -153,7 +164,7 @@ int deleteProduct(FILE *file, char* productName) {
     return 0;
 }
 
-int updateProduct(FILE *file, char* productName, Product newData) {
+int updateProduct(char* productName, Product newData) {
     /*
         Update provided product by given the name
 
@@ -171,6 +182,7 @@ int updateProduct(FILE *file, char* productName, Product newData) {
 
     Product products[999];
 
+    FILE *file = fopen("Data/MockUpProduct.csv", "a+");
     FILE *tmpFile = fopen("Data/__MockUpProduct.csv", "w+");
 
     // Checking if unable to open file.
@@ -220,6 +232,9 @@ int updateProduct(FILE *file, char* productName, Product newData) {
     if (!flag) {
         printf("Product named '%s' doesn't exist.\n", productName);
         remove("Data/__MockUpProduct.csv");
+
+        fclose(file);
+        fclose(tmpFile);
         return 1;
     }
 
@@ -240,7 +255,7 @@ int updateProduct(FILE *file, char* productName, Product newData) {
     return 0;
 }
 
-void Restock(FILE *file, Setting *setting) {
+void Restock(Setting *setting) {
     /*
         Restocking the product that have the remaining stock below
         the threshold
@@ -253,16 +268,17 @@ void Restock(FILE *file, Setting *setting) {
     int id, remain;
     int i = 0, flag = 0;
 
-    float expectLeastStock = (float) ((float) setting->ThresholdPercent / 100.00) * (float) setting->fullStock;
-
     Header test;
 
     Product products[999];
 
+    float expectLeastStock = (float) ((float) setting->ThresholdPercent / 100.00) * (float) setting->fullStock;
+
+    FILE *file = fopen("Data/MockUpProduct.csv", "a+");
     FILE *tmpFile = fopen("Data/__MockUpProduct.csv", "w+");
 
     // Checking if unable to open file.
-    if (tmpFile == NULL) {
+    if (tmpFile == NULL || file == NULL) {
         printf("Cant open file\n");
         return;
     }
@@ -308,10 +324,61 @@ void Restock(FILE *file, Setting *setting) {
     return;
 }
 
+void checkStock(Setting *setting) {
+
+    char name[99];
+    float price;
+    int id, remain;
+    int i = 0, flag = 0;
+    char choice;
+
+    Header test;
+    Product products[999];
+
+    FILE *file = fopen("Data/MockUpProduct.csv", "a+");
+
+    float expectLeastStock = (float) ((float) setting->ThresholdPercent / 100.00) * (float) setting->fullStock;
+
+    if (ferror(file)) {
+        printf("%s\n", strerror(errno));
+        return;
+    }
+
+    fscanf(file, "%[^,],%[^,],%[^,],%[^,\n]", test.no, test.name, test.price, test.remain);
+    printf("-----------------------[Products]------------------------\n");
+    printf("%-6s%-30s%-15s%-6s\n", test.no, test.name, test.price, test.remain);
+    printf("%-6s%-30s%-15s%-6s\n", "--", "----", "-----", "------");
+
+    while (!feof(file)) {
+        fscanf(file, "%d,%[^,],%f,%d\n", &id, name, &price, &remain);
+
+        if (expectLeastStock <= (float) remain) continue;
+
+        printf("%-6d%-30s%-7.2f%-8s%-6d\n", id, name, price, "THB", remain);
+        i++;
+    }
+
+    if (i != 0) {
+        printf("\nThere is '%d' product(s) have the amount below threshold (%d%)\n", i, setting->ThresholdPercent);
+        printf("Do you want to restock (y, n): ");
+        scanf("%c", &choice);
+
+        if (choice == 'y' || choice == 'Y') {
+            fclose(file);
+            Restock(setting);
+        }
+    }
+    else {
+        printf("There is no product that have the amount below threshold");
+    }
+
+    fclose(file);
+
+}
+
 
 // Setting Handler
-
-int checkSetting(Setting *targetSetting, FILE *file) {
+int checkSetting(Setting *targetSetting) {
     /*
         This function use to check if the setting is already set
 
@@ -322,24 +389,19 @@ int checkSetting(Setting *targetSetting, FILE *file) {
 
     */
     Header test;
-
     Setting tmp;
 
     long time;
 
+    FILE *file = fopen("Data/Setting.csv", "a+");
+
+
     if (ferror(file)) {
         printf("%s\n", strerror(errno));
+        fclose(file);
+
         return 1;
     }
-
-    // Checking if the content in the file is empty
-    // fseek (file, 0, SEEK_END);
-    // long size = ftell(file);
-
-    // if (!size) {
-    //     printf("file is empty\n");
-    //     return 1;
-    // }
 
     fscanf(file, "%[^,],%[^,],%[^,\n]\n", test.no, test.name, test.price);
 
@@ -349,12 +411,14 @@ int checkSetting(Setting *targetSetting, FILE *file) {
     targetSetting->ThresholdPercent = tmp.ThresholdPercent;
     targetSetting->lastCheck = time;
 
+    fclose(file);
+
 
     return 0;
 
 }
 
-int createSetting(FILE *file, Setting setting) {
+int createSetting(Setting setting) {
     /*
         This function use to create the new setting.
 
@@ -364,8 +428,12 @@ int createSetting(FILE *file, Setting setting) {
         return 0 if the process success
 
     */
+
+    FILE *file = fopen("Data/Setting.csv", "a+");
+
     if (ferror(file)) {
         printf("%s\n", strerror(errno));
+        fclose(file);
         return 1;
     }
 
@@ -375,6 +443,7 @@ int createSetting(FILE *file, Setting setting) {
 
     if (size) {
         printf("Setting file is already setup!\n");
+        fclose(file);
         return 1;
     }
 

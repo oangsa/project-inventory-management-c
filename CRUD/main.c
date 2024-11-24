@@ -4,8 +4,6 @@
 #include "Libs\utils.h"
 
 int main(void) {
-    FILE *productFile;
-    FILE *settingFile;
     Product newProduct;
     Setting newSetting;
     Setting *globalSetting = malloc(1 * sizeof(Setting));
@@ -30,18 +28,18 @@ int main(void) {
     newSetting.ThresholdPercent = 30;
     newSetting.lastCheck = curtime;
 
-    productFile = fopen("Data/MockUpProduct.csv", "a+");
-    settingFile = fopen("Data/Setting.csv", "a+");
-
     // Load setting
-    checkSetting(globalSetting, settingFile);
+    checkSetting(globalSetting);
+
+    // Check the stock
+    checkStock(globalSetting);
 
     // Restocking
-    Restock(productFile, globalSetting);
+    // Restock(globalSetting);
 
-    // printf("%d\n", createSetting(settingFile, newSetting));
+    // printf("%d\n", createSetting(newSetting));
 
-    // if(checkSetting(globalSetting, settingFile)) {
+    // if(checkSetting(globalSetting)) {
     //     printf("There's error during the setting checking...\n");
     //     return 1;
     // }
@@ -59,7 +57,7 @@ int main(void) {
 
     // printf("%s\n", test);
 
-    // if (createProduct(productFile, newProduct)) {
+    // if (createProduct(newProduct)) {
     //     printf("There's error during the product creation...\n");
 
     //     return 1;
@@ -71,12 +69,9 @@ int main(void) {
     //     return 1;
     // }
 
-    // printProduct(myFile);
+    // printProduct();
 
-    // printf("%d\n", createProduct(myFile, newProduct));
-
-    fclose(productFile);
-    fclose(settingFile);
+    // printf("%d\n", createProduct(newProduct));
 
     return 0;
 }
