@@ -37,9 +37,9 @@ void printProductFilterBy(char *filter);
 
 int createProduct(Product product);
 
-int updateProduct(char* productName, Product newData);
+int updateProduct(char *productName, Product newData);
 
-int deleteProduct(char* productName);
+int deleteProduct(char *productName);
 
 void checkStock(Setting *setting);
 

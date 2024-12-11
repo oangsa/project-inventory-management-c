@@ -369,7 +369,7 @@ void checkStock(Setting *setting) {
         }
     }
     else {
-        printf("There is no product that have the amount below threshold");
+        printf("There is no product that have the amount below threshold\n");
     }
 
     fclose(file);

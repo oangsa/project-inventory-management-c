@@ -10,7 +10,7 @@ char* copyString(char *s, int size) {
         return given string for assign to the assignee.
     */
     char* s2;
-    s2 = (char*)malloc(size);
+    s2 = (char*) malloc(size);
 
     strcpy(s2, s);
     return (char*)s2;

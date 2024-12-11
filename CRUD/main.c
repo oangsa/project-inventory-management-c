@@ -20,9 +20,9 @@ int main(void) {
         w+ - opens a file in both read and write mode
     */
 
-    newProduct.name = "Instant Noodle";
-    // newProduct.price = 99.99;
-    // newProduct.remain = 99;
+    newProduct.name = "Ramen";
+    newProduct.price = 99.99;
+    newProduct.remain = 99;
 
     newSetting.fullStock = 100;
     newSetting.ThresholdPercent = 30;
@@ -31,7 +31,7 @@ int main(void) {
     // Load setting
     checkSetting(globalSetting);
 
-    // Check the stock
+    // // Check the stock
     checkStock(globalSetting);
 
     // Restocking
@@ -57,11 +57,11 @@ int main(void) {
 
     // printf("%s\n", test);
 
-    // if (createProduct(newProduct)) {
-    //     printf("There's error during the product creation...\n");
+    if (createProduct(newProduct)) {
+        printf("There's error during the product creation...\n");
 
-    //     return 1;
-    // }
+        return 1;
+    }
 
     // if (updateProduct(myFile, "Pad Krapao Moo", newProduct)) {
     //     printf("There's error during the product creation...\n");
