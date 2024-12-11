@@ -39,13 +39,3 @@ void borderdown(){
       printf("\n");
    }
 }
-
-char* copyString(char *str, int size) {
-    char* returnedStr;
-
-    returnedStr = (char*) malloc(size * sizeof(char));
-
-    strcpy(returnedStr, str);
-
-    return returnedStr;
-}

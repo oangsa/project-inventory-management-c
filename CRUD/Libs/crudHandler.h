@@ -8,13 +8,6 @@ typedef struct Product {
     int remain;
 } Product;
 
-typedef struct User {
-    int id;
-    char *username;
-    char *password;
-    char *role;
-} User;
-
 typedef struct Setting {
     int ThresholdPercent;
     int fullStock;

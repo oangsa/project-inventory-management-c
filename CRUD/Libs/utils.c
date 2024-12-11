@@ -1,19 +1,23 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <stdio.h>
 #include "utils.h"
 
 char* copyString(char *s, int size) {
-    /*
-        use to copy the string
+   /*
+      use to copy the string
 
-        return given string for assign to the assignee.
-    */
-    char* s2;
-    s2 = (char*) malloc(size);
+      return given string for assign to the assignee.
+   */
+   char* s2;
 
-    strcpy(s2, s);
-    return (char*)s2;
+   s2 = (char*) malloc((size * sizeof(char)) + 1);
+
+   strcpy(s2, s);
+
+
+   return (char*)s2;
 }
 
 int isTimePassed(time_t cmpTime, int day) {

@@ -4,6 +4,7 @@
 #include <string.h>
 #include "auth.h"
 #include "utils.h"
+#include "../../CRUD/Libs/utils.h"
 
 typedef struct Header {
     char username[99];
@@ -26,7 +27,7 @@ int login(char* username, char* password, User* user) {
    }
 
    // Error handling
-   if (ferror(file)) {
+   if (ferror(file) || !file) {
       printf("%s\n", strerror(errno));
       fclose(file);
       return 1;
@@ -35,12 +36,15 @@ int login(char* username, char* password, User* user) {
    fscanf(file, "%[^,],%[^,],%[^,\n]\n", test.username, test.password, test.role);
 
    while (!feof(file)) {
-      fscanf(file, "%[^,],%[^,],%[^,\n]\n", Username, Password, Role);;
+      fscanf(file, "%[^,],%[^,],%[^,\n\r]\n", Username, Password, Role);
 
       if (!strcmp(username, Username) && !strcmp(password, Password)) {
          user->username = copyString(Username, strlen(Username));
          user->password = copyString(Password, strlen(Password));
          user->role = copyString(Role, strlen(Role));
+
+         fclose(file);
+
          return 0;
       }
    }
@@ -76,18 +80,19 @@ int reg(char* username, char* password, char* role) {
    fscanf(file, "%[^,],%[^,],%[^,\n]\n", test.username, test.password, test.role);
 
    while (!feof(file)) {
-      fscanf(file, "%[^,],%[^,],%[^,\n]\n", Username, Password, Role);;
+      fscanf(file, "%[^,],%[^,],%[^,\n]\n", Username, Password, Role);
 
       if (!strcmp(username, Username)) {
          return 1;
       }
 
    }
+
    fclose(file);
 
-   file = fopen("Data/users.csv", "r");
+   file = fopen("Data/users.csv", "a");
 
-   fprintf(file, "%s,%s,%s\n", username, password, role);
+   fprintf(file, "%s,%s,%s", username, password, role);
 
    fclose(file);
 
