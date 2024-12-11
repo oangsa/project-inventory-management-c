@@ -3,5 +3,7 @@
         "stdio.h": "c",
         "crudhandler.h": "c"
     },
-    "C_Cpp.errorSquiggles": "disabled"
+    "C_Cpp.errorSquiggles": "disabled",
+    "editor.fontFamily": "SF Mono Medium",
+    "editor.fontSize": 16
 }
