@@ -7,7 +7,7 @@ void delay(int second){//time function for delaying
     clock_t start_time = clock();
     while(clock()<start_time+millisec);
 }
-int borderup(){//Upper border for UI
+void borderup(){//Upper border for UI
     for(int i=0;i<3;i++){
         for(int j=0;j<=20;j++){
                 if(i==0||j==0||j==20){
@@ -16,7 +16,7 @@ int borderup(){//Upper border for UI
         }puts("");
     }
 }
-int borderdown(){//Lower border for UI
+void borderdown(){//Lower border for UI
     for(int i=0;i<3;i++){
         for(int j=0;j<=20;j++){
                 if(i==2||j==0||j==20){
@@ -41,8 +41,8 @@ int main(){
     printf("  Welcome! Choose your choices\n  1:Login\n  2:Register\n  Please Enter your choice: ");
     scanf("%d",&choice);//Scan for choices
     switch(choice){//Clear screen after the choice is chosen
-        case 1: system("cls"); 
-        case 2: system("cls"); 
+        case 1: system("cls");
+        case 2: system("cls");
         default: system("cls");
     }
     if(choice!=1&&choice!=2){//If choice is not in the list
@@ -60,16 +60,16 @@ int main(){
         i++;
     }
     /*for (int j = 1; j < i; j++) {//skip header,printing file's info
-        printf("Username: %s\nPassword: %s\nRole: %s\n", 
-               fv.file_username[j], 
-               fv.file_password[j], 
+        printf("Username: %s\nPassword: %s\nRole: %s\n",
+               fv.file_username[j],
+               fv.file_password[j],
                fv.file_role[j]);
     }*/
-    
+
    int attemptreg=0;
     while(choice==2&&attemptreg<=3){//register
         int cmp_user=1;
-        char username[50],password[50],role[50]="customer",text[50]="Enter Your Username and Password";   
+        char username[50],password[50],role[50]="customer",text[50]="Enter Your Username and Password";
     //username and password must not exceed 20 letters
         if(attemptreg==3){//Using the already-used username more than 3 attempts
             printf("Attempt limit exceed, please try again later.\n");
@@ -81,8 +81,8 @@ int main(){
             delay(1);
             system("cls");
             return 0;
-            
-        }else{ 
+
+        }else{
             borderup();
             printf("   %s       \n",text);
             printf("   Username : ");
@@ -93,7 +93,7 @@ int main(){
                 return 1;
             }
             printf("   Password : ");
-            scanf(" %s",&password);   
+            scanf(" %s",&password);
             if(strlen(password)>20){
                 system("cls");
                 printf("Username and Password must not exceed 20 letters.");
@@ -124,7 +124,7 @@ int main(){
     int attemptlog=0;
     while(choice==1&&attemptlog<=3){
         int cmp_user=1,cmp_pass=1;//string compare
-        char username[50],password[50],role[50],text[50]="Enter Your Username and Password";   
+        char username[50],password[50],role[50],text[50]="Enter Your Username and Password";
     //username and password must not exceed 20 letters
         if(attemptlog==3){//If username or password is not correct more than 3 attempts.
             printf("Attempt limit exceed, please try again later.\n");
@@ -136,7 +136,7 @@ int main(){
             delay(1);
             system("cls");
             return 0;
-            
+
         }else{
         borderup();
         printf("   %s       \n",text);
@@ -148,13 +148,13 @@ int main(){
             return 1;
         }
         printf("   Password : ");
-        scanf(" %s",&password);   
+        scanf(" %s",&password);
         if(strlen(password)>20){
             system("cls");
             printf("Username and Password must not exceed 20 letters.");
             return 1;
 
-        }for(int j=1;j<i;j++){//check for username and password 
+        }for(int j=1;j<i;j++){//check for username and password
             cmp_user = strcmp(username, fv.file_username[j]);
             cmp_pass = strcmp(password, fv.file_password[j]);
             if(cmp_user==0&&cmp_pass==0){//if there's username and password stored
@@ -174,4 +174,6 @@ int main(){
     }
     free(file);
     fclose(file);
+
+    return 0;
 }
