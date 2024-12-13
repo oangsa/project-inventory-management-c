@@ -3,7 +3,6 @@
 typedef struct Product {
     int id;
     char *name;
-    char *description;
     float price;
     int remain;
 } Product;
@@ -38,6 +37,8 @@ void checkStock(Setting *setting);
 
 void Restock(Setting *setting);
 
+void autoRestock(Setting *setting);
+
 
 // User Handling
 
@@ -49,3 +50,5 @@ void Restock(Setting *setting);
 int checkSetting(Setting *targetSetting);
 
 int createSetting(Setting setting);
+
+int updateSetting(Setting *setting);

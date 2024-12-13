@@ -92,7 +92,7 @@ int reg(char* username, char* password, char* role) {
 
    file = fopen("Data/users.csv", "a");
 
-   fprintf(file, "%s,%s,%s", username, password, role);
+   fprintf(file, "%s,%s,%s\n", username, password, role);
 
    fclose(file);
 

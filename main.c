@@ -2,13 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "Authentication/Libs/auth.h"
-#include "Authentication/Libs/utils.h"
-#include "CRUD/Libs/crudHandler.h"
-#include "CRUD/Libs/utils.h"
+#include "panels/panel.h"
 
-int loginPanel(char* text, char* username, char* password, User* user);
-int registerPanel(char* text, char* username, char* password, char* role);
+void productAdminSeleted();
 
 int main(void) {
    Setting setting;
@@ -22,7 +18,7 @@ int main(void) {
    int logOrReg;
 
    printf("Welcome to the system\n");
-   printf("Checking...\n");
+   printf("Loading Setting....\n");
 
    if (checkSetting(&setting)) {
       printf("Setting is not set up yet.\n");
@@ -44,10 +40,15 @@ int main(void) {
       printf("\e[1;1H\e[2J");
    }
    else {
+      delay(1);
       printf("Done.\n");
       delay(2);
       printf("\e[1;1H\e[2J");
    }
+
+   delay(1);
+   autoRestock(&setting);
+   printf("\e[1;1H\e[2J");
 
    while (logOrReg != 1 && logOrReg != 2) {
       borderup();
@@ -103,7 +104,9 @@ int main(void) {
          scanf(" %d", &choose);
          switch (choose) {
             case 1:
-               printProduct();
+               delay(1);
+               printf("\e[1;1H\e[2J");
+               productAdminSeleted();
                break;
             case 2:
                // printUser();
@@ -154,60 +157,46 @@ int main(void) {
    return 0;
 }
 
-int loginPanel(char* text, char* username, char* password, User* user) {
-   borderup();
-   printf("   %s       \n",text);
-   printf("   Username: ");
-   scanf(" %s", username);
+void productAdminSeleted() {
+   int choose;
 
-   printf("   Password: ");
-   scanf(" %s", password);
+   while (1) {
+      printf("   Product Panel\n");
+      printf("   1. Create Product\n");
+      printf("   2. Update Product\n");
+      printf("   3. Delete Product\n");
+      printf("   4. Check Stock\n");
+      printf("   5. Restock\n");
+      printf("   6. Back\n");
+      printf("   Choose: ");
 
-   if (!login(username, password, user)) {
-      printf("   Login successfully.\n");
-      printf("   Welcome %s as a %s!\n", user->username, user->role);
-      borderdown();
-      printf("Redirecting to the main page...\n");
-      delay(3);
-      printf("\e[1;1H\e[2J");
+      scanf(" %d", &choose);
 
-      return 1;
-   }
-   else {
-      printf("   Wrong username or password.\n  (Please wait for 3 second to re-enter.)\n");
-      borderdown();
-      delay(3);
-      printf("\e[1;1H\e[2J");
-
-      return 0;
-   }
-}
-
-int registerPanel(char* text, char* username, char* password, char* role) {
-   borderup();
-   printf("   %s       \n",text);
-   printf("   Username: ");
-   scanf(" %s", username);
-
-   printf("   Password: ");
-   scanf(" %s", password);
-
-   if (!reg(username, password, role)) {
-      printf("   Register successfully.\n");
-      printf("   Please Login again");
-      borderdown();
-      printf("Redirecting to the login page...\n");
-      delay(3);
-      printf("\e[1;1H\e[2J");
-
-      return 1;
-   }
-   else {
-      printf("   Username already exist.\n  (Please wait for 3 second to re-enter.)\n");
-      borderdown();
-      delay(3);
-      printf("\e[1;1H\e[2J");
-
-      return 0;
+      switch (choose) {
+         case 1:
+            delay(1);
+            printf("\e[1;1H\e[2J");
+            createProductPanel();
+            break;
+         case 2:
+            // updateProduct();
+            break;
+         case 3:
+            // deleteProduct();
+            break;
+         case 4:
+            // checkStock();
+            break;
+         case 5:
+            // Restock();
+            break;
+         case 6:
+            delay(1);
+            printf("\e[1;1H\e[2J");
+            return;
+         default:
+            printf("   Wrong input.\n");
+            break;
+      }
    }
 }

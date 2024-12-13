@@ -4,6 +4,7 @@
 #include <string.h>
 #include "crudHandler.h"
 #include "utils.h"
+#include "../../Authentication/Libs/utils.h"
 
 // Just structure of the header to prevent the confusion.
 typedef struct Header {
@@ -14,9 +15,16 @@ typedef struct Header {
 } Header;
 
 void printProduct() {
-   char name[99];
+   char* name;
    float price;
    int id, remain;
+
+   name = (char*) malloc(99 * sizeof(char));
+
+   if (name == NULL) {
+      printf("Memory allocation failed\n");
+      return;
+   }
 
    Header test;
 
@@ -39,8 +47,10 @@ void printProduct() {
       printf("%-6d%-30s%-7.2f%-8s%-6d\n", id, name, price, "THB", remain);
    }
 
-   printf("--------------------------------------------------------\n");
+   printf("---------------------------------------------------------\n");
 
+
+   free(name);
    fclose(file);
 }
 
@@ -52,9 +62,16 @@ int createProduct(Product product) {
       return 0 if the process success
    */
 
-   char name[99];
+   char* name;
    float price;
    int id, remain;
+
+   name = (char*) malloc(99 * sizeof(char));
+
+   if (name == NULL) {
+      printf("Memory allocation failed\n");
+      return 1;
+   }
 
    Header test;
 
@@ -81,13 +98,15 @@ int createProduct(Product product) {
       fscanf(file, "%d,%[^,],%f,%d\n", &id, name, &price, &remain);
 
       if (!strcmp(name, product.name)) {
-         printf("Product named '%s' is already exist!\n", product.name);
+         free(name);
+         fclose(file);
          return 1;
       }
    }
 
    fprintf(file, "%d,%s,%.2f,%d\n", id + 1, product.name, product.price, product.remain);
 
+   free(name);
    fclose(file);
 
    return 0;
@@ -102,14 +121,30 @@ int deleteProduct(char* productName) {
 
    */
 
-   char name[99];
+   char* name;
    float price;
    int id, remain;
    int i = 0, flag = 0;
 
-   Header test;
+   Product* products;
 
-   Product products[999];
+   name = (char*) malloc(99 * sizeof(char));
+
+   if (name == NULL) {
+      printf("Memory allocation failed\n");
+      return 1;
+   }
+
+   products = (Product*) malloc(999 * sizeof(Product));
+
+   if (products == NULL) {
+      free(name);
+      printf("Memory allocation failed\n");
+      return 1;
+   }
+
+
+   Header test;
 
    FILE *file = fopen("Data/MockUpProduct.csv", "a+");
 
@@ -152,6 +187,10 @@ int deleteProduct(char* productName) {
    if (!flag) {
       printf("Product named '%s' doesn't exist.\n", productName);
       remove("Data/__MockUpProduct.csv");
+      free(name);
+      free(products);
+      fclose(file);
+      fclose(tmpFile);
       return 1;
    }
 
@@ -162,6 +201,8 @@ int deleteProduct(char* productName) {
       fprintf(tmpFile, "%d,%s,%.2f,%d\n", j+1, products[j].name, products[j].price, products[j].remain);
    }
 
+   free(name);
+   free(products);
    fclose(file);
    fclose(tmpFile);
 
@@ -181,14 +222,29 @@ int updateProduct(char* productName, Product newData) {
 
    */
 
-   char name[99];
+   char* name;
    float price;
    int id, remain;
    int i = 0, flag = 0;
 
    Header test;
 
-   Product products[999];
+   Product* products;
+
+   name = (char*) malloc(99 * sizeof(char));
+
+   if (name == NULL) {
+      printf("Memory allocation failed\n");
+      return 1;
+   }
+
+   products = (Product*) malloc(999 * sizeof(Product));
+
+   if (products == NULL) {
+      free(name);
+      printf("Memory allocation failed\n");
+      return 1;
+   }
 
    FILE *file = fopen("Data/MockUpProduct.csv", "a+");
    FILE *tmpFile = fopen("Data/__MockUpProduct.csv", "w+");
@@ -241,6 +297,8 @@ int updateProduct(char* productName, Product newData) {
       printf("Product named '%s' doesn't exist.\n", productName);
       remove("Data/__MockUpProduct.csv");
 
+      free(name);
+      free(products);
       fclose(file);
       fclose(tmpFile);
       return 1;
@@ -253,6 +311,8 @@ int updateProduct(char* productName, Product newData) {
       fprintf(tmpFile, "%d,%s,%.2f,%d\n", j+1, products[j].name, products[j].price, products[j].remain);
    }
 
+   free(name);
+   free(products);
    fclose(file);
    fclose(tmpFile);
 
@@ -271,14 +331,29 @@ void Restock(Setting *setting) {
       return nothing
    */
 
-   char name[99];
+   char *name;
    float price;
    int id, remain;
    int i = 0, flag = 0;
 
    Header test;
 
-   Product products[999];
+   Product *products;
+
+   name = (char*) malloc(99 * sizeof(char));
+
+   if (name == NULL) {
+      printf("Memory allocation failed\n");
+      return;
+   }
+
+   products = (Product*) malloc(999 * sizeof(Product));
+
+   if (products == NULL) {
+      free(name);
+      printf("Memory allocation failed\n");
+      return;
+   }
 
    float expectLeastStock = (float) ((float) setting->ThresholdPercent / 100.00) * (float) setting->fullStock;
 
@@ -322,6 +397,8 @@ void Restock(Setting *setting) {
       fprintf(tmpFile, "%d,%s,%.2f,%d\n", j+1, products[j].name, products[j].price, products[j].remain);
    }
 
+   free(name);
+   free(products);
    fclose(file);
    fclose(tmpFile);
 
@@ -334,14 +411,29 @@ void Restock(Setting *setting) {
 
 void checkStock(Setting *setting) {
 
-   char name[99];
+   char* name;
    float price;
    int id, remain;
    int i = 0, flag = 0;
    char choice;
 
    Header test;
-   Product products[999];
+   Product* products;
+
+   name = (char*) malloc(99 * sizeof(char));
+
+   if (name == NULL) {
+      printf("Memory allocation failed\n");
+      return;
+   }
+
+   products = (Product*) malloc(999 * sizeof(Product));
+
+   if (products == NULL) {
+      free(name);
+      printf("Memory allocation failed\n");
+      return;
+   }
 
    FILE *file = fopen("Data/MockUpProduct.csv", "a+");
 
@@ -368,11 +460,15 @@ void checkStock(Setting *setting) {
 
    if (i != 0) {
       printf("\nThere is '%d' product(s) have the amount below threshold (%d%)\n", i, setting->ThresholdPercent);
-      printf("Do you want to restock (y, n): ");
+      printf("    Do you want to restock (y, n): ");
       scanf("%c", &choice);
 
       if (choice == 'y' || choice == 'Y') {
+         free(name);
+         free(products);
          fclose(file);
+
+         printf("Restocking...\n");
          Restock(setting);
       }
    }
@@ -380,8 +476,23 @@ void checkStock(Setting *setting) {
       printf("There is no product that have the amount below threshold\n");
    }
 
+   free(name);
+   free(products);
    fclose(file);
 
+}
+
+
+void autoRestock(Setting *setting) {
+
+   if (isTimePassed(setting->lastCheck, 1)) {
+      printf("Checking the stock...\n");
+      checkStock(setting);
+      setting->lastCheck = time(NULL);
+      updateSetting(setting);
+      delay(1);
+      printf("Done!\n");
+   }
 }
 
 
@@ -402,7 +513,6 @@ int checkSetting(Setting *targetSetting) {
    long time;
 
    FILE *file = fopen("Data/Setting.csv", "a+");
-
 
    if (ferror(file)) {
       printf("%s\n", strerror(errno));
@@ -457,7 +567,6 @@ int createSetting(Setting setting) {
       return 1;
    }
 
-
    time(&currentTime);
 
    FILE *tmpFile = fopen("Data/__Setting.csv", "w+");
@@ -476,6 +585,43 @@ int createSetting(Setting setting) {
    rename("Data/__Setting.csv", "Data/Setting.csv");
 
    return 0;
+}
 
+int updateSetting(Setting* setting) {
+   /*
+      This function use to update the setting.
+
+      return 1 if the process is fail
+      return 0 if the process success
+
+   */
+
+   FILE *file = fopen("Data/Setting.csv", "a+");
+
+   if (ferror(file)) {
+      printf("%s\n", strerror(errno));
+      fclose(file);
+      return 1;
+   }
+
+   time_t currentTime;
+
+   time(&currentTime);
+
+   FILE *tmpFile = fopen("Data/__Setting.csv", "w+");
+
+   // Write the provided setting into the file
+   fprintf(tmpFile, "%s,%s,%s\n", "Threshold", "Fullstock", "Last check");
+
+   fprintf(tmpFile, "%d,%d,%ld\n", setting->ThresholdPercent, setting->ThresholdPercent, (long) currentTime);
+
+   fclose(file);
+   fclose(tmpFile);
+
+   // Delete the old file and rename the temporarily file to the deleted file.
+   remove("Data/Setting.csv");
+   rename("Data/__Setting.csv", "Data/Setting.csv");
+
+   return 0;
 
 }
