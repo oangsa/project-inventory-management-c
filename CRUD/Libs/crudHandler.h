@@ -3,17 +3,10 @@
 typedef struct Product {
     int id;
     char *name;
-    char *description;
     float price;
     int remain;
+    int sold;
 } Product;
-
-typedef struct User {
-    int id;
-    char *username;
-    char *password;
-    char *role;
-} User;
 
 typedef struct Setting {
     int ThresholdPercent;
@@ -31,7 +24,7 @@ typedef struct Coupon {
 } Coupon;
 
 // Product Handling
-void printProduct();
+void printProduct(char *mode);
 
 void printProductFilterBy(char *filter);
 
@@ -41,9 +34,13 @@ int updateProduct(char *productName, Product newData);
 
 int deleteProduct(char *productName);
 
+int purchaseProduct(char *productName, int amount);
+
 void checkStock(Setting *setting);
 
 void Restock(Setting *setting);
+
+void autoRestock(Setting *setting);
 
 
 // User Handling
@@ -56,3 +53,5 @@ void Restock(Setting *setting);
 int checkSetting(Setting *targetSetting);
 
 int createSetting(Setting setting);
+
+int updateSetting(Setting *setting);
