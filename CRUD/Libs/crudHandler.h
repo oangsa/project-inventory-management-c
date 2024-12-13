@@ -5,6 +5,7 @@ typedef struct Product {
     char *name;
     float price;
     int remain;
+    int sold;
 } Product;
 
 typedef struct Setting {
@@ -23,7 +24,7 @@ typedef struct Coupon {
 } Coupon;
 
 // Product Handling
-void printProduct();
+void printProduct(char *mode);
 
 void printProductFilterBy(char *filter);
 
@@ -32,6 +33,8 @@ int createProduct(Product product);
 int updateProduct(char *productName, Product newData);
 
 int deleteProduct(char *productName);
+
+int purchaseProduct(char *productName, int amount);
 
 void checkStock(Setting *setting);
 

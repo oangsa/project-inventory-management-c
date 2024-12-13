@@ -29,10 +29,12 @@ int main(void) {
     newSetting.lastCheck = curtime;
 
     // Load setting
-    checkSetting(globalSetting);
+   //  checkSetting(globalSetting);
 
     // // Check the stock
-    checkStock(globalSetting);
+   //  checkStock(globalSetting);
+
+   printProduct("sold");
 
     // Restocking
     // Restock(globalSetting);
@@ -57,11 +59,11 @@ int main(void) {
 
     // printf("%s\n", test);
 
-    if (createProduct(newProduct)) {
-        printf("There's error during the product creation...\n");
+   //  if (createProduct(newProduct)) {
+   //      printf("There's error during the product creation...\n");
 
-        return 1;
-    }
+   //      return 1;
+   //  }
 
     // if (updateProduct(myFile, "Pad Krapao Moo", newProduct)) {
     //     printf("There's error during the product creation...\n");

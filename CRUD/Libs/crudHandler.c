@@ -12,12 +12,15 @@ typedef struct Header {
    char name[99];
    char price[99];
    char remain[99];
+
+   char sold[99];
 } Header;
 
-void printProduct() {
+void printProduct(char *mode) {
    char* name;
    float price;
-   int id, remain;
+   int id, remain, sold;
+} Header;
 
    name = (char*) malloc(99 * sizeof(char));
 
@@ -36,18 +39,20 @@ void printProduct() {
       return;
    }
 
-   fscanf(file, "%[^,],%[^,],%[^,],%[^,\n]", test.no, test.name, test.price, test.remain);
-   printf("-----------------------[Products]------------------------\n");
-   printf("%-6s%-30s%-15s%-6s\n", test.no, test.name, test.price, test.remain);
-   printf("%-6s%-30s%-15s%-6s\n", "--", "----", "-----", "------");
+   fscanf(file, "%[^,],%[^,],%[^,],%[^,],%[^,\n]", test.no, test.name, test.price, test.remain, test.sold);
+   printf("---------------------------------[Products]----------------------------------\n");
+   printf("| %-2s  | %16s%-13s|%9s%-3s|%9s%-3s|%8s%-4s|\n", "Id", test.name," ", test.price, " ", test.remain, " ", test.sold, " ");
+   printf("|%s|%16s|%12s|%8s|%6s|\n", "-----", "------------------------------", "------------", "------------", "------------");
 
    while (!feof(file)) {
-      fscanf(file, "%d,%[^,],%f,%d\n", &id, name, &price, &remain);
+      fscanf(file, "%d,%[^,],%f,%d,%d\n", &id, name, &price, &remain, &sold);
 
-      printf("%-6d%-30s%-7.2f%-8s%-6d\n", id, name, price, "THB", remain);
+      if (remain == 0 && strcmp(mode, "sold") == 0) continue;
+
+      printf("|  %-2d | %-28s | %-7.2f%s | %-4d%6s | %-4d%6s |\n", id, name, price, "THB", remain, "Items", sold, "Items");
    }
 
-   printf("---------------------------------------------------------\n");
+   printf("-----------------------------------------------------------------------------\n");
 
 
    free(name);
@@ -64,7 +69,8 @@ int createProduct(Product product) {
 
    char* name;
    float price;
-   int id, remain;
+   int id, remain, sold;
+
 
    name = (char*) malloc(99 * sizeof(char));
 
@@ -91,11 +97,11 @@ int createProduct(Product product) {
    }
 
    // Get rid the header
-   fscanf(file, "%[^,],%[^,],%[^,],%[^,\n]", test.no, test.name, test.price, test.remain);
+   fscanf(file, "%[^,],%[^,],%[^,],%[^,],%[^,\n]", test.no, test.name, test.price, test.remain, test.sold);
 
    // Loop checking if the provided product is already exist.
    while (!feof(file)) {
-      fscanf(file, "%d,%[^,],%f,%d\n", &id, name, &price, &remain);
+      fscanf(file, "%d,%[^,],%f,%d,%d\n", &id, name, &price, &remain, &sold);
 
       if (!strcmp(name, product.name)) {
          free(name);
@@ -104,7 +110,7 @@ int createProduct(Product product) {
       }
    }
 
-   fprintf(file, "%d,%s,%.2f,%d\n", id + 1, product.name, product.price, product.remain);
+   fprintf(file, "%d,%s,%.2f,%d,%d\n", id + 1, product.name, product.price, product.remain, 0);
 
    free(name);
    fclose(file);
@@ -123,7 +129,8 @@ int deleteProduct(char* productName) {
 
    char* name;
    float price;
-   int id, remain;
+
+   int id, remain, sold;
    int i = 0, flag = 0;
 
    Product* products;
@@ -162,11 +169,12 @@ int deleteProduct(char* productName) {
    }
 
    // Get rid of the header
-   fscanf(file, "%[^,],%[^,],%[^,],%[^,\n]", test.no, test.name, test.price, test.remain);
+   fscanf(file, "%[^,],%[^,],%[^,],%[^,],%[^,\n]", test.no, test.name, test.price, test.remain, test.sold);
 
    // Loop until EOF
    while (!feof(file)) {
-      fscanf(file, "%d,%[^,],%f,%d\n", &id, name, &price, &remain);
+      fscanf(file, "%d,%[^,],%f,%d,%d\n", &id, name, &price, &remain, &sold);
+
 
       // If the product in the current location is the same as the given product
       // If yes, just skip the part where putting the data in the array.
@@ -179,6 +187,9 @@ int deleteProduct(char* productName) {
       products[i].name = copyString(name, strlen(name) + 1); // We add +1 because of the '\0'
       products[i].price = price;
       products[i].remain = remain;
+     
+      products[i].sold = sold;
+
 
       i++;
    }
@@ -195,10 +206,10 @@ int deleteProduct(char* productName) {
    }
 
    // Write data in the temporaly file.
-   fprintf(tmpFile, "%s,%s,%s,%s\n", test.no, test.name, test.price, test.remain);
+   fprintf(tmpFile, "%s,%s,%s,%s,%s\n", test.no, test.name, test.price, test.remain, test.sold);
 
    for (int j = 0; j < i; j++) {
-      fprintf(tmpFile, "%d,%s,%.2f,%d\n", j+1, products[j].name, products[j].price, products[j].remain);
+      fprintf(tmpFile, "%d,%s,%.2f,%d,%d\n", j+1, products[j].name, products[j].price, products[j].remain, products[j].sold);
    }
 
    free(name);
@@ -224,7 +235,7 @@ int updateProduct(char* productName, Product newData) {
 
    char* name;
    float price;
-   int id, remain;
+   int id, remain, sold;
    int i = 0, flag = 0;
 
    Header test;
@@ -261,7 +272,7 @@ int updateProduct(char* productName, Product newData) {
    }
 
    // Get rid of the header
-   fscanf(file, "%[^,],%[^,],%[^,],%[^,\n]", test.no, test.name, test.price, test.remain);
+   fscanf(file, "%[^,],%[^,],%[^,],%[^,],%[^,\n]", test.no, test.name, test.price, test.remain, test.sold);
 
    // Loop until EOF
    while (!feof(file)) {
@@ -274,6 +285,7 @@ int updateProduct(char* productName, Product newData) {
          // Update the data
          products[i].id = id;
          products[i].name = copyString(productName, strlen(productName) + 1); // We add +1 because of the '\0'
+         products[i].sold = sold;
 
          // Checking if the provided data are valid.
          products[i].price = ((int) newData.price) ? newData.price : price;
@@ -288,6 +300,7 @@ int updateProduct(char* productName, Product newData) {
       products[i].name = copyString(name, strlen(name) + 1); // We add +1 because of the '\0'
       products[i].price = price;
       products[i].remain = remain;
+      products[i].sold = sold;
 
       i++;
    }
@@ -323,6 +336,130 @@ int updateProduct(char* productName, Product newData) {
    return 0;
 }
 
+int purchaseProduct(char* productName, int amount) {
+   /*
+      Purchase provided product by given the name
+
+      return 1 if the process is fail
+      return 0 if the process success
+
+   */
+
+   char* name;
+   float price;
+   int id, remain, sold;
+   int i = 0, flag = 0;
+
+   Header test;
+
+   Product* products;
+
+   name = (char*) malloc(99 * sizeof(char));
+
+   if (name == NULL) {
+      printf("Memory allocation failed\n");
+      return 1;
+   }
+
+   products = (Product*) malloc(999 * sizeof(Product));
+
+   if (products == NULL) {
+      free(name);
+      printf("Memory allocation failed\n");
+      return 1;
+   }
+
+   FILE *file = fopen("Data/MockUpProduct.csv", "a+");
+   FILE *tmpFile = fopen("Data/__MockUpProduct.csv", "w+");
+
+   // Checking if unable to open file.
+   if (tmpFile == NULL) {
+      printf("Cant open file\n");
+      return 1;
+   }
+
+   if (ferror(file)) {
+      printf("%s\n", strerror(errno));
+      return 1;
+   }
+
+   // Get rid of the header
+   fscanf(file, "%[^,],%[^,],%[^,],%[^,],%[^,\n]", test.no, test.name, test.price, test.remain, test.sold);
+
+   // Loop until EOF
+   while (!feof(file)) {
+      fscanf(file, "%d,%[^,],%f,%d,%d\n", &id, name, &price, &remain, &sold);
+
+      // If the product in the current location is the same as the given product
+      // If yes, just put the provided data into the array instead.
+      if (!strcmp(name, productName)) {
+
+         if (amount > remain) {
+            printf("Not enough stock\n");
+
+            free(name);
+            free(products);
+            fclose(file);
+            fclose(tmpFile);
+
+            remove("Data/__MockUpProduct.csv");
+            return 1;
+         }
+
+         // Update the data
+         products[i].id = id;
+         products[i].name = copyString(productName, strlen(productName) + 1); // We add +1 because of the '\0'
+
+         // Checking if the provided data are valid.
+         products[i].price = price;
+         products[i].remain = remain - amount;
+         products[i].sold = sold + amount;
+
+         i++;
+         flag = 1;
+         continue;
+      }
+
+      products[i].id = id;
+      products[i].name = copyString(name, strlen(name) + 1); // We add +1 because of the '\0'
+      products[i].price = price;
+      products[i].remain = remain;
+      products[i].sold = remain;
+
+      i++;
+   }
+
+   // Checking if the product exist.
+   if (!flag) {
+      printf("Product named '%s' doesn't exist.\n", productName);
+      remove("Data/__MockUpProduct.csv");
+
+      free(name);
+      free(products);
+      fclose(file);
+      fclose(tmpFile);
+      return 1;
+   }
+
+   // Write data in the temporaly file.
+   fprintf(tmpFile, "%s,%s,%s,%s,%s\n", test.no, test.name, test.price, test.remain, test.sold);
+
+   for (int j = 0; j < i; j++) {
+      fprintf(tmpFile, "%d,%s,%.2f,%d,%d\n", j+1, products[j].name, products[j].price, products[j].remain, products[j].sold);
+   }
+
+   free(name);
+   free(products);
+   fclose(file);
+   fclose(tmpFile);
+
+   // Delete the old file and rename the temporarily file to the deleted file.
+   remove("Data/MockUpProduct.csv");
+   rename("Data/__MockUpProduct.csv", "Data/MockUpProduct.csv");
+
+   return 0;
+}
+
 void Restock(Setting *setting) {
    /*
       Restocking the product that have the remaining stock below
@@ -333,7 +470,7 @@ void Restock(Setting *setting) {
 
    char *name;
    float price;
-   int id, remain;
+   int id, remain, sold;
    int i = 0, flag = 0;
 
    Header test;
@@ -372,11 +509,11 @@ void Restock(Setting *setting) {
    }
 
    // Get rid of the header
-   fscanf(file, "%[^,],%[^,],%[^,],%[^,\n]", test.no, test.name, test.price, test.remain);
+   fscanf(file, "%[^,],%[^,],%[^,],%[^,],%[^,\n]", test.no, test.name, test.price, test.remain, test.sold);
 
    // Loop until EOF
    while (!feof(file)) {
-      fscanf(file, "%d,%[^,],%f,%d\n", &id, name, &price, &remain);
+      fscanf(file, "%d,%[^,],%f,%d,%d\n", &id, name, &price, &remain, &sold);
 
       if (expectLeastStock > (float) remain) {
          remain = setting->fullStock;
@@ -386,22 +523,23 @@ void Restock(Setting *setting) {
       products[i].name = copyString(name, strlen(name) + 1); // We add +1 because of the '\0'
       products[i].price = price;
       products[i].remain = remain;
+      products[i].sold = sold;
 
       i++;
    }
 
    // Write data in the temporaly file.
-   fprintf(tmpFile, "%s,%s,%s,%s\n", test.no, test.name, test.price, test.remain);
+   fprintf(tmpFile, "%s,%s,%s,%s,%s\n", test.no, test.name, test.price, test.remain, test.sold);
 
    for (int j = 0; j < i; j++) {
-      fprintf(tmpFile, "%d,%s,%.2f,%d\n", j+1, products[j].name, products[j].price, products[j].remain);
+      fprintf(tmpFile, "%d,%s,%.2f,%d,%d\n", j+1, products[j].name, products[j].price, products[j].remain, products[j].sold);
    }
 
    free(name);
    free(products);
    fclose(file);
    fclose(tmpFile);
-
+  
    // Delete the old file and rename the temporarily file to the deleted file.
    remove("Data/MockUpProduct.csv");
    rename("Data/__MockUpProduct.csv", "Data/MockUpProduct.csv");
@@ -413,7 +551,8 @@ void checkStock(Setting *setting) {
 
    char* name;
    float price;
-   int id, remain;
+
+   int id, remain, sold;
    int i = 0, flag = 0;
    char choice;
 
@@ -426,7 +565,7 @@ void checkStock(Setting *setting) {
       printf("Memory allocation failed\n");
       return;
    }
-
+  
    products = (Product*) malloc(999 * sizeof(Product));
 
    if (products == NULL) {
@@ -444,17 +583,12 @@ void checkStock(Setting *setting) {
       return;
    }
 
-   fscanf(file, "%[^,],%[^,],%[^,],%[^,\n]", test.no, test.name, test.price, test.remain);
-   printf("-----------------------[Products]------------------------\n");
-   printf("%-6s%-30s%-15s%-6s\n", test.no, test.name, test.price, test.remain);
-   printf("%-6s%-30s%-15s%-6s\n", "--", "----", "-----", "------");
+   fscanf(file, "%[^,],%[^,],%[^,],%[^,],%[^,\n]", test.no, test.name, test.price, test.remain, test.sold);
 
    while (!feof(file)) {
-      fscanf(file, "%d,%[^,],%f,%d\n", &id, name, &price, &remain);
+      fscanf(file, "%d,%[^,],%f,%d,%d\n", &id, name, &price, &remain, &sold);
 
       if (expectLeastStock <= (float) remain) continue;
-
-      printf("%-6d%-30s%-7.2f%-8s%-6d\n", id, name, price, "THB", remain);
       i++;
    }
 
@@ -463,6 +597,22 @@ void checkStock(Setting *setting) {
       printf("    Do you want to restock (y, n): ");
       scanf("%c", &choice);
 
+      if (choice == 'y' || choice == 'Y') {
+         free(name);
+         free(products);
+         fclose(file);
+
+         printf("Restocking...\n");
+         Restock(setting);
+      }
+   }
+   else {
+      printf("There is no product that have the amount below threshold\n");
+   }
+
+   free(name);
+   free(products);
+   fclose(file);
       if (choice == 'y' || choice == 'Y') {
          free(name);
          free(products);
@@ -491,6 +641,19 @@ void autoRestock(Setting *setting) {
       setting->lastCheck = time(NULL);
       updateSetting(setting);
       delay(1);
+      printf("Done!\n");
+   }
+}
+
+
+void autoRestock(Setting *setting) {
+
+   if (isTimePassed(setting->lastCheck, 1)) {
+      printf("Checking the stock...\n");
+      checkStock(setting);
+      setting->lastCheck = time(NULL);
+      updateSetting(setting);
+      // delay(1);
       printf("Done!\n");
    }
 }
@@ -563,6 +726,7 @@ int createSetting(Setting setting) {
 
    if (size) {
       printf("Setting file is already setup!\n");
+
       fclose(file);
       return 1;
    }
