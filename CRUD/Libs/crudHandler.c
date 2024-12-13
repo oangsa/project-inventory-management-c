@@ -4,7 +4,7 @@
 #include <string.h>
 #include "crudHandler.h"
 #include "utils.h"
-// #include "../../Authentication/Libs/utils.h"
+#include "../../Authentication/Libs/utils.h"
 
 // Just structure of the header to prevent the confusion.
 typedef struct Header {
@@ -12,6 +12,7 @@ typedef struct Header {
    char name[99];
    char price[99];
    char remain[99];
+
    char sold[99];
 } Header;
 
@@ -19,6 +20,7 @@ void printProduct(char *mode) {
    char* name;
    float price;
    int id, remain, sold;
+} Header;
 
    name = (char*) malloc(99 * sizeof(char));
 
@@ -68,6 +70,7 @@ int createProduct(Product product) {
    char* name;
    float price;
    int id, remain, sold;
+
 
    name = (char*) malloc(99 * sizeof(char));
 
@@ -126,6 +129,7 @@ int deleteProduct(char* productName) {
 
    char* name;
    float price;
+
    int id, remain, sold;
    int i = 0, flag = 0;
 
@@ -171,6 +175,7 @@ int deleteProduct(char* productName) {
    while (!feof(file)) {
       fscanf(file, "%d,%[^,],%f,%d,%d\n", &id, name, &price, &remain, &sold);
 
+
       // If the product in the current location is the same as the given product
       // If yes, just skip the part where putting the data in the array.
       if (!strcmp(name, productName)) {
@@ -182,7 +187,9 @@ int deleteProduct(char* productName) {
       products[i].name = copyString(name, strlen(name) + 1); // We add +1 because of the '\0'
       products[i].price = price;
       products[i].remain = remain;
+     
       products[i].sold = sold;
+
 
       i++;
    }
@@ -532,7 +539,7 @@ void Restock(Setting *setting) {
    free(products);
    fclose(file);
    fclose(tmpFile);
-
+  
    // Delete the old file and rename the temporarily file to the deleted file.
    remove("Data/MockUpProduct.csv");
    rename("Data/__MockUpProduct.csv", "Data/MockUpProduct.csv");
@@ -544,6 +551,7 @@ void checkStock(Setting *setting) {
 
    char* name;
    float price;
+
    int id, remain, sold;
    int i = 0, flag = 0;
    char choice;
@@ -557,7 +565,7 @@ void checkStock(Setting *setting) {
       printf("Memory allocation failed\n");
       return;
    }
-
+  
    products = (Product*) malloc(999 * sizeof(Product));
 
    if (products == NULL) {
@@ -605,7 +613,36 @@ void checkStock(Setting *setting) {
    free(name);
    free(products);
    fclose(file);
+      if (choice == 'y' || choice == 'Y') {
+         free(name);
+         free(products);
+         fclose(file);
 
+         printf("Restocking...\n");
+         Restock(setting);
+      }
+   }
+   else {
+      printf("There is no product that have the amount below threshold\n");
+   }
+
+   free(name);
+   free(products);
+   fclose(file);
+
+}
+
+
+void autoRestock(Setting *setting) {
+
+   if (isTimePassed(setting->lastCheck, 1)) {
+      printf("Checking the stock...\n");
+      checkStock(setting);
+      setting->lastCheck = time(NULL);
+      updateSetting(setting);
+      delay(1);
+      printf("Done!\n");
+   }
 }
 
 
@@ -689,6 +726,7 @@ int createSetting(Setting setting) {
 
    if (size) {
       printf("Setting file is already setup!\n");
+
       fclose(file);
       return 1;
    }

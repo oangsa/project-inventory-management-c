@@ -1,0 +1,7 @@
+{
+   "files.associations": {
+      "utils.h": "c",
+      "auth.h": "c",
+      "panel.h": "c"
+   }
+}
