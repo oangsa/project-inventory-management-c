@@ -39,3 +39,9 @@ void borderdown(){
       printf("\n");
    }
 }
+
+void clearScreen() {
+   system("@cls||clear");
+
+   return;
+}

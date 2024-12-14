@@ -2,6 +2,10 @@
    "files.associations": {
       "utils.h": "c",
       "auth.h": "c",
-      "panel.h": "c"
+      "panel.h": "c",
+      "crudhandler.h": "c",
+      "stdlib.h": "c",
+      "log.h": "c",
+      "loghandler.h": "c"
    }
 }

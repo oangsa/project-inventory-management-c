@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <errno.h>
 #include <string.h>
-#include "auth.h"
+
 #include "utils.h"
 #include "../../CRUD/Libs/utils.h"
 
@@ -19,7 +19,7 @@ int login(char* username, char* password, User* user) {
 
    Header test;
 
-   FILE *file = fopen("Data/users.csv", "r");
+   FILE *file = fopen("Data/users.csv", "a+");
 
    if (!file) {
       perror("Error opening file");
@@ -45,6 +45,11 @@ int login(char* username, char* password, User* user) {
 
          fclose(file);
 
+         file = fopen("Cache/__users.csv", "a+");
+         fprintf(file, "%s,%s,%s\n", user->username, user->password, user->role);
+
+         fclose(file);
+
          return 0;
       }
    }
@@ -63,7 +68,7 @@ int reg(char* username, char* password, char* role) {
    Header test;
 
 
-   file = fopen("Data/users.csv", "r");
+   file = fopen("Data/users.csv", "a+");
 
    // Error handling
    if (ferror(file)) {
@@ -95,6 +100,16 @@ int reg(char* username, char* password, char* role) {
    fprintf(file, "%s,%s,%s\n", username, password, role);
 
    fclose(file);
+
+   return 0;
+}
+
+int logout(User* user) {
+   user->username = NULL;
+   user->password = NULL;
+   user->role = NULL;
+
+   remove("Cache/__users.csv");
 
    return 0;
 }
