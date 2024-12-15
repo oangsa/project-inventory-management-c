@@ -105,3 +105,678 @@
 [16:17:18] customer
 [16:17:18] Attempting to auto purchase
 [16:17:18] Opening UserSetting/test_setting.csv
+[17:12:46] System is starting...
+[17:12:49] Coupon file not found, creating the coupon file....
+[17:12:49] TEST
+[17:12:49] User 'test' login
+[17:12:51] Setting Loaded....
+[17:12:54] Product has been cached.
+[17:12:55] Work
+[17:12:55] customer
+[17:12:55] Attempting to auto purchase
+[17:12:55] Opening UserSetting/test_setting.csv
+[17:13:09] User 'test' has been logged out.
+[17:13:18] User 'admin' attempted to login.
+[17:13:26] User 'admin1' has been logged in.
+[17:14:49] System is starting...
+[17:14:50] TEST
+[17:14:50] User 'admin1' login
+[17:14:52] Setting Loaded....
+[17:14:55] Product has been cached.
+[17:14:56] Work
+[17:14:56] admin
+[17:16:47] System is starting...
+[17:16:48] TEST
+[17:16:48] User 'admin1' login
+[17:16:50] Setting Loaded....
+[17:16:53] Product has been cached.
+[17:16:54] Work
+[17:16:54] admin
+[17:19:03] System is starting...
+[17:19:04] TEST
+[17:19:04] User 'admin1' login
+[17:19:06] Setting Loaded....
+[17:19:09] Product has been cached.
+[17:19:10] Work
+[17:19:10] admin
+[17:20:10] System is starting...
+[17:20:11] TEST
+[17:20:11] User 'admin1' login
+[17:20:13] Setting Loaded....
+[17:20:16] Product has been cached.
+[17:20:17] Work
+[17:20:17] admin
+[17:31:00] System is starting...
+[17:31:01] TEST
+[17:31:01] User 'admin1' login
+[17:31:03] Setting Loaded....
+[17:31:06] Product has been cached.
+[17:31:07] Work
+[17:31:07] admin
+[17:32:37] System is starting...
+[17:32:38] TEST
+[17:32:38] User 'admin1' login
+[17:32:40] Setting Loaded....
+[17:32:43] Product has been cached.
+[17:32:44] Work
+[17:32:44] admin
+[17:34:18] System is starting...
+[17:34:21] System is starting...
+[17:34:22] TEST
+[17:34:22] User 'admin1' login
+[17:34:24] Setting Loaded....
+[17:34:27] Product has been cached.
+[17:34:28] Work
+[17:34:28] admin
+[17:35:08] System is starting...
+[17:35:09] TEST
+[17:35:09] User 'admin1' login
+[17:35:11] Setting Loaded....
+[17:35:14] Product has been cached.
+[17:35:15] Work
+[17:35:15] admin
+[17:36:06] System is starting...
+[17:36:07] TEST
+[17:36:07] User 'admin1' login
+[17:36:09] Setting Loaded....
+[17:36:12] Product has been cached.
+[17:36:13] Work
+[17:36:13] admin
+[17:36:24] Header: id, code, discount, expirationDate, type, 
+[17:40:02] System is starting...
+[17:40:03] TEST
+[17:40:03] User 'admin1' login
+[17:40:05] Setting Loaded....
+[17:40:08] Product has been cached.
+[17:40:09] Work
+[17:40:09] admin
+[17:41:17] System is starting...
+[17:41:18] TEST
+[17:41:18] User 'admin1' login
+[17:41:20] Setting Loaded....
+[17:41:23] Product has been cached.
+[17:41:24] Work
+[17:41:24] admin
+[17:44:54] System is starting...
+[17:44:55] TEST
+[17:44:55] User 'admin1' login
+[17:44:57] Setting Loaded....
+[17:45:00] Product has been cached.
+[17:45:01] Work
+[17:45:01] admin
+[17:51:53] System is starting...
+[17:51:54] TEST
+[17:51:54] User 'admin1' login
+[17:51:56] Setting Loaded....
+[17:51:59] Product has been cached.
+[17:52:00] Work
+[17:52:00] admin
+[17:53:41] System is starting...
+[17:53:42] TEST
+[17:53:42] User 'admin1' login
+[17:53:44] Setting Loaded....
+[17:53:47] Product has been cached.
+[17:53:48] Work
+[17:53:48] admin
+[17:55:02] Coupon 'AAA' has been created.
+[18:06:20] System is starting...
+[18:06:21] TEST
+[18:06:21] User 'admin1' login
+[18:06:23] Setting Loaded....
+[18:06:26] Product has been cached.
+[18:06:27] Work
+[18:06:27] admin
+[18:08:24] id,code,discount,expirationDate,type,minAmount
+
+[18:10:37] System is starting...
+[18:10:38] TEST
+[18:10:38] User 'admin1' login
+[18:10:40] Setting Loaded....
+[18:10:43] Product has been cached.
+[18:10:44] Work
+[18:10:44] admin
+[18:11:06] Header: id, code, discount, expirationDate, type, È<ÀË
+[18:17:29] System is starting...
+[18:17:30] TEST
+[18:17:30] User 'admin1' login
+[18:17:32] Setting Loaded....
+[18:17:35] Product has been cached.
+[18:17:36] Work
+[18:17:36] admin
+[18:17:47] Header: id,code,discount,expirationDate,type,minAmount
+
+[18:18:35] System is starting...
+[18:18:36] TEST
+[18:18:36] User 'admin1' login
+[18:18:38] Setting Loaded....
+[18:18:41] Product has been cached.
+[18:18:42] Work
+[18:18:42] admin
+[18:18:52] Header: id,code,discount,expirationDate,type,minAmount
+
+[18:20:42] System is starting...
+[18:20:43] TEST
+[18:20:43] User 'admin1' login
+[18:20:45] Setting Loaded....
+[18:20:48] Product has been cached.
+[18:20:49] Work
+[18:20:49] admin
+[18:27:46] System is starting...
+[18:27:47] TEST
+[18:27:47] User 'admin1' login
+[18:27:49] Setting Loaded....
+[18:27:52] Product has been cached.
+[18:27:53] Work
+[18:27:53] admin
+[18:28:13] Header: id,code,discount,expirationDate,type,minAmount
+
+[18:30:03] System is starting...
+[18:30:04] TEST
+[18:30:04] User 'admin1' login
+[18:30:06] Setting Loaded....
+[18:30:09] Product has been cached.
+[18:30:10] Work
+[18:30:10] admin
+[18:30:30] Header: id,code,discount,expirationDate,type,minAmount
+
+[18:30:54] System is starting...
+[18:30:55] TEST
+[18:30:55] User 'admin1' login
+[18:30:57] Setting Loaded....
+[18:31:00] Product has been cached.
+[18:31:01] Work
+[18:31:01] admin
+[18:31:22] Header: id,code,discount,expirationDate,type,minAmount
+
+[18:32:32] Coupon 'AAA' has been created.
+[18:32:34] Header: id,code,discount,expirationDate,type,minAmount
+
+[18:38:48] System is starting...
+[18:38:49] TEST
+[18:38:49] User 'admin1' login
+[18:38:51] Setting Loaded....
+[18:38:54] Product has been cached.
+[18:38:55] Work
+[18:38:55] admin
+[18:39:05] Header: id,code,discount,expirationDate,type,minAmount
+
+[18:40:01] System is starting...
+[18:40:02] TEST
+[18:40:02] User 'admin1' login
+[18:40:04] Setting Loaded....
+[18:40:07] Product has been cached.
+[18:40:08] Work
+[18:40:08] admin
+[18:40:19] Header: id,code,discount,expirationDate,type,minAmount
+
+[18:40:58] System is starting...
+[18:40:59] TEST
+[18:40:59] User 'admin1' login
+[18:41:01] Setting Loaded....
+[18:41:04] Product has been cached.
+[18:41:05] Work
+[18:41:05] admin
+[18:41:15] Header: id,code,discount,expirationDate,type,minAmount
+
+[18:42:11] System is starting...
+[18:42:12] TEST
+[18:42:12] User 'admin1' login
+[18:42:19] System is starting...
+[18:42:20] TEST
+[18:42:20] User 'admin1' login
+[18:42:22] Setting Loaded....
+[18:42:25] Product has been cached.
+[18:42:26] Work
+[18:42:26] admin
+[18:42:49] Header: id,code,discount,expirationDate,type,minAmount
+
+[18:43:40] System is starting...
+[18:43:41] TEST
+[18:43:41] User 'admin1' login
+[18:43:43] Setting Loaded....
+[18:43:46] Product has been cached.
+[18:43:47] Work
+[18:43:47] admin
+[18:44:01] Header: id,code,discount,expirationDate,type,minAmount
+
+[18:44:49] System is starting...
+[18:44:50] TEST
+[18:44:50] User 'admin1' login
+[18:44:52] Setting Loaded....
+[18:44:55] Product has been cached.
+[18:44:56] Work
+[18:44:56] admin
+[18:45:24] Header: id,code,discount,expirationDate,type,minAmount
+
+[18:45:43] System is starting...
+[18:45:44] TEST
+[18:45:44] User 'admin1' login
+[18:45:46] Setting Loaded....
+[18:45:49] Product has been cached.
+[18:45:50] Work
+[18:45:50] admin
+[18:46:00] Header: id,code,discount,expirationDate,type,minAmount
+
+[18:46:22] System is starting...
+[18:46:23] TEST
+[18:46:23] User 'admin1' login
+[18:46:25] Setting Loaded....
+[18:46:28] Product has been cached.
+[18:46:29] Work
+[18:46:29] admin
+[18:46:41] Header: id,code,discount,expirationDate,type,minAmount
+
+[18:47:26] System is starting...
+[18:47:27] TEST
+[18:47:27] User 'admin1' login
+[18:47:29] Setting Loaded....
+[18:47:32] Product has been cached.
+[18:47:33] Work
+[18:47:33] admin
+[18:47:43] Header: id,code,discount,expirationDate,type,minAmount
+
+[18:47:59] Coupon 'TTT' has been created.
+[18:48:01] Header: id,code,discount,expirationDate,type,minAmount
+
+[18:51:32] System is starting...
+[18:51:33] TEST
+[18:51:33] User 'admin1' login
+[18:51:35] Setting Loaded....
+[18:51:38] Product has been cached.
+[18:51:39] Work
+[18:51:39] admin
+[18:51:49] Header: id,code,discount,expirationDate,type,minAmount
+
+[18:52:30] System is starting...
+[18:52:32] TEST
+[18:52:32] User 'admin1' login
+[18:52:34] Setting Loaded....
+[18:52:37] Product has been cached.
+[18:52:38] Work
+[18:52:38] admin
+[18:52:51] Header: id,code,discount,expirationDate,type,minAmount
+
+[18:53:39] System is starting...
+[18:53:40] TEST
+[18:53:40] User 'admin1' login
+[18:53:42] Setting Loaded....
+[18:53:45] Product has been cached.
+[18:53:46] Work
+[18:53:46] admin
+[18:53:57] Header: id,code,discount,expirationDate,type,minAmount
+
+[18:54:11] System is starting...
+[18:54:12] TEST
+[18:54:12] User 'admin1' login
+[18:54:14] Setting Loaded....
+[18:54:17] Product has been cached.
+[18:54:18] Work
+[18:54:18] admin
+[18:54:29] Header: id,code,discount,expirationDate,type,minAmount
+
+[18:55:05] Header: id,code,discount,expirationDate,type,minAmount
+
+[19:03:07] System is starting...
+[19:03:08] TEST
+[19:03:08] User 'admin1' login
+[19:03:10] Setting Loaded....
+[19:03:13] Product has been cached.
+[19:03:14] Work
+[19:03:14] admin
+[19:03:27] Display coupon triggered.
+[19:03:30] Display coupon triggered.
+[19:03:30] Delete coupon triggered.
+[19:03:38] Coupon with ID 2 deleted.
+[19:03:39] Display coupon triggered.
+[19:04:28] System is starting...
+[19:04:29] TEST
+[19:04:29] User 'admin1' login
+[19:04:31] Setting Loaded....
+[19:04:34] Product has been cached.
+[19:04:35] Work
+[19:04:35] admin
+[19:05:00] Display coupon triggered.
+[04:37:24] System is starting...
+[04:37:25] TEST
+[04:37:25] User 'admin1' login
+[04:37:27] Setting Loaded....
+[04:37:30] Product has been cached.
+[04:37:31] Work
+[04:37:31] admin
+[04:40:01] Admin 'admin1' has been logged out.
+[04:40:07] User 'test' has been logged in.
+[04:41:54] System is starting...
+[04:41:55] TEST
+[04:41:55] User 'test' login
+[04:41:57] Setting Loaded....
+[04:42:00] Product has been cached.
+[04:42:01] Work
+[04:42:01] customer
+[04:42:01] Attempting to auto purchase
+[04:42:01] Opening UserSetting/test_setting.csv
+[04:43:47] System is starting...
+[04:43:48] TEST
+[04:43:48] User 'test' login
+[04:43:50] Setting Loaded....
+[04:43:53] Product has been cached.
+[04:43:54] Work
+[04:43:54] customer
+[04:43:54] Attempting to auto purchase
+[04:43:54] Opening UserSetting/test_setting.csv
+[04:45:19] System is starting...
+[04:45:20] TEST
+[04:45:20] User 'test' login
+[04:45:22] Setting Loaded....
+[04:45:25] Product has been cached.
+[04:45:26] Work
+[04:45:26] customer
+[04:45:26] Attempting to auto purchase
+[04:45:26] Opening UserSetting/test_setting.csv
+[04:46:35] System is starting...
+[04:46:36] TEST
+[04:46:36] User 'test' login
+[04:46:38] Setting Loaded....
+[04:46:41] Product has been cached.
+[04:46:42] Work
+[04:46:42] customer
+[04:46:42] Attempting to auto purchase
+[04:46:42] Opening UserSetting/test_setting.csv
+[04:48:09] System is starting...
+[04:48:10] TEST
+[04:48:10] User 'test' login
+[04:48:12] Setting Loaded....
+[04:48:15] Product has been cached.
+[04:48:16] Work
+[04:48:16] customer
+[04:48:16] Attempting to auto purchase
+[04:48:16] Opening UserSetting/test_setting.csv
+[04:51:25] System is starting...
+[04:51:26] TEST
+[04:51:26] User 'test' login
+[04:51:28] Setting Loaded....
+[04:51:31] Product has been cached.
+[04:51:32] Work
+[04:51:32] customer
+[04:51:32] Attempting to auto purchase
+[04:51:32] Opening UserSetting/test_setting.csv
+[04:52:02] System is starting...
+[04:52:03] TEST
+[04:52:03] User 'test' login
+[04:52:05] Setting Loaded....
+[04:52:08] Product has been cached.
+[04:52:09] Work
+[04:52:09] customer
+[04:52:09] Attempting to auto purchase
+[04:52:09] Opening UserSetting/test_setting.csv
+[04:53:25] System is starting...
+[04:53:26] TEST
+[04:53:26] User 'test' login
+[04:53:28] Setting Loaded....
+[04:53:31] Product has been cached.
+[04:53:32] Work
+[04:53:32] customer
+[04:53:32] Attempting to auto purchase
+[04:53:32] Opening UserSetting/test_setting.csv
+[04:54:28] System is starting...
+[04:54:29] TEST
+[04:54:29] User 'test' login
+[04:54:31] Setting Loaded....
+[04:54:34] Product has been cached.
+[04:54:35] Work
+[04:54:35] customer
+[04:54:35] Attempting to auto purchase
+[04:54:35] Opening UserSetting/test_setting.csv
+[04:55:11] System is starting...
+[04:55:12] TEST
+[04:55:12] User 'test' login
+[04:55:14] Setting Loaded....
+[04:55:17] Product has been cached.
+[04:55:18] Work
+[04:55:18] customer
+[04:55:18] Attempting to auto purchase
+[04:55:18] Opening UserSetting/test_setting.csv
+[04:55:31] Product panel has been selected.
+[04:55:36] User 'test' selected buy product.
+[04:55:37] WORK
+[04:55:42] User 'test' add product '7' to the cart.
+[04:55:44] Header (CanPurchase): NO, Name, Price, Remain, Sold
+[04:58:50] System is starting...
+[04:58:51] TEST
+[04:58:51] User 'test' login
+[04:58:53] Setting Loaded....
+[04:58:56] Product has been cached.
+[04:58:57] Work
+[04:58:57] customer
+[04:58:57] Attempting to auto purchase
+[04:58:57] Opening UserSetting/test_setting.csv
+[04:59:10] Product panel has been selected.
+[04:59:15] User 'test' selected buy product.
+[04:59:16] WORK
+[04:59:21] User 'test' add product '7' to the cart.
+[04:59:23] Header (CanPurchase): NO, Name, Price, Remain, Sold
+[05:00:29] System is starting...
+[05:00:30] TEST
+[05:00:30] User 'test' login
+[05:00:32] Setting Loaded....
+[05:00:35] Product has been cached.
+[05:00:36] Work
+[05:00:36] customer
+[05:00:36] Attempting to auto purchase
+[05:00:36] Opening UserSetting/test_setting.csv
+[05:00:47] Product panel has been selected.
+[05:00:54] User 'test' selected buy product.
+[05:00:55] WORK
+[05:00:58] User 'test' add product '7' to the cart.
+[05:01:00] Header (CanPurchase): NO, Name, Price, Remain, Sold
+[05:01:00] Product (CanPurchase): 1, Tom Yum Goong, 59.00, 60, 40
+[05:03:27] System is starting...
+[05:03:28] TEST
+[05:03:28] User 'test' login
+[05:03:31] Setting Loaded....
+[05:03:34] Product has been cached.
+[05:03:35] Work
+[05:03:35] customer
+[05:03:35] Attempting to auto purchase
+[05:03:35] Opening UserSetting/test_setting.csv
+[05:03:48] Product panel has been selected.
+[05:03:50] User 'test' selected buy product.
+[05:03:51] WORK
+[05:03:56] User 'test' add product '7' to the cart.
+[05:03:57] Header (CanPurchase): NO, Name, Price, Remain, Sold
+[05:03:57] Attempted Product (CanPurchase): 7, (null), 0.00, 10, 968589246
+[05:03:57] Product (CanPurchase): 1, Tom Yum Goong, 59.00, 60, 40
+[05:09:42] System is starting...
+[05:09:43] TEST
+[05:09:43] User 'test' login
+[05:09:45] Setting Loaded....
+[05:09:48] Product has been cached.
+[05:09:49] Work
+[05:09:49] customer
+[05:09:49] Attempting to auto purchase
+[05:09:49] Opening UserSetting/test_setting.csv
+[05:10:03] Product panel has been selected.
+[05:10:05] User 'test' selected buy product.
+[05:10:06] WORK
+[05:10:15] User 'test' add product '7' to the cart.
+[05:10:18] Header (CanPurchase): NO, Name, Price, Remain, Sold
+[05:10:18] Attempted Product (CanPurchase): 7, (null), 0.00, 10, 420253028
+[05:12:10] System is starting...
+[05:12:11] TEST
+[05:12:11] User 'test' login
+[05:12:13] Setting Loaded....
+[05:12:16] Product has been cached.
+[05:12:17] Work
+[05:12:17] customer
+[05:12:17] Attempting to auto purchase
+[05:12:17] Opening UserSetting/test_setting.csv
+[05:12:27] Product panel has been selected.
+[05:12:29] User 'test' selected buy product.
+[05:12:30] WORK
+[05:12:32] User 'test' add product '7' to the cart.
+[05:12:33] Product (CanPurchase): 1, Tom Yum Goong, 59.00, 60, 40
+[05:12:33] Product (CanPurchase): 2, Pad Krapao Moo, 99.99, 88, 12
+[05:12:33] Product (CanPurchase): 3, Stewed Eel with Spicy Soup, 150.00, 30, 0
+[05:12:33] Product (CanPurchase): 4, Lab Ka Pom, 80.00, 98, 2
+[05:12:33] Product (CanPurchase): 5, Dancing Shrimp, 49.00, 59, 0
+[05:12:33] Product (CanPurchase): 6, Fried Rice, 23.00, 30, 0
+[05:12:33] Product (CanPurchase): 7, Instant Noodle, 20.00, 100, 0
+[05:12:33] Mode: userBuy
+[05:12:33] Product: (null)
+[05:12:33] Product: 7
+[05:12:33] User 'test' add product '7' to the cart(2).
+[05:12:46] WORK
+[05:12:50] User 'test' add product '10' to the cart.
+[05:12:52] Product (CanPurchase): 1, Tom Yum Goong, 59.00, 60, 40
+[05:12:52] Product (CanPurchase): 2, Pad Krapao Moo, 99.99, 88, 12
+[05:12:52] Product (CanPurchase): 3, Stewed Eel with Spicy Soup, 150.00, 30, 0
+[05:12:52] Product (CanPurchase): 4, Lab Ka Pom, 80.00, 98, 2
+[05:12:52] Product (CanPurchase): 5, Dancing Shrimp, 49.00, 59, 0
+[05:12:52] Product (CanPurchase): 6, Fried Rice, 23.00, 30, 0
+[05:12:52] Product (CanPurchase): 7, Instant Noodle, 20.00, 100, 0
+[05:12:52] Product (CanPurchase): 8, Ramen, 99.99, 99, 0
+[05:12:55] WORK
+[05:13:11] User 'test' add product '8' to the cart.
+[05:13:12] Product (CanPurchase): 1, Tom Yum Goong, 59.00, 60, 40
+[05:13:12] Product (CanPurchase): 2, Pad Krapao Moo, 99.99, 88, 12
+[05:13:12] Product (CanPurchase): 3, Stewed Eel with Spicy Soup, 150.00, 30, 0
+[05:13:12] Product (CanPurchase): 4, Lab Ka Pom, 80.00, 98, 2
+[05:13:12] Product (CanPurchase): 5, Dancing Shrimp, 49.00, 59, 0
+[05:13:12] Product (CanPurchase): 6, Fried Rice, 23.00, 30, 0
+[05:13:12] Product (CanPurchase): 7, Instant Noodle, 20.00, 100, 0
+[05:13:12] Product (CanPurchase): 8, Ramen, 99.99, 99, 0
+[05:13:12] Mode: userBuy
+[05:13:12] Product: (null)
+[05:13:12] Product: 8
+[05:13:12] ProductList: (null)
+[05:13:12] User 'test' add product '8' to the cart(2).
+[05:13:25] Display coupon triggered.
+[05:13:31] Display coupon triggered.
+[05:15:37] Display coupon triggered.
+[05:15:42] System is starting...
+[05:15:43] TEST
+[05:15:43] User 'test' login
+[05:15:45] Setting Loaded....
+[05:15:48] Product has been cached.
+[05:15:49] Work
+[05:15:49] customer
+[05:15:49] Attempting to auto purchase
+[05:15:49] Opening UserSetting/test_setting.csv
+[05:16:13] Product panel has been selected.
+[05:16:27] User 'test' selected buy product.
+[05:16:28] WORK
+[05:16:44] User 'test' add product '7' to the cart.
+[05:16:46] Product (CanPurchase): 1, Tom Yum Goong, 59.00, 60, 40
+[05:16:46] Product (CanPurchase): 2, Pad Krapao Moo, 99.99, 88, 12
+[05:16:46] Product (CanPurchase): 3, Stewed Eel with Spicy Soup, 150.00, 30, 0
+[05:16:46] Product (CanPurchase): 4, Lab Ka Pom, 80.00, 98, 2
+[05:16:46] Product (CanPurchase): 5, Dancing Shrimp, 49.00, 59, 0
+[05:16:46] Product (CanPurchase): 6, Fried Rice, 23.00, 30, 0
+[05:16:46] Product (CanPurchase): 7, Instant Noodle, 20.00, 90, 10
+[05:16:46] Mode: userBuy
+[05:16:46] Product: (null)
+[05:16:46] Product: 7
+[05:16:46] User 'test' add product '7' to the cart(2).
+[05:17:02] System is starting...
+[05:17:03] TEST
+[05:17:03] User 'test' login
+[05:17:05] Setting Loaded....
+[05:17:08] Product has been cached.
+[05:17:09] Work
+[05:17:09] customer
+[05:17:09] Attempting to auto purchase
+[05:17:09] Opening UserSetting/test_setting.csv
+[05:17:37] Product panel has been selected.
+[05:17:40] User 'test' selected buy product.
+[05:17:41] WORK
+[05:17:47] User 'test' add product '7' to the cart.
+[05:17:50] Product (CanPurchase): 1, Tom Yum Goong, 59.00, 60, 40
+[05:17:50] Product (CanPurchase): 2, Pad Krapao Moo, 99.99, 88, 12
+[05:17:50] Product (CanPurchase): 3, Stewed Eel with Spicy Soup, 150.00, 30, 0
+[05:17:50] Product (CanPurchase): 4, Lab Ka Pom, 80.00, 98, 2
+[05:17:50] Product (CanPurchase): 5, Dancing Shrimp, 49.00, 59, 0
+[05:17:50] Product (CanPurchase): 6, Fried Rice, 23.00, 30, 0
+[05:17:50] Product (CanPurchase): 7, Instant Noodle, 20.00, 90, 10
+[05:17:50] Mode: userBuy
+[05:17:50] Product: (null)
+[05:17:50] Product: 7
+[05:17:50] User 'test' add product '7' to the cart(2).
+[05:18:09] Display coupon triggered.
+[05:18:13] Display coupon triggered.
+[05:22:28] System is starting...
+[05:22:29] TEST
+[05:22:29] User 'test' login
+[05:22:31] Setting Loaded....
+[05:22:34] Product has been cached.
+[05:22:35] Work
+[05:22:35] customer
+[05:22:35] Attempting to auto purchase
+[05:22:35] Opening UserSetting/test_setting.csv
+[05:23:00] System is starting...
+[05:23:01] TEST
+[05:23:01] User 'test' login
+[05:23:03] Setting Loaded....
+[05:23:06] Product has been cached.
+[05:23:07] Work
+[05:23:07] customer
+[05:23:07] Attempting to auto purchase
+[05:23:07] Opening UserSetting/test_setting.csv
+[05:23:17] Product panel has been selected.
+[05:23:20] User 'test' selected buy product.
+[05:23:21] WORK
+[05:23:29] User 'test' add product '7' to the cart.
+[05:23:31] Mode: userBuy
+[05:23:31] Product: (null)
+[05:23:31] Product: 7
+[05:23:31] User 'test' add product '7' to the cart(2).
+[05:24:21] Display coupon triggered.
+[05:24:22] Coupon type: Ì<‘ûþÿÿÿXüb
+[05:24:24] Display coupon triggered.
+[05:28:32] System is starting...
+[05:28:33] TEST
+[05:28:33] User 'test' login
+[05:28:35] Setting Loaded....
+[05:28:38] Product has been cached.
+[05:28:39] Work
+[05:28:39] customer
+[05:28:39] Attempting to auto purchase
+[05:28:39] Opening UserSetting/test_setting.csv
+[05:28:57] Product panel has been selected.
+[05:29:06] Buy product triggered
+[05:29:10] User 'test' add product '7' to the cart.
+[05:29:12] Mode: userBuy
+[05:29:12] Product: (null)
+[05:29:12] Product: 7
+[05:29:12] Flag: 0
+[05:29:12] User 'test' add product '7' to the cart(2).
+[05:30:38] Display coupon triggered.
+[05:30:49] User 'test' use coupon 'AAA' with discount of 30.00 THB
+[05:30:51] User 'test' purchase product(s) with total 185.00 THB
+[05:32:45] System is starting...
+[05:32:46] TEST
+[05:32:46] User 'test' login
+[05:32:48] Setting Loaded....
+[05:32:51] Product has been cached.
+[05:32:52] Work
+[05:32:52] customer
+[05:32:52] Attempting to auto purchase
+[05:32:52] Opening UserSetting/test_setting.csv
+[05:33:02] Product panel has been selected.
+[05:33:04] Buy product triggered
+[05:33:18] User 'test' add product '7' to the cart.
+[05:33:20] Mode: userBuy
+[05:33:20] Product: (null)
+[05:33:20] Product: 7
+[05:33:20] Flag: 0
+[05:33:20] Counter: 0
+[05:33:20] User 'test' add product '7' to the cart(2).
+[05:33:27] User 'test' add product '1' to the cart.
+[05:33:29] Mode: userBuy
+[05:33:29] Product: (null)
+[05:33:29] Product: 1
+[05:33:29] ProductList: (null)
+[05:33:29] Flag: 0
+[05:33:29] Counter: 0
+[05:33:29] User 'test' add product '1' to the cart(2).
+[05:34:23] Display coupon triggered.
+[05:34:57] User 'test' use coupon 'AAA' with discount of 38.85 THB
+[05:35:01] User 'test' purchase product(s) with total 244.00 THB

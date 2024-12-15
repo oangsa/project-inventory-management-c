@@ -40,4 +40,4 @@ void Log(const char *fmt, ...) {
 
    // call printLog with formatted message
    printLog(msg);
-   }
+}

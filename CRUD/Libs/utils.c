@@ -69,13 +69,16 @@ int isTimePassed(time_t cmpTime, int day) {
     // Compare the current time with the given time;
     double diffTime = difftime(currentTime, cmpTime);
 
+    Log("Time: %f", diffTime);
+    Log("Expect: %d", expectPass);
+
     if ((double) expectPass >= diffTime) return 0;
 
     return 1;
 
 }
 
-int canPurchase(Product targetProduct) {
+int canPurchase(Product targetProduct, char* mode) {
     /*
         Use to check if the product can be purchase or not.
 
@@ -87,6 +90,8 @@ int canPurchase(Product targetProduct) {
    float price;
    int id, remain, sold;
 
+   name = (char*) malloc(999 * sizeof(char));
+
    Header test;
 
    FILE *file = fopen("Data/MockUpProduct.csv", "r");
@@ -95,24 +100,54 @@ int canPurchase(Product targetProduct) {
       return 1;
    }
 
+   int Mode = 1;
+
+   if (!strcmp(mode, "normal")) {
+      Mode = 0;
+   }
+
    // Get rid of the header
    fscanf(file, "%[^,],%[^,],%[^,],%[^,],%[^,\n]", test.no, test.name, test.price, test.remain, test.sold);
+
+   // Log("Header (CanPurchase): %s, %s, %s, %s, %s", test.no, test.name, test.price, test.remain, test.sold);
+
+   // Log("Attempted Product (CanPurchase): %d, %s, %.2f, %d, %d", targetProduct.id, targetProduct.name, targetProduct.price, targetProduct.remain, targetProduct.sold);
 
    // Loop until EOF
    while (!feof(file)) {
       fscanf(file, "%d,%[^,],%f,%d,%d\n", &id, name, &price, &remain, &sold);
 
-      if (!strcmp(name, targetProduct.name)) {
-         if (remain >= targetProduct.remain) {
-            fclose(file);
-            return 1;
-         }
+      // Log("Product (CanPurchase): %d, %s, %.2f, %d, %d", id, name, price, remain, sold);
 
-         fclose(file);
-         return 0;
+      if (!Mode) {
+         if (targetProduct.id == id) {
+            if (remain >= targetProduct.remain) {
+               fclose(file);
+               free(name);
+               return 1;
+            }
+
+            free(name);
+            fclose(file);
+            return 0;
+         }
+      }
+      else {
+         if (!strcmp(name, targetProduct.name)) {
+            if (remain >= targetProduct.remain) {
+               fclose(file);
+               free(name);
+               return 1;
+            }
+
+            fclose(file);
+            free(name);
+            return 0;
+         }
       }
    }
 
+   free(name);
    fclose(file);
 
    return 0;
@@ -127,21 +162,27 @@ ProductList *AppendOrEditProduct(ProductList *productList, Product targetProduct
       ProductList *head = productList;
       int flag = 0;
 
+      Log("Mode: %s", mode);
+      Log("Product: %s", targetProduct.name);
+      Log("Product: %d", targetProduct.id);
+
 
       // Loop until the end of the list
       if (!strcmp(mode, "userBuy")) {
          while (productList != NULL) {
+            Log("ProductList: %s", productList->product.name);
             if (productList->product.id == targetProduct.id) {
-               if(!canPurchase(targetProduct)) {
+               if(!canPurchase(targetProduct, "normal")) {
                   printf("   Product is out of stock or the provided amount is greater than the stock..\n");
                   return head;
                }
+               Log("HOW");
                productList->product.remain += targetProduct.remain;
                flag = 1;
                break;
          }
          if (productList->next == NULL) break;
-         productList = productList->next;
+            productList = productList->next;
          }
       }
 
@@ -157,6 +198,8 @@ ProductList *AppendOrEditProduct(ProductList *productList, Product targetProduct
          }
       }
 
+      Log("Flag: %d", flag);
+
       if (!flag) {
 
          ProductList *newNode = malloc(sizeof(ProductList));
@@ -165,7 +208,9 @@ ProductList *AppendOrEditProduct(ProductList *productList, Product targetProduct
          }
 
          // Increase the product count by 1 for every new product
-         *counter++;
+         ++*counter;
+
+         Log("Counter: %d", *counter);
 
          newNode->product = targetProduct;
          newNode->next = NULL;
@@ -212,6 +257,10 @@ int setup(User* user) {
       delay(1);
       clearScreen();
 
+      file = fopen("Data/Coupon.csv", "a+");
+      fprintf(file, "id,code,discount,expirationDate,type,minAmount\n");
+      fclose(file);
+
       file = fopen("Data/MockUpProduct.csv", "a+");
       fprintf(file, "No,Name,Price,Remain,Sold\n");
       fclose(file);
@@ -251,6 +300,19 @@ int setup(User* user) {
       isUserExist = 0;
    }
    else {
+      if (!isFileExists("Data/Coupon.csv")) {
+         delay(1);
+         printf("Coupon file not found....\n");
+         delay(1);
+         clearScreen();
+         printf("Creating Coupon file....\n");
+         Log("Coupon file not found, creating the coupon file....");
+
+         file = fopen("Data/Coupon.csv", "a+");
+         fprintf(file, "id,code,discount,expirationDate,type,minAmount\n");
+         fclose(file);
+      }
+
       if(!isFileExists("Data/MockUpProduct.csv")) {
          delay(1);
          printf("Product file not found....\n");

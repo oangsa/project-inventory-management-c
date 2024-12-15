@@ -21,14 +21,6 @@ typedef struct Setting {
     time_t lastCheck;
 } Setting;
 
-typedef struct Coupon {
-    int id;
-    char *code;
-    int isUse;
-
-    time_t expirationDate;
-} Coupon;
-
 typedef struct UserSetting {
    time_t lastCheck;
 

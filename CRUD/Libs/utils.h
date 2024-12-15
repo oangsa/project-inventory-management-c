@@ -10,7 +10,7 @@ int isTimePassed(time_t time, int day);
 
 ProductList *AppendOrEditProduct(ProductList *productList, Product targetProduct, int* counter, char *mode);
 
-int canPurchase(Product targetProduct);
+int canPurchase(Product targetProduct, char* mode);
 
 int setup(User *user);
 
