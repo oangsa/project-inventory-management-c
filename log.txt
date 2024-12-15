@@ -1,0 +1,107 @@
+[15:53:34] System is starting...
+[15:53:35] TEST
+[15:53:35] User 'test' login
+[15:53:38] System is starting...
+[15:53:39] TEST
+[15:53:39] User 'test' login
+[15:53:41] Setting Loaded....
+[15:53:44] Product has been cached.
+[15:53:45] Work
+[15:53:45] customer
+[15:53:45] Opening UserSetting/test_setting.csv
+[15:54:07] System is starting...
+[15:54:08] TEST
+[15:54:08] User 'test' login
+[15:54:10] Setting Loaded....
+[15:54:14] Product has been cached.
+[15:54:15] Work
+[15:54:15] customer
+[15:54:15] Opening UserSetting/test_setting.csv
+[15:54:54] System is starting...
+[15:54:55] TEST
+[15:54:55] User 'test' login
+[15:54:57] Setting Loaded....
+[15:55:00] Product has been cached.
+[15:55:01] Work
+[15:55:01] customer
+[15:55:01] Opening UserSetting/test_setting.csv
+[15:56:52] System is starting...
+[15:56:53] TEST
+[15:56:53] User 'test' login
+[15:56:55] Setting Loaded....
+[15:56:58] Product has been cached.
+[15:56:59] Work
+[15:56:59] customer
+[15:56:59] Opening UserSetting/test_setting.csv
+[15:57:33] System is starting...
+[15:57:34] TEST
+[15:57:34] User 'test' login
+[15:57:36] Setting Loaded....
+[15:57:39] Product has been cached.
+[15:57:40] Work
+[15:57:40] customer
+[15:57:40] Opening UserSetting/test_setting.csv
+[15:58:01] System is starting...
+[15:58:02] TEST
+[15:58:02] User 'test' login
+[15:58:04] Setting Loaded....
+[15:58:07] Product has been cached.
+[15:58:08] Work
+[15:58:08] customer
+[15:58:08] Opening UserSetting/test_setting.csv
+[15:59:15] System is starting...
+[15:59:16] TEST
+[15:59:16] User 'test' login
+[15:59:18] Setting Loaded....
+[15:59:21] Product has been cached.
+[15:59:22] Work
+[15:59:22] customer
+[15:59:22] Opening UserSetting/test_setting.csv
+[16:03:10] System is starting...
+[16:03:11] TEST
+[16:03:11] User 'test' login
+[16:03:13] Setting Loaded....
+[16:03:16] Product has been cached.
+[16:03:17] Work
+[16:03:17] customer
+[16:03:17] Opening UserSetting/test_setting.csv
+[16:05:52] System is starting...
+[16:05:53] TEST
+[16:05:53] User 'test' login
+[16:05:55] Setting Loaded....
+[16:05:58] Product has been cached.
+[16:05:59] Work
+[16:05:59] customer
+[16:05:59] Opening UserSetting/test_setting.csv
+[16:06:10] System is starting...
+[16:06:11] TEST
+[16:06:11] User 'test' login
+[16:06:13] Setting Loaded....
+[16:06:16] Product has been cached.
+[16:06:21] System is starting...
+[16:06:22] TEST
+[16:06:22] User 'test' login
+[16:06:24] Setting Loaded....
+[16:06:27] Product has been cached.
+[16:06:28] Work
+[16:06:28] customer
+[16:06:28] Opening UserSetting/test_setting.csv
+[16:09:24] System is starting...
+[16:09:25] TEST
+[16:09:25] User 'test' login
+[16:09:27] Setting Loaded....
+[16:09:30] Product has been cached.
+[16:09:31] Work
+[16:09:31] customer
+[16:09:31] Opening UserSetting/test_setting.csv
+[16:09:31] Ramen
+[16:09:31] Ramen
+[16:17:11] System is starting...
+[16:17:12] TEST
+[16:17:12] User 'test' login
+[16:17:14] Setting Loaded....
+[16:17:17] Product has been cached.
+[16:17:18] Work
+[16:17:18] customer
+[16:17:18] Attempting to auto purchase
+[16:17:18] Opening UserSetting/test_setting.csv
