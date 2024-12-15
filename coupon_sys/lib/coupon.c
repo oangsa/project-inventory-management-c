@@ -252,3 +252,104 @@ void selectCoupon(const char *filename) {
 
     fclose(file);
 }
+
+// Edit a coupon by ID
+void editCoupon(const char *filename) {
+    int idToEdit;
+    printf("Enter the ID of the coupon to edit: ");
+    scanf("%d", &idToEdit);
+
+    FILE *file = fopen(filename, "r");
+    if (!file) {
+        perror("Error opening file");
+        return;
+    }
+
+    FILE *tempFile = fopen("temp.csv", "w");
+    if (!tempFile) {
+        perror("Error creating temporary file");
+        fclose(file);
+        return;
+    }
+
+    char line[256];
+    int id;
+    int isEdited = 0;
+
+    while (fgets(line, sizeof(line), file)) {
+        Coupon temp;
+        char type[20];
+        float minAmount = 0.0;
+
+        // Parse line data
+        int fieldsRead = sscanf(line, "%d,%19[^,],%f,%ld,%19[^,],%f",
+                                &temp.id, temp.code, &temp.discount,
+                                &temp.expirationDate, type, &minAmount);
+
+        if (fieldsRead < 4) { // Skip malformed lines
+            fputs(line, tempFile);
+            continue;
+        }
+
+        if (temp.id == idToEdit) {
+            isEdited = 1;
+            printf("Editing coupon ID %d:\n", idToEdit);
+            printf("Current Code: %s\n", temp.code);
+            printf("Enter new code (or press Enter to keep current): ");
+            getchar(); // Consume newline
+            char newCode[20];
+            fgets(newCode, sizeof(newCode), stdin);
+            if (newCode[0] != '\n') {
+                newCode[strcspn(newCode, "\n")] = 0; // Remove newline
+                strcpy(temp.code, newCode);
+            }
+
+            printf("Current Discount: %.2f\n", temp.discount);
+            printf("Enter new discount (or -1 to keep current): ");
+            float newDiscount;
+            scanf("%f", &newDiscount);
+            if (newDiscount >= 0) {
+                temp.discount = newDiscount;
+            }
+
+            if (strcmp(type, "MINIMUM") == 0) {
+                printf("Current Min Amount: %.2f\n", minAmount);
+                printf("Enter new min amount (or -1 to keep current): ");
+                float newMinAmount;
+                scanf("%f", &newMinAmount);
+                if (newMinAmount >= 0) {
+                    minAmount = newMinAmount;
+                }
+            }
+
+            printf("Current Validity (days from now): ");
+            time_t currentTime = time(NULL);
+            int currentValidity = (temp.expirationDate - currentTime) / (24 * 60 * 60);
+            printf("%d days\n", currentValidity);
+            printf("Enter new validity (days, or -1 to keep current): ");
+            int newValidity;
+            scanf("%d", &newValidity);
+            if (newValidity >= 0) {
+                temp.expirationDate = currentTime + newValidity * 24 * 60 * 60;
+            }
+
+            fprintf(tempFile, "%d,%s,%.2f,%ld,%s,%.2f\n",
+                    temp.id, temp.code, temp.discount, temp.expirationDate, type, minAmount);
+            printf("Coupon ID %d updated successfully.\n", idToEdit);
+        } else {
+            fputs(line, tempFile);
+        }
+    }
+
+    fclose(file);
+    fclose(tempFile);
+
+    if (!isEdited) {
+        printf("No coupon with ID %d found.\n", idToEdit);
+        remove("temp.csv");
+    } else {
+        remove(filename);
+        rename("temp.csv", filename);
+    }
+}
+

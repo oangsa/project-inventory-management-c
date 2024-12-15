@@ -12,7 +12,8 @@ int main() {
         printf("2. Add a new coupon\n");
         printf("3. Delete a coupon\n");
         printf("4. Select a coupon\n");
-        printf("5. Exit\n");
+        printf("5. Edit a coupon\n");
+        printf("6. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
 
@@ -31,6 +32,9 @@ int main() {
                 selectCoupon(filename);
                 break;
             case 5:
+                editCoupon(filename);
+                break;
+            case 6:
                 printf("Exiting... Goodbye!\n");
                 break;
             default:

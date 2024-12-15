@@ -18,5 +18,6 @@ void displayCoupons(const char *filename);
 void addCoupon(const char *filename);
 void deleteCoupon(const char *filename);
 void selectCoupon(const char *filename);
+void editCoupon(const char *filename);
 
 #endif
