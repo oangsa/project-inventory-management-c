@@ -2,16 +2,17 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <string.h>
+#include <time.h>
 
 #include "utils.h"
 
 // Just structure of the header to prevent the confusion.
 typedef struct Header {
-   char no[99];
-   char name[99];
-   char price[99];
-   char remain[99];
-   char sold[99];
+   char no[999];
+   char name[999];
+   char price[999];
+   char remain[999];
+   char sold[999];
 } Header;
 
 void cacheProduct() {
@@ -126,7 +127,7 @@ int printProduct(char *mode) {
 
    while (!feof(file)) {
       if (isNoProduct) {
-         printf("---------------------------------[Products]----------------------------------\n");
+         printf("+--------------------------------[Products]---------------------------------+\n");
          printf("| %-2s  | %16s%-13s|%9s%-3s|%9s%-3s|%8s%-4s|\n", "Id", test.name," ", test.price, " ", test.remain, " ", test.sold, " ");
          printf("|%s|%16s|%12s|%8s|%6s|\n", "-----", "------------------------------", "------------", "------------", "------------");
          isNoProduct = 0;
@@ -141,7 +142,7 @@ int printProduct(char *mode) {
 
    if (!isNoProduct) {
       printf("|  %-2d | %-28s | %-7.2f%s | %-4d%6s | %-4d%6s |\n", id, name, price, "THB", remain, "Items", sold, "Items");
-      printf("-----------------------------------------------------------------------------\n");
+      printf("+---------------------------------------------------------------------------+\n");
    }
 
    if (isNoProduct) {
@@ -583,15 +584,6 @@ int purchaseMultipleProduct(ProductList *products, double *totalPrice) {
 
    // Use remain form the ProductList as the amount of the product that the user want to purchase.
    ProductList* temp = products;
-
-   // while (temp != NULL) {
-   //    printf("   Id: %d\n", temp->product.id);
-   //    printf("   Remain: %d\n", temp->product.remain);
-
-   //    temp = temp->next;
-   // }
-
-   // delay(10);
 
    char* name;
    float price;
@@ -1219,7 +1211,7 @@ int updateSetting(Setting* setting) {
 
 
 // User Setting Handler
-int createUserSetting(UserSetting *setting) {
+int createUserSetting(UserSetting *setting, char* username) {
    /*
       This function use to create the new user setting.
 
@@ -1228,24 +1220,58 @@ int createUserSetting(UserSetting *setting) {
 
    */
 
-   FILE *file = fopen("Data/UserSetting.csv", "a+");
+   char *filename;
 
-   if (ferror(file)) {
-      printf("%s\n", strerror(errno));
+   filename = (char*) malloc(999 * sizeof(char));
+
+   FILE *file;
+
+   time_t currentTime;
+
+   // Checking if the content in the file is empty
+   time(&currentTime);
+
+   sprintf(filename, "UserSetting/%s_setting.csv", username);
+
+   if(!isFileExists(filename)) {
+      file = fopen(filename, "w+");
+
+      Log("Creating new user setting file for %s", username);
+
+      if (ferror(file) || file == NULL) {
+         printf("%s\n", strerror(errno));
+         fclose(file);
+         return 1;
+      }
+
+      fprintf(file, "%s,%s,%s,%s\n", "Auto Purchase Date", "Product Name", "Amount", "Last Purchase", "Last Purchase Date");
+
       fclose(file);
+   }
+
+   FILE *fptr = fopen(filename, "a");
+
+   if (ferror(fptr) || fptr == NULL) {
+      printf("%s\n", strerror(errno));
+      fclose(fptr);
       return 1;
    }
 
-   // Write the provided setting into the file
-   fprintf(file, "%d,%s,%d\n", setting->autoPurchaseDate, setting->product.name, setting->product.remain);
+   Log("Failed to open the user setting file for %s", username);
 
-   fclose(file);
+   Log("%s", setting->product.name);
+
+   // Write the provided setting into the file
+   fprintf(fptr, "%d,%s,%d,%ld\n", setting->autoPurchaseDate, setting->product.name, setting->product.remain, (long) currentTime);
+
+
+   fclose(fptr);
 
 
    return 0;
 }
 
-void LoadUserSettingList(ProductList *productList, int* ctr) {
+void LoadUserSettingList(ProductList *productList, int* ctr, char* username) {
    /*
       This function use to load the user setting list from the file.
 
@@ -1254,6 +1280,12 @@ void LoadUserSettingList(ProductList *productList, int* ctr) {
 
    time_t currentTime;
 
+   Product product;
+
+   char name[999];
+
+   product.name = (char*) malloc(999 * sizeof(char));
+
    // get day of the week
    time(&currentTime);
 
@@ -1261,11 +1293,28 @@ void LoadUserSettingList(ProductList *productList, int* ctr) {
 
    int day = tm_local->tm_wday;
 
-   FILE *file = fopen("Data/UserSetting.csv", "r");
+   char *filename;
+
+   filename = (char*) malloc(999 * sizeof(char));
+
+   sprintf(filename, "UserSetting/%s_setting.csv", username);
+
+   Log("Opening %s", filename);
+
+   FILE *file = fopen(filename, "r");
+
+   if (file == NULL) {
+      printf("%s\n", strerror(errno));
+      return;
+   }
 
    productList = NULL;
 
+   long time;
+
    Header test;
+
+   int dataDay;
 
    if (file == NULL) {
       printf("%s\n", strerror(errno));
@@ -1278,20 +1327,205 @@ void LoadUserSettingList(ProductList *productList, int* ctr) {
       return;
    }
 
-   // Get rid of the header
-   fscanf(file, "%[^,],%[^,],[^,\n]\n", test.no, test.name, test.price);
+   // Skip the header line
+   char header[256];
+   if (fgets(header, sizeof(header), file) == NULL) {
+      perror("Error reading header");
+      fclose(file);
+      return;
+   }
+
+   // delay(1000);
 
    // Loop until EOF
    while (!feof(file)) {
       Product product;
+
+      char name[999];
+
+      product.name = (char*) malloc(999 * sizeof(char));
+
       int dataDay;
 
-      fscanf(file, "%d,%[^,],%d\n", &dataDay, product.name, &product.remain);
+      fscanf(file, "%d,%[^,],%d,%ld\n", &dataDay, name, &product.remain, &time);
 
-      if (dataDay != day) continue;
+      product.name = copyString(name, strlen(name) + 1);
+
+      if (dataDay != day || !isTimePassed((time_t) time, 1)) continue;
 
       productList = AppendOrEditProduct(productList, product, ctr, "loadSetting");
+
+      free(product.name);
    }
+}
+
+void updateAutoPurchase(ProductList *products, char* username) {
+   /*
+      Purchase provided product by given the name
+
+      return 1 if the process is fail
+      return 0 if the process success
+
+   */
+
+   // Use remain form the ProductList as the amount of the product that the user want to purchase.
+   ProductList* temp = products;
+
+   char *filename;
+   char *tmpfile;
+
+   filename = (char*) malloc(999 * sizeof(char));
+
+   sprintf(filename, "UserSetting/%s_setting.csv", username);
+   sprintf(tmpfile, "UserSetting/__%s_setting.csv", username);
+
+   char* name;
+   float price;
+   int id, remain, sold;
+   int i = 0, flag = 0;
+
+   Header test;
+
+   UserSettingList* writeSetting;
+
+   name = (char*) malloc(99 * sizeof(char));
+
+   if (name == NULL) {
+      printf("Memory allocation failed\n");
+      return;
+   }
+
+   writeSetting = (UserSettingList*) malloc(999 * sizeof(UserSettingList));
+
+   if (writeSetting == NULL) {
+      free(name);
+      printf("Memory allocation failed\n");
+      return;
+   }
+
+   FILE *file = fopen(filename, "r");
+
+   FILE *tmpFile = fopen(tmpfile, "w+");
+
+   // Checking if unable to open file.
+
+   if (tmpFile == NULL || file == NULL) {
+      printf("Cant open file\n");
+      return;
+   }
+
+   if (ferror(file) || ferror(tmpFile)) {
+      printf("%s\n", strerror(errno));
+      return;
+   }
+
+   char header[256];
+   if (fgets(header, sizeof(header), file) == NULL) {
+      perror("Error reading header");
+      fclose(file);
+      return;
+   }
+
+   while (!feof(file)) {
+      int dataDay;
+      Product product;
+      long Time;
+
+      time_t *currentTime;
+
+      time(currentTime);
+
+      fscanf(file, "%d,%[^,],%d,%ld\n", &dataDay, product.name, &product.remain, &Time);
+
+      temp = products;
+      flag = 0;
+
+      while (temp != NULL) {
+
+         if (!strcmp(temp->product.name, product.name)) {
+
+            writeSetting[i].setting.autoPurchaseDate = dataDay;
+            writeSetting[i].setting.product.name = copyString(product.name, strlen(product.name) + 1); // We add +1 because of the '\0'
+            writeSetting[i].setting.product.remain = product.remain;
+            writeSetting[i].setting.lastPurchase = (long) currentTime;
+
+            i++;
+
+            temp = temp->next;
+
+            flag = 1;
+            break;
+         }
+
+         temp = temp->next;
+      }
+
+      if (!flag) {
+         // Update the data
+         writeSetting[i].setting.autoPurchaseDate = dataDay;
+         writeSetting[i].setting.product.name = copyString(product.name, strlen(product.name) + 1); // We add +1 because of the '\0'
+         writeSetting[i].setting.product.remain = product.remain;
+         writeSetting[i].setting.lastPurchase = (long) Time;
+
+         i++;
+      }
+   }
+
+   //Write data in the temporaly file.
+   fprintf(tmpFile, "%s,%s,%s,%s\n", "Auto Purchase Date", "Product Name", "Last Purchase Date", "Last Purchase Date");
+
+   for (int j = 0; j < i; j++) {
+      fprintf(tmpFile, "%d,%[^,],%d,%ld\n", writeSetting[j].setting.autoPurchaseDate, writeSetting[j].setting.product.name, writeSetting[j].setting.product.remain, writeSetting[j].setting.lastPurchase);
+   }
+
+   free(name);
+   free(writeSetting);
+   fclose(file);
+   fclose(tmpFile);
+
+   // Delete the old file and rename the temporarily file to the deleted file.
+   remove(filename);
+   rename(tmpfile, filename);
+
+   return;
+}
+
+void autoPurchase(char *username) {
+   /*
+      This function use to auto purchase the product that have the amount below
+      the threshold
+
+      return nothing
+   */
+
+   Log("Attempting to auto purchase");
+
+   ProductList *productList = NULL;
+   int ctr = 0;
+
+   LoadUserSettingList(productList, &ctr, username);
+
+   if (ctr <= 0) {
+      printf("There is no product to auto purchase today.\n");
+      delay(1);
+      clearScreen();
+
+      return;
+   }
+
+   double totalPrice = 0;
+
+   purchaseMultipleProduct(productList, &totalPrice);
+
+   printf("Auto purchase done!\n");
+   delay(1);
+   clearScreen();
+   printf("Total price: %.2f\n", totalPrice);
+
+   updateAutoPurchase(productList, username);
+
+   delay(2);
+   clearScreen();
 
    return;
 }

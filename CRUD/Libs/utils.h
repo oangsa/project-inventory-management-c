@@ -17,3 +17,5 @@ int setup(User *user);
 int isDirectoryExists(char *path);
 
 int isFileExists(char *path);
+
+char* formatDateToString(int day, int month, int year);

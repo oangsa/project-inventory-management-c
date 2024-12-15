@@ -17,12 +17,13 @@ void printLog(const char *msg) {
       return;
    }
 
-   fprintf(file, "[%d:%d:%d] %s\n",tm_local -> tm_hour, tm_local -> tm_min, tm_local -> tm_sec, msg);
+   fprintf(file, "[%02d:%02d:%02d] %s\n",tm_local -> tm_hour, tm_local -> tm_min, tm_local -> tm_sec, msg);
 
    free(file);
    fclose(file);
 }
 
+// I dont know about this code, I just copy paste from stackoverflow
 void Log(const char *fmt, ...) {
    // determine required buffer size
    va_list args;

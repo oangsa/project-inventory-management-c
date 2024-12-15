@@ -10,7 +10,7 @@ int askLoginOrRegister(int* logOrReg, int* isLogin);
 
 int registerPanel(char* text, char* username, char* password, char* role);
 
-void userPanel(User* user);
+void userPanel(User* user, char* reportDate);
 
 // User Controller
 void productUserSeleted(User* user);
@@ -19,7 +19,7 @@ void purcheaseProductPanel(User* user);
 
 void adminPanel(User* user, Setting* setting);
 
-void setUpAutoPurchasePanel(UserSetting* setting);
+void setUpAutoPurchasePanel(User* user);
 
 // Admin Controller
 void productAdminSeleted(Setting* setting);

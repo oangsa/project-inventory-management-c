@@ -102,7 +102,7 @@ int canPurchase(Product targetProduct) {
    while (!feof(file)) {
       fscanf(file, "%d,%[^,],%f,%d,%d\n", &id, name, &price, &remain, &sold);
 
-      if (id == targetProduct.id) {
+      if (!strcmp(name, targetProduct.name)) {
          if (remain >= targetProduct.remain) {
             fclose(file);
             return 1;
@@ -124,8 +124,6 @@ ProductList *AppendOrEditProduct(ProductList *productList, Product targetProduct
 
       return the new product list.
    */
-
-
       ProductList *head = productList;
       int flag = 0;
 
@@ -134,6 +132,10 @@ ProductList *AppendOrEditProduct(ProductList *productList, Product targetProduct
       if (!strcmp(mode, "userBuy")) {
          while (productList != NULL) {
             if (productList->product.id == targetProduct.id) {
+               if(!canPurchase(targetProduct)) {
+                  printf("   Product is out of stock or the provided amount is greater than the stock..\n");
+                  return head;
+               }
                productList->product.remain += targetProduct.remain;
                flag = 1;
                break;
@@ -189,7 +191,7 @@ int setup(User* user) {
       also load the user data if the user exist.
 
    */
-   int isUserExist = 1;
+   int isUserExist = 0;
 
    FILE *file;
 
@@ -306,7 +308,7 @@ int setup(User* user) {
          Log("Setting file not found, creating the setting file....");
 
          file = fopen("Data/Setting.csv", "a+");
-         fprintf(file, "autoRestock,autoPurchase\n");
+         fprintf(file, "Threshold,Fullstock,Last check\n");
          fclose(file);
       }
    }
@@ -351,9 +353,44 @@ int setup(User* user) {
       system("mkdir UserSetting");
       delay(1);
       clearScreen();
+      delay(1);
    }
 
-   if (isUserExist == 1) {
+   // I dont know why I have to put this here but if I dont put this here the program will crash
+   printf("", isDirectoryExists("Report"));
+
+   // delay(1);
+   if (!isDirectoryExists("Report")) {
+      printf("Report folder not found\n");
+      delay(1);
+      clearScreen();
+      printf("Creating the Report folder....\n");
+      Log("Report folder not found, creating the Report folder file....");
+      system("mkdir Report");
+      delay(1);
+      clearScreen();
+
+      time_t currentTime;
+      time(&currentTime);
+
+      struct tm *tm_local = localtime(&currentTime);
+
+      char *dirDate = malloc(100 * sizeof(char));
+
+      int day = tm_local->tm_mday;
+      int month = tm_local->tm_mon + 1;
+      int year = tm_local->tm_year + 1900;
+
+      sprintf(dirDate, "Report/%02d-%02d-%04d_report.csv", day, month, year);
+
+      if (!isFileExists(dirDate)) {
+         file = fopen(dirDate, "a+");
+         fprintf(file, "Earning without coupon,Earning with coupon,Total Earning,Total Product Sold,Top Sold Product,Least Sold Product\n");
+         fclose(file);
+      }
+   }
+
+   if (isFileExists("Cache/__users.csv")) {
       file = fopen("Cache/__users.csv", "a+");
 
       if (ferror(file) || file == NULL) {
@@ -368,6 +405,9 @@ int setup(User* user) {
          fclose(file);
          return 1;
       }
+
+
+      Log("TEST");
 
       fclose(file);
 
@@ -396,16 +436,11 @@ int setup(User* user) {
 }
 
 int isFileExists(char *path) {
-    // Try to open file
-    FILE *fptr = fopen(path, "r");
+  struct stat buffer;
 
-    // If file does not exists
-    if (fptr == NULL) return 0;
+  if (stat (path, &buffer) == 0) return 1;
 
-    // File exists hence close file and return true.
-    fclose(fptr);
-
-    return 1;
+  return 0;
 }
 
 
@@ -423,4 +458,18 @@ int isDirectoryExists(char *path) {
       if (S_ISDIR(stats.st_mode)) return 1;
 
       return 0;
+}
+
+
+char* formatDateToString(int day, int month, int year) {
+   char* result = (char*) malloc(20 * sizeof(char));
+
+   if (result == NULL) {
+      printf("Memory allocation failed!\n");
+      return NULL;
+   }
+
+   sprintf(result, "%02d-%02d-%04d_report", day, month, year);
+
+   return result;
 }
