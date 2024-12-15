@@ -11,6 +11,28 @@ int main(void) {
 
    UserSetting userSetting;
 
+   char *reportName;
+
+   reportName = (char*) malloc(99 * sizeof(char));
+
+   if (reportName == NULL) {
+      printf("Memory allocation failed\n");
+      return 1;
+   }
+
+   time_t currentTime;
+   time(&currentTime);
+
+   struct tm *tm_local = localtime(&currentTime);
+
+   char *dirDate = malloc(100 * sizeof(char));
+
+   int day = tm_local->tm_mday;
+   int month = tm_local->tm_mon + 1;
+   int year = tm_local->tm_year + 1900;
+
+   sprintf(reportName, "Report/%02d-%02d-%04d_report.csv", day, month, year);
+
    char username[99];
    char password[99];
 
@@ -72,7 +94,7 @@ int main(void) {
          delay(2);
          clearScreen();
          delay(1);
-         userPanel(&user);
+         userPanel(&user, reportName);
       }
       else {
          printf("   Role not found.\n");

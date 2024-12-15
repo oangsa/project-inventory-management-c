@@ -42,6 +42,4 @@ void borderdown(){
 
 void clearScreen() {
    system("@cls||clear");
-
-   return;
 }

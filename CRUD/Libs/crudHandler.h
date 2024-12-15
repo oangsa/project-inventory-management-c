@@ -35,6 +35,8 @@ typedef struct UserSetting {
    // 0 -> Sun, 1 -> Mon, 2 -> Tue, 3 -> Wed, 4 -> Thu, 5 -> Fri, 6 -> Sat
    int autoPurchaseDate;
 
+   long lastPurchase;
+
    // Use product.remain as a amount of product that the user want to purchase.
    Product product;
 
@@ -76,13 +78,15 @@ void Restock(Setting *setting);
 void autoRestock(Setting *setting);
 
 // User Handling
-int createUserSetting(UserSetting *setting);
+int createUserSetting(UserSetting *setting, char* username);
 
-void LoadUserSettingList(ProductList *productList, int* ctr);
+void LoadUserSettingList(ProductList *products, int* ctr, char *username);
 
 UserSettingList* AppendAndEditUserSettingList(UserSettingList *userSettingList, UserSetting userSetting);
 
-void autoPurchase(UserSettingList *userSettingList, ProductList *productsList);
+void autoPurchase(char *username);
+
+void updateAutoPurchase(ProductList *products, char* username);
 
 // Coupon Handling
 
