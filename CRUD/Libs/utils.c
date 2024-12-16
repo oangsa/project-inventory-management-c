@@ -452,7 +452,7 @@ int setup(User* user) {
       }
    }
 
-   if (isFileExists("Cache/__users.csv")) {
+   if (isFileExists("Cache/__users.csv") && !isUserExist) {
       file = fopen("Cache/__users.csv", "a+");
 
       if (ferror(file) || file == NULL) {

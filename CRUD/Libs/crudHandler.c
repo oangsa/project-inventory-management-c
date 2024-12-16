@@ -1447,7 +1447,7 @@ void updateAutoPurchase(ProductList *products, char* username) {
             writeSetting[i].setting.autoPurchaseDate = dataDay;
             writeSetting[i].setting.product.name = copyString(product.name, strlen(product.name) + 1); // We add +1 because of the '\0'
             writeSetting[i].setting.product.remain = product.remain;
-            writeSetting[i].setting.lastPurchase = (long) currentTime;
+            writeSetting[i].setting.lastPurchase = (long) *currentTime;
 
             i++;
 
