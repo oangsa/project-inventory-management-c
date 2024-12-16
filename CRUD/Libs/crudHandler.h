@@ -1,4 +1,5 @@
 #include <time.h>
+#include "../../CouponSystem/Libs/coupon.h"
 
 typedef struct Product {
     int id;
@@ -72,13 +73,15 @@ void autoRestock(Setting *setting);
 // User Handling
 int createUserSetting(UserSetting *setting, char* username);
 
-void LoadUserSettingList(ProductList *products, int* ctr, char *username);
+ProductList *LoadUserSettingList(int* ctr, char *username);
 
 UserSettingList* AppendAndEditUserSettingList(UserSettingList *userSettingList, UserSetting userSetting);
 
 void autoPurchase(char *username);
 
 void updateAutoPurchase(ProductList *products, char* username);
+
+int writeCouponAutoPurchase(Coupon coupon, char* username);
 
 // Coupon Handling
 

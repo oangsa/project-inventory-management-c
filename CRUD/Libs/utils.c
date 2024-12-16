@@ -161,10 +161,7 @@ ProductList *AppendOrEditProduct(ProductList *productList, Product targetProduct
    */
       ProductList *head = productList;
       int flag = 0;
-
-      Log("Mode: %s", mode);
-      Log("Product: %s", targetProduct.name);
-      Log("Product: %d", targetProduct.id);
+      // Log("Product: %d", targetProduct.id);
 
 
       // Loop until the end of the list
@@ -188,10 +185,16 @@ ProductList *AppendOrEditProduct(ProductList *productList, Product targetProduct
 
       if (!strcmp(mode, "loadSetting")) {
          while (productList != NULL) {
+            // Log("ProductList: %s", productList->product.name);
+            // Log("Target Product: %s", targetProduct.name);
             if (!strcmp(productList->product.name, targetProduct.name)) {
-                  productList->product.remain += targetProduct.remain;
-                  flag = 1;
-                  break;
+
+               // Log("Product List remain: %d", productList->product.remain);
+               // Log("Target Product remain: %d", targetProduct.remain);
+
+               productList->product.remain += targetProduct.remain;
+
+               return head;
             }
             if (productList->next == NULL) break;
             productList = productList->next;
@@ -203,6 +206,7 @@ ProductList *AppendOrEditProduct(ProductList *productList, Product targetProduct
       if (!flag) {
 
          ProductList *newNode = malloc(sizeof(ProductList));
+
          if (newNode == NULL) {
             perror("Failed to allocate memory");
          }
@@ -212,7 +216,10 @@ ProductList *AppendOrEditProduct(ProductList *productList, Product targetProduct
 
          Log("Counter: %d", *counter);
 
-         newNode->product = targetProduct;
+         // newNode->product.name = malloc(999 * sizeof(char));
+
+         newNode->product.name = copyString(targetProduct.name, strlen(targetProduct.name) + 1);
+         newNode->product.remain = targetProduct.remain;
          newNode->next = NULL;
 
          if (productList != NULL) {
@@ -432,6 +439,26 @@ int setup(User* user) {
       delay(1);
       clearScreen();
 
+      time_t currentTime;
+      time(&currentTime);
+
+      struct tm *tm_local = localtime(&currentTime);
+
+      char *dirDate = malloc(100 * sizeof(char));
+
+      int day = tm_local->tm_mday;
+      int month = tm_local->tm_mon + 1;
+      int year = tm_local->tm_year + 1900;
+
+      sprintf(dirDate, "Report/%02d-%02d-%04d_report.csv", day, month, year);
+
+      if (!isFileExists(dirDate)) {
+         file = fopen(dirDate, "a+");
+         fprintf(file, "Earning without coupon,Earning with coupon,Total Earning,Total Product Sold,Top Sold Product,Least Sold Product\n");
+         fclose(file);
+      }
+   }
+   else {
       time_t currentTime;
       time(&currentTime);
 

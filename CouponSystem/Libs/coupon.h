@@ -19,6 +19,8 @@ void addCoupon(const char *filename);
 void deleteCoupon(const char *filename);
 void selectCoupon(const char *filename);
 
+int getTotalCoupons(const char *filename);
+
 Coupon getCouponByCode(char *couponCode);
 
 #endif

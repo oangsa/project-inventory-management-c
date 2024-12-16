@@ -23,6 +23,10 @@ void setUpAutoPurchasePanel(User* user);
 
 int useCouponPanel(User* user, ProductList *productList, double *total);
 
+void selectCouponAutoPurchasePanel(User *user);
+
+void askAutoPurchasePanel(User *user);
+
 // Admin Controller
 void productAdminSeleted(Setting* setting);
 

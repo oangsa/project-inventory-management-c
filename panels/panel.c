@@ -64,7 +64,12 @@ int setupPanel(Setting* setting, User* user, int* isUser) {
    Log("Work");
    Log("%s", user->role);
    if (!strcmp(user->role, "admin")) autoRestock(setting);
-   if (!strcmp(user->role, "customer")) autoPurchase(user->username);
+   if (!strcmp(user->role, "customer")) {
+      clearScreen();
+      printf("Attempting to auto purchase...\n");
+      autoPurchase(user->username);
+      delay(1);
+   }
    clearScreen();
    delay(2);
    printf("Welcome to the system.\n");
@@ -198,7 +203,7 @@ void userPanel(User* user, char* reportDate) {
             printf("Redirecting to the setting auto purchase panel...\n");
             delay(1);
             clearScreen();
-            setUpAutoPurchasePanel(user);
+            askAutoPurchasePanel(user);
             return;
          case 4:
             Log("User '%s' has been logged out.", user->username);
@@ -385,16 +390,6 @@ void purcheaseProductPanel(User* user) {
                      printf("   Wrong input.\n");
                   }
                }
-
-               // delay(1);
-               // purchaseMultipleProduct(productList, &total);
-               // delay(1);
-               // clearScreen();
-               // delay(1);
-               // printf("   Total: %.2f THB\n", total);
-               // delay(4);
-               // clearScreen();
-               // Log("User '%s' purchase product(s) with total %.2f THB", user->username, total);
                return;
             }
             else if (atoi(choose) == 2) {
@@ -495,12 +490,86 @@ int useCouponPanel(User* user, ProductList* productList, double* total) {
    free(choose);
 }
 
+void selectCouponAutoPurchasePanel(User *user) {
+   Coupon coupon;
 
-void setUpAutoPurchasePanel(User* user) {
-   UserSetting userSetting;
    char *choose;
 
-   userSetting.product.name = malloc(100 * sizeof(char));
+   choose = malloc(100 * sizeof(char));
+
+   if (!getTotalCoupons("Data/Coupon.csv")) {
+      printf("No coupon available.\n");
+      delay(2);
+      clearScreen();
+      return;
+   }
+
+   if (choose == NULL) {
+      printf("   Memory allocation failed.\n");
+      delay(2);
+      clearScreen();
+      return;
+   }
+
+   while (1) {
+      clearScreen();
+      displayCoupons("Data/Coupon.csv");
+      borderup();
+      printf("   Coupon\n");
+      printf("   Code: ");
+      scanf(" %[^\n]s", coupon.code);
+
+      coupon = getCouponByCode(coupon.code);
+
+      if (coupon.id == -1) {
+         printf("   Coupon not found.\n");
+         borderdown();
+         delay(2);
+         clearScreen();
+         continue;
+      }
+
+      if (isTimePassed(coupon.expirationDate, 0)) {
+         printf("   Coupon has been expired.\n");
+         borderdown();
+         delay(2);
+         clearScreen();
+         continue;
+      }
+
+      printf("   Do you want to use this coupon? (Y/N): ");
+      scanf(" %[^\n]s", choose);
+
+      if (!strcmp(choose, "Y") || !strcmp(choose, "y")) {
+
+         if (writeCouponAutoPurchase(coupon, user->username)) {
+            printf("   Coupon failed to be used.\n");
+            delay(2);
+            clearScreen();
+            return;
+         }
+
+         printf("   Coupon has been used.\n");
+         Log("User '%s' use coupon '%s' for auto purchase.", user->username, coupon.code);
+         free(choose);
+         return;
+      }
+      else if (!strcmp(choose, "N") || !strcmp(choose, "n")) {
+         free(choose);
+         return;
+      }
+      else {
+         printf("   Wrong input.\n");
+         delay(2);
+         clearScreen();
+      }
+   }
+
+}
+
+
+void askAutoPurchasePanel(User* user) {
+   char *choose;
 
    choose = malloc(100 * sizeof(char));
 
@@ -513,41 +582,23 @@ void setUpAutoPurchasePanel(User* user) {
 
    while (1) {
       clearScreen();
-      delay(1);
       borderup();
-      printf("   Auto Purchase\n");
-      printf("   1. Set up\n");
-      printf("   2. Back\n");
+      printf("   Auto Purchase System\n");
+      printf("   1. Setup Auto Purchase\n");
+      printf("   2. Setup Coupon For Auto Purchase\n");
+      printf("   3. Back\n");
       printf("   Choose: ");
       scanf(" %[^\n]s", choose);
 
-      if (atoi(choose) == 1) {
+      if (!strcmp(choose, "1")) {
          clearScreen();
-         printProduct("customer");
-         printf("   Product (Auto Purchase)\n");
-         printf("   Name: ");
-         scanf(" %[^\n]", userSetting.product.name);
-         printf("   Amount: ");
-         scanf(" %d", &userSetting.product.remain);
-         printf("   Day (0 = Sunday, 6 = Saturday): ");
-         scanf(" %d", &userSetting.autoPurchaseDate);
-
-         if (!createUserSetting(&userSetting, user->username)) {
-            printf("   Auto purchase has been set up.\n");
-            Log("User '%s' has been set up auto purchase.", user->username);
-            delay(2);
-            clearScreen();
-         }
-         else {
-            printf("   Auto purchase failed to be set up.\n");
-            delay(2);
-            clearScreen();
-         }
-      }
-      else if (atoi(choose) == 2) {
          delay(1);
+         setUpAutoPurchasePanel(user);
+      }
+      else if (!strcmp(choose, "2")) {
          clearScreen();
-         return;
+         delay(1);
+         selectCouponAutoPurchasePanel(user);
       }
       else {
          printf("   Wrong input.\n");
@@ -556,9 +607,39 @@ void setUpAutoPurchasePanel(User* user) {
       }
    }
 
-
-
    free(choose);
+}
+
+
+void setUpAutoPurchasePanel(User* user) {
+   UserSetting userSetting;
+
+   userSetting.product.name = malloc(100 * sizeof(char));
+
+   while (1) {
+      clearScreen();
+      delay(1);
+      printProduct("customer");
+      printf("   Product (Auto Purchase)\n");
+      printf("   Name: ");
+      scanf(" %[^\n]", userSetting.product.name);
+      printf("   Amount: ");
+      scanf(" %d", &userSetting.product.remain);
+      printf("   Day (0 = Sunday, 6 = Saturday): ");
+      scanf(" %d", &userSetting.autoPurchaseDate);
+
+      if (!createUserSetting(&userSetting, user->username)) {
+         printf("   Auto purchase has been set up.\n");
+
+         Log("User '%s' has been set up auto purchase.", user->username);
+         clearScreen();
+      }
+      else {
+         printf("   Auto purchase failed to be set up.\n");
+         delay(2);
+         clearScreen();
+      }
+   }
 }
 
 

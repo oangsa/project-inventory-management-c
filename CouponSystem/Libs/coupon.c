@@ -36,11 +36,15 @@ void displayCoupons(const char *filename) {
    printf("| Id  |             Code             |   Discount Price    |   Type   |    Minimum    |  Expiration Date |\n");
    printf("|-----|------------------------------|---------------------|----------|---------------|------------------|\n");
 
-   while (fscanf(file, "%d,%[^,],%f,%ld,%[^,],%f\n",
-               &tmp.id, tmp.code, &tmp.discount, &tmp.expirationDate, type, &minAmount) == 6) {
+   while (fscanf(file, "%d,%[^,],%f,%ld,%[^,],%f\n",  &tmp.id, tmp.code, &tmp.discount, &tmp.expirationDate, type, &minAmount) == 6) {
       isNoCoupon = 0;
 
       strftime(buffer, 26, "%Y-%m-%d", localtime(&tmp.expirationDate));
+
+      // Skip expired coupons
+      if (isTimePassed(tmp.expirationDate, 0)) {
+         continue;
+      }
 
       if (strcmp(type, "PERCENTAGE") == 0) {
          printf("|  %-3d| %-28s | %3.2f%2s             | %2s%-6s | %-13s |    %-13s |\n", tmp.id, tmp.code, tmp.discount, "%", " ", "PER", "-", buffer);
@@ -62,7 +66,48 @@ void displayCoupons(const char *filename) {
    fclose(file);
 }
 
+int getTotalCoupons(const char *filename) {
+   Log("Get total working coupon.");
+   char header[256];
 
+   char buffer[26];
+   char type[20] = {0};
+   float minAmount = 0.0;
+
+   Coupon tmp;
+
+   int ctr = 0;
+
+   FILE *file = fopen(filename, "r"); // Use "r" since you’re reading data
+   if (!file) {
+      perror("Error opening file");
+      return -1;
+   }
+
+   // Read and log the header line
+   if (fgets(header, sizeof(header), file) == NULL) {
+      perror("Error reading header");
+      fclose(file);
+      return -1;
+   }
+
+
+   while (fscanf(file, "%d,%[^,],%f,%ld,%[^,],%f\n",  &tmp.id, tmp.code, &tmp.discount, &tmp.expirationDate, type, &minAmount) == 6) {
+
+      strftime(buffer, 26, "%Y-%m-%d", localtime(&tmp.expirationDate));
+
+      // Skip expired coupons
+      if (isTimePassed(tmp.expirationDate, 0)) {
+         continue;
+      }
+
+      ctr++;
+   }
+
+   fclose(file);
+
+   return ctr;
+}
 
 int getNextId(const char *filename) {
    FILE *file = fopen(filename, "r");
