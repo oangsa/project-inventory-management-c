@@ -1,2 +1,3 @@
 id,code,discount,expirationDate,type,minAmount
 1,AAA,15.00,1734348752,PERCENTAGE,0.00
+2,NIG,10.00,1735220080,MINIMUM,100.00

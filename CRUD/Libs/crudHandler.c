@@ -1562,6 +1562,12 @@ void autoPurchase(char *username) {
 
    productList = LoadUserSettingList(&ctr, username);
 
+   char *filename;
+
+   filename = (char*) malloc(999 * sizeof(char));
+
+   sprintf(filename, "UserSetting/%s_coupon.csv", username);
+
    // Log("%s", productList->product.name);
 
    Log("Loaded user setting list");
@@ -1580,6 +1586,44 @@ void autoPurchase(char *username) {
    purchaseMultipleProductWithName(productList, &totalPrice);
 
    printf("Auto purchase done!\n");
+
+   if (isFileExists(filename)) {
+      char *couponCode;
+
+      couponCode = (char*) malloc(999 * sizeof(char));
+
+      if (couponCode == NULL) {
+         perror("Failed to allocate memory");
+      }
+
+      FILE *file = fopen(filename, "r");
+
+      if (file == NULL) {
+         printf("%s\n", strerror(errno));
+         return;
+      }
+
+      Coupon coupon = getCouponByCode(couponCode);
+
+      if (coupon.id != -1) {
+
+         if (!strcmp(coupon.type, "PERCENTAGE")) {
+            totalPrice -= (totalPrice * coupon.discount / 100);
+         }
+         else if (!strcmp(coupon.type, "MINIMUM")) {
+            if (totalPrice < coupon.minAmount) {
+               totalPrice -= coupon.discount;
+            }
+            else {
+               clearScreen();
+               delay(1);
+               printf("Coupon can't be applied\n");
+               Log("Coupon can't be applied because the total price is below the minimum amount");
+            }
+         }
+      }
+
+   }
 
    delay(1);
    clearScreen();

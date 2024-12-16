@@ -1772,3 +1772,85 @@
 [20:17:00] Get total working coupon.
 [20:17:00] Time: 6268.000000
 [20:17:00] Expect: 0
+[20:27:51] System is starting...
+[20:27:52] TEST
+[20:27:52] User 'test' login
+[20:27:54] Setting Loaded....
+[20:27:57] Product has been cached.
+[20:27:58] Work
+[20:27:58] customer
+[20:27:58] Attempting to auto purchase
+[20:27:58] Opening UserSetting/test_setting.csv
+[20:27:58] Time: 2693.000000
+[20:27:58] Expect: 86400
+[20:27:58] Time: 2693.000000
+[20:27:58] Expect: 86400
+[20:27:58] Loaded user setting list
+[20:28:11] User 'test' has been logged out.
+[20:28:19] User 'admin1' has been logged in.
+[20:28:36] Display coupon triggered.
+[20:28:36] Time: 6964.000000
+[20:28:36] Expect: 0
+[20:29:26] System is starting...
+[20:29:27] TEST
+[20:29:27] User 'admin1' login
+[20:29:29] Setting Loaded....
+[20:29:32] Product has been cached.
+[20:29:33] Work
+[20:29:33] admin
+[20:29:33] Time: 57122.000000
+[20:29:33] Expect: 86400
+[20:29:51] Display coupon triggered.
+[20:29:51] Time: 7039.000000
+[20:29:51] Expect: 0
+[20:29:56] Add coupon triggered.
+[20:30:21] Coupon 'NIG' has been created.
+[20:30:23] Display coupon triggered.
+[20:30:23] Time: 7071.000000
+[20:30:23] Expect: 0
+[20:30:23] Time: -345598.000000
+[20:30:23] Expect: 0
+[20:33:04] System is starting...
+[20:33:05] TEST
+[20:33:05] User 'admin1' login
+[20:33:07] Setting Loaded....
+[20:33:10] Product has been cached.
+[20:33:11] Work
+[20:33:11] admin
+[20:33:11] Time: 57340.000000
+[20:33:11] Expect: 86400
+[20:34:21] Display coupon triggered.
+[20:34:21] Time: 7309.000000
+[20:34:21] Expect: 0
+[20:34:25] Add coupon triggered.
+[20:34:40] Coupon 'NIG' has been created.
+[20:34:42] Display coupon triggered.
+[20:34:42] Time: 7330.000000
+[20:34:42] Expect: 0
+[20:34:42] Time: -863998.000000
+[20:34:42] Expect: 0
+[20:37:35] System is starting...
+[20:37:36] TEST
+[20:37:36] User 'admin1' login
+[20:37:38] Setting Loaded....
+[20:37:41] Product has been cached.
+[20:37:42] Work
+[20:37:42] admin
+[20:37:42] Time: 57611.000000
+[20:37:42] Expect: 86400
+[20:38:01] Admin 'admin1' has been logged out.
+[20:38:07] User 'test' has been logged in.
+[20:38:28] Setting auto purchase panel has been selected.
+[20:38:36] Get total working coupon.
+[20:38:36] Time: 7564.000000
+[20:38:36] Expect: 0
+[20:38:36] Time: -863764.000000
+[20:38:36] Expect: 0
+[20:38:36] Display coupon triggered.
+[20:38:36] Time: 7564.000000
+[20:38:36] Expect: 0
+[20:38:36] Time: -863764.000000
+[20:38:36] Expect: 0
+[20:38:38] Time: -863762.000000
+[20:38:38] Expect: 0
+[20:38:40] User 'test' use coupon 'NIG' for auto purchase.

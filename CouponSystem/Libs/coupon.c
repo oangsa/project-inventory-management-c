@@ -37,7 +37,6 @@ void displayCoupons(const char *filename) {
    printf("|-----|------------------------------|---------------------|----------|---------------|------------------|\n");
 
    while (fscanf(file, "%d,%[^,],%f,%ld,%[^,],%f\n",  &tmp.id, tmp.code, &tmp.discount, &tmp.expirationDate, type, &minAmount) == 6) {
-      isNoCoupon = 0;
 
       strftime(buffer, 26, "%Y-%m-%d", localtime(&tmp.expirationDate));
 
@@ -46,11 +45,13 @@ void displayCoupons(const char *filename) {
          continue;
       }
 
+      isNoCoupon = 0;
+
       if (strcmp(type, "PERCENTAGE") == 0) {
          printf("|  %-3d| %-28s | %3.2f%2s             | %2s%-6s | %-13s |    %-13s |\n", tmp.id, tmp.code, tmp.discount, "%", " ", "PER", "-", buffer);
          // printf("| %-3d | %-28s | %-19.2f THB | %-8s | %-13s | %-16s |\n", tmp.id, tmp.code, tmp.discount, "PER", "-", buffer);
       } else if (strcmp(type, "MINIMUM") == 0) {
-         printf("|  %-3d| %-28s | %3.2f%2s             | %2s%-6s | %3.2f%4s    |    %-13s |\n", tmp.id, tmp.code, tmp.discount, "%", " ", "MIN", minAmount, "THB", buffer);
+         printf("|  %-3d| %-28s | %3.2f%2s             | %2s%-6s | %3.2f%4s    |    %-13s |\n", tmp.id, tmp.code, tmp.discount, "THB", " ", "MIN", minAmount, "THB", buffer);
          // printf("| %-3d | %-28s | %-19.2f THB | %-8s | %-13.2f THB | %-16s |\n", tmp.id, tmp.code, tmp.discount, "MIN", minAmount, buffer);
       } else {
          printf("| %-3d | %-28s | %-19.2f THB | %-8s | %-13s | %-16s |\n", tmp.id, tmp.code, tmp.discount, "UKN", "-", buffer);
@@ -118,6 +119,9 @@ int getNextId(const char *filename) {
 
    int maxId = 0;
    char line[256];
+
+   //skip header
+   fgets(line, sizeof(line), file);
 
    while (fgets(line, sizeof(line), file)) {
       Coupon temp;
