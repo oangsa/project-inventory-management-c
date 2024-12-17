@@ -158,6 +158,148 @@ int printProduct(char *mode) {
    return 0;
 }
 
+int printProductFilterByName(char *name, char *mode) {
+   char* Name;
+   float price;
+   int id, remain, sold;
+
+   int isNoProduct = 1;
+
+   Name = (char*) malloc(99 * sizeof(char));
+
+   if (Name == NULL) {
+      printf("Memory allocation failed\n");
+      return 1;
+   }
+
+   Header test;
+
+   FILE *file = fopen("Data/MockUpProduct.csv", "r");
+
+
+   if (file == NULL) {
+      printf("%s\n", strerror(errno));
+      return 1;
+   }
+
+   fscanf(file, "%[^,],%[^,],%[^,],%[^,],%[^,\n]", test.no, test.name, test.price, test.remain, test.sold);
+
+   fscanf(file, "%d,%[^,],%f,%d,%d\n", &id, Name, &price, &remain, &sold);
+
+   while (!feof(file)) {
+      // Skip the product if the name is not the same as the given name and skip the product if the remain is 0 and the mode is customer.
+      Log("Name: %s, name: %s", Name, name);
+
+      if (!strcmp(Name, name)) {
+         if (isNoProduct) {
+            printf("+--------------------------------[Products]---------------------------------+\n");
+            printf("| %-2s  | %16s%-13s|%9s%-3s|%9s%-3s|%8s%-4s|\n", "Id", test.name," ", test.price, " ", test.remain, " ", test.sold, " ");
+            printf("|%s|%16s|%12s|%8s|%6s|\n", "-----", "------------------------------", "------------", "------------", "------------");
+            isNoProduct = 0;
+         }
+         printf("|  %-2d | %-28s | %-7.2f%s | %-4d%6s | %-4d%6s |\n", id, name, price, "THB", remain, "Items", sold, "Items");
+      }
+
+      fscanf(file, "%d,%[^,],%f,%d,%d\n", &id, Name, &price, &remain, &sold);
+
+      if (remain == 0 && strcmp(mode, "customer") == 0) continue;
+
+   }
+
+   if (!isNoProduct || strcmp(Name, name) == 0) {
+      if (isNoProduct) {
+         printf("+--------------------------------[Products]---------------------------------+\n");
+         printf("| %-2s  | %16s%-13s|%9s%-3s|%9s%-3s|%8s%-4s|\n", "Id", test.name," ", test.price, " ", test.remain, " ", test.sold, " ");
+         printf("|%s|%16s|%12s|%8s|%6s|\n", "-----", "------------------------------", "------------", "------------", "------------");
+      }
+      isNoProduct = 0;
+      printf("|  %-2d | %-28s | %-7.2f%s | %-4d%6s | %-4d%6s |\n", id, name, price, "THB", remain, "Items", sold, "Items");
+      printf("+---------------------------------------------------------------------------+\n");
+   }
+
+   if (isNoProduct) {
+      printf("No product available.\n");
+      delay(1);
+      return 1;
+   }
+
+
+   free(name);
+   fclose(file);
+
+   return 0;
+}
+
+int printProductFilterByPrice(float min, float max, char *mode) {
+   char* Name;
+   float price;
+   int id, remain, sold;
+
+   int isNoProduct = 1;
+
+   Name = (char*) malloc(99 * sizeof(char));
+
+   if (Name == NULL) {
+      printf("Memory allocation failed\n");
+      return 1;
+   }
+
+   Header test;
+
+   FILE *file = fopen("Data/MockUpProduct.csv", "r");
+
+
+   if (file == NULL) {
+      printf("%s\n", strerror(errno));
+      return 1;
+   }
+
+   fscanf(file, "%[^,],%[^,],%[^,],%[^,],%[^,\n]", test.no, test.name, test.price, test.remain, test.sold);
+
+   fscanf(file, "%d,%[^,],%f,%d,%d\n", &id, Name, &price, &remain, &sold);
+
+   while (!feof(file)) {
+      // Skip the product if the name is not the same as the given name and skip the product if the remain is 0 and the mode is customer.
+      if (price <= max && price >= min) {
+         if (isNoProduct) {
+            printf("+--------------------------------[Products]---------------------------------+\n");
+            printf("| %-2s  | %16s%-13s|%9s%-3s|%9s%-3s|%8s%-4s|\n", "Id", test.name," ", test.price, " ", test.remain, " ", test.sold, " ");
+            printf("|%s|%16s|%12s|%8s|%6s|\n", "-----", "------------------------------", "------------", "------------", "------------");
+            isNoProduct = 0;
+         }
+         printf("|  %-2d | %-28s | %-7.2f%s | %-4d%6s | %-4d%6s |\n", id, Name, price, "THB", remain, "Items", sold, "Items");
+      }
+
+      fscanf(file, "%d,%[^,],%f,%d,%d\n", &id, Name, &price, &remain, &sold);
+
+      if (remain == 0 && strcmp(mode, "customer") == 0) continue;
+
+   }
+
+   if (!isNoProduct || (price <= max && price >= min)) {
+      if (isNoProduct) {
+         printf("+--------------------------------[Products]---------------------------------+\n");
+         printf("| %-2s  | %16s%-13s|%9s%-3s|%9s%-3s|%8s%-4s|\n", "Id", test.name," ", test.price, " ", test.remain, " ", test.sold, " ");
+         printf("|%s|%16s|%12s|%8s|%6s|\n", "-----", "------------------------------", "------------", "------------", "------------");
+         isNoProduct = 0;
+      }
+      printf("|  %-2d | %-28s | %-7.2f%s | %-4d%6s | %-4d%6s |\n", id, Name, price, "THB", remain, "Items", sold, "Items");
+      printf("+---------------------------------------------------------------------------+\n");
+   }
+
+   if (isNoProduct) {
+      printf("No product available.\n");
+      delay(1);
+      return 1;
+   }
+
+
+   free(Name);
+   fclose(file);
+
+   return 0;
+}
+
 int createProduct(Product product) {
    /*
       Use to create a product
@@ -639,8 +781,6 @@ int purchaseMultipleProduct(ProductList *products, double *totalPrice) {
 
       while (temp != NULL) {
 
-         Log("(tmp) Product '%d' has been purchased.", temp->product.id);
-
          if (temp->product.id == id) {
 
             writeProducts[i].product.id = id;
@@ -652,6 +792,8 @@ int purchaseMultipleProduct(ProductList *products, double *totalPrice) {
             writeProducts[i].product.sold = sold + temp->product.remain;
 
             *totalPrice += ((double) temp->product.remain * price);
+
+            updateDailySummary(0, temp->product.remain, "purchase");
 
             i++;
 
@@ -1321,7 +1463,7 @@ int writeCouponAutoPurchase(Coupon coupon, char* username) {
    return 0;
 }
 
-ProductList *LoadUserSettingList(int* ctr, char* username) {
+ProductList *LoadUserSettingList(int* ctr, char* username, int* total) {
    /*
       This function use to load the user setting list from the file.
 
@@ -1550,6 +1692,8 @@ void autoPurchase(char *username) {
 
    ProductList *productList;
 
+   int totalProduct = 0;
+
    productList = malloc(sizeof(ProductList));
 
    if (productList == NULL) {
@@ -1560,7 +1704,7 @@ void autoPurchase(char *username) {
 
    int ctr = 0;
 
-   productList = LoadUserSettingList(&ctr, username);
+   productList = LoadUserSettingList(&ctr, username, &totalProduct);
 
    char *filename;
 
@@ -1609,20 +1753,25 @@ void autoPurchase(char *username) {
 
          if (!strcmp(coupon.type, "PERCENTAGE")) {
             totalPrice -= (totalPrice * coupon.discount / 100);
+            updateDailySummary(totalPrice, totalProduct, "coupon");
          }
          else if (!strcmp(coupon.type, "MINIMUM")) {
             if (totalPrice < coupon.minAmount) {
                totalPrice -= coupon.discount;
+               updateDailySummary(totalPrice, totalProduct, "coupon");
             }
             else {
                clearScreen();
                delay(1);
                printf("Coupon can't be applied\n");
                Log("Coupon can't be applied because the total price is below the minimum amount");
+               updateDailySummary(totalPrice, totalProduct, "no coupon");
             }
          }
       }
-
+      else {
+         updateDailySummary(totalPrice, totalProduct, "no coupon");
+      }
    }
 
    delay(1);
@@ -1682,4 +1831,143 @@ UserSettingList* AppendAndEditUserSettingList(UserSettingList *userSettingList, 
    }
 
    return head;
+}
+
+void updateDailySummary(float Price, int amount, char *mode) {
+   /*
+      This function use to update the daily summary
+
+      return nothing
+   */
+
+   float earningWithoutCoupon = 0;
+   float earningWithCoupon = 0;
+   float totalEarning = 0;
+   int totalProductSold = 0;
+
+   time_t currentTime;
+   time(&currentTime);
+
+   struct tm *tm_local = localtime(&currentTime);
+
+   char *dirDate = malloc(100 * sizeof(char));
+   char *tmpDirdate = malloc(100 * sizeof(char));
+
+   int day = tm_local->tm_mday;
+   int month = tm_local->tm_mon + 1;
+   int year = tm_local->tm_year + 1900;
+
+   sprintf(dirDate, "Report/%02d-%02d-%04d_report.csv", day, month, year);
+   sprintf(tmpDirdate, "Report/__%02d-%02d-%04d_report.csv", day, month, year);
+
+   FILE *tmpFile = fopen(tmpDirdate, "w+");
+   FILE *file = fopen(dirDate, "r");
+
+   if (ferror(file) || file == NULL || ferror(tmpFile) || tmpFile == NULL) {
+      printf("%s\n", strerror(errno));
+      fclose(file);
+      return;
+   }
+
+
+   if (ferror(file) || ferror(tmpFile)) {
+      printf("%s\n", strerror(errno));
+      fclose(file);
+      fclose(tmpFile);
+      return;
+   }
+
+   char header[256];
+   if (fgets(header, sizeof(header), file) == NULL) {
+      perror("Error reading header");
+      fclose(file);
+      return;
+   }
+
+
+   fscanf(file, "%f,%f,%f,%d\n", &earningWithoutCoupon, &earningWithCoupon, &totalEarning, &totalProductSold);
+
+   Log("Earning without coupon: %.2f", earningWithoutCoupon);
+   Log("Earning with coupon: %.2f", earningWithCoupon);
+   Log("Total Earning: %.2f", totalEarning);
+   Log("Total Product Sold: %d", totalProductSold);
+
+   if (!strcmp(mode, "coupon")) {
+      earningWithCoupon += Price;
+   }
+   else {
+      earningWithoutCoupon += Price;
+   }
+
+   totalEarning += Price;
+   totalProductSold += amount;
+
+
+   fprintf(tmpFile, "%s,%s,%s,%s\n", "Earning without coupon", "Earning with coupon", "Total Earning", "Total Product Sold");
+
+   fprintf(tmpFile, "%.2f,%.2f,%.2f,%d\n", earningWithoutCoupon, earningWithCoupon, totalEarning, totalProductSold);
+
+   fclose(file);
+   fclose(tmpFile);
+
+   // Delete the old file and rename the temporarily file to the deleted file.
+   remove(dirDate);
+   rename(tmpDirdate, dirDate);
+
+   return;
+}
+
+void displayDailySummary(int day, int month, int year) {
+   /*
+      This function use to display the daily summary
+
+      return nothing
+   */
+
+   delay(1);
+   clearScreen();
+
+   char *dirDate = malloc(100 * sizeof(char));
+
+   sprintf(dirDate, "Report/%02d-%02d-%04d_report.csv", day, month, year);
+
+   if (!isFileExists(dirDate)) {
+      printf("There is no report for %02d-%02d-%04d\n", day, month, year);
+      printf("Press enter to continue...");
+      getch();
+      return;
+   }
+
+   FILE *file = fopen(dirDate, "r");
+
+   if (ferror(file) || file == NULL) {
+      printf("%s\n", strerror(errno));
+      fclose(file);
+      return;
+   }
+
+   char header[256];
+   if (fgets(header, sizeof(header), file) == NULL) {
+      perror("Error reading header");
+      fclose(file);
+      return;
+   }
+
+   float earningWithoutCoupon = 0;
+   float earningWithCoupon = 0;
+   float totalEarning = 0;
+   int totalProductSold = 0;
+
+   fscanf(file, "%f,%f,%f,%d\n", &earningWithoutCoupon, &earningWithCoupon, &totalEarning, &totalProductSold);
+
+   borderup();
+   printf("   Earning without coupon: %.2f THB.\n", earningWithoutCoupon);
+   printf("   Earning with coupon: %.2f THB.\n", earningWithCoupon);
+   printf("   Total Earning: %.2f THB.\n", totalEarning);
+   printf("   Total Product Sold: %d Items\n", totalProductSold);
+   borderdown();
+   printf("Press enter to continue...");
+   getch();
+   clearScreen();
+   delay(1);
 }

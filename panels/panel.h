@@ -21,11 +21,15 @@ void adminPanel(User* user, Setting* setting);
 
 void setUpAutoPurchasePanel(User* user);
 
-int useCouponPanel(User* user, ProductList *productList, double *total);
+int useCouponPanel(User* user, ProductList *productList, double *total, int *amount);
 
 void selectCouponAutoPurchasePanel(User *user);
 
 void askAutoPurchasePanel(User *user);
+
+void printProductFilterByPricePanel(User* user);
+
+void printProductByNamePanel(User* user);
 
 // Admin Controller
 void productAdminSeleted(Setting* setting);
@@ -41,3 +45,5 @@ void couponAdminSeleted();
 void createCouponPanel();
 
 void deleteCouponPanel();
+
+void askDailySummary();

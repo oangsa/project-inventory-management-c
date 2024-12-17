@@ -231,8 +231,10 @@ void productUserSeleted(User* user) {
       }
 
       printf("   Product\n");
-      printf("   1. Buy\n");
-      printf("   2. Back\n");
+      printf("   1. Search Product\n");
+      printf("   2. Filter Product by Price\n");
+      printf("   3. Buy\n");
+      printf("   4. Back\n");
       printf("   Choose: ");
       scanf(" %[^\n]s", choose);
 
@@ -240,6 +242,17 @@ void productUserSeleted(User* user) {
 
       switch (num) {
          case 1:
+            Log("Search product triggered");
+            clearScreen();
+            printProductByNamePanel(user);
+            break;
+
+         case 2:
+            Log("Filter product by price triggered");
+            clearScreen();
+            printProductFilterByPricePanel(user);
+            break;
+         case 3:
             Log("Buy product triggered");
             clearScreen();
             // clearScreen();
@@ -250,7 +263,7 @@ void productUserSeleted(User* user) {
             }
             purcheaseProductPanel(user);
             break;
-         case 2:
+         case 4:
             delay(1);
             clearScreen();
             return;
@@ -263,9 +276,111 @@ void productUserSeleted(User* user) {
    }
 }
 
+void printProductFilterByPricePanel(User* user) {
+   char *choose;
+   float min, max;
+
+   choose = malloc(100 * sizeof(char));
+
+   if (choose == NULL) {
+      Log("Memory allocation failed.");
+      printf("   Memory allocation failed.\n");
+      delay(2);
+      clearScreen();
+      return;
+   }
+
+   while (1) {
+      clearScreen();
+      printf("   Filter Product by Price (Enter E or e to exit)\n");
+      printf("   Min Price: ");
+      if (!strcmp(choose, "E") || !strcmp(choose, "e")) {
+         delay(1);
+         clearScreen();
+         return;
+      }
+      scanf(" %s", choose);
+      min = atof(choose);
+      printf("   Max Price: ");
+      scanf(" %s", choose);
+      max = atof(choose);
+
+      clearScreen();
+      delay(1);
+
+
+      if (!printProductFilterByPrice(min, max, "customer")) {
+         free(choose);
+         printf("Press enter to continue...");
+         getch();
+         clearScreen();
+         delay(1);
+         return;
+      }
+
+      if (!strcmp(choose, "E") || !strcmp(choose, "e")) {
+         delay(1);
+         clearScreen();
+         return;
+      }
+   }
+}
+
+void printProductByNamePanel(User* user) {
+   char *choose;
+   char *name;
+
+   choose = malloc(100 * sizeof(char));
+   name = malloc(100 * sizeof(char));
+
+   if (choose == NULL || name == NULL) {
+      Log("Memory allocation failed.");
+      printf("   Memory allocation failed.\n");
+      delay(2);
+      clearScreen();
+      return;
+   }
+
+
+   clearScreen();
+   printf("   Search Product (Enter E or e to exit)\n");
+   printf("   Name: ");
+   scanf(" %[^\n]s", name);
+
+   clearScreen();
+   delay(1);
+
+   if (!printProductFilterByName(name, "customer")) {
+      free(choose);
+      free(name);
+      printf("Press enter to continue...");
+      getch();
+      clearScreen();
+      delay(1);
+      return;
+   }
+   else {
+      printf("   Product not found.\n");
+      delay(2);
+      clearScreen();
+      return;
+   }
+
+
+   if (!strcmp(choose, "E") || !strcmp(choose, "e")) {
+      free(choose);
+      free(name);
+      delay(1);
+      clearScreen();
+      return;
+   }
+
+}
+
 void purcheaseProductPanel(User* user) {
    ProductList *productList;
    double total = 0;
+   int amount = 0;
    int counter = 0;
 
    productList = (ProductList*) malloc(sizeof(ProductList));
@@ -309,7 +424,7 @@ void purcheaseProductPanel(User* user) {
       clearScreen();
       printProduct("customer");
       printf("   Product\n");
-      printf("   Id: ");
+      printf("   Name: ");
       scanf(" %[^\n]s", id);
 
       Log("User '%s' add product '%s' to the cart.", user->username, id);
@@ -317,8 +432,7 @@ void purcheaseProductPanel(User* user) {
       printf("   Amount: ");
       scanf(" %d", &product.remain);
 
-
-      product.id = atoi(id);
+      product.name = copyString(id, strlen(id));
 
 
       if (product.remain <= 0) {
@@ -328,7 +442,7 @@ void purcheaseProductPanel(User* user) {
          continue;
       }
 
-      if (!canPurchase(product, "normal")) {
+      if (!canPurchase(product, "loadSetting")) {
          delay(2);
          clearScreen();
          printf("   Product is out of stock or the provided amount is greater than the stock..\n");
@@ -336,8 +450,12 @@ void purcheaseProductPanel(User* user) {
          continue;
       }
 
-      productList = AppendOrEditProduct(productList, product, &counter, "userBuy");
-      Log("User '%s' add product '%d' to the cart(2).", user->username, product.id);
+      productList = AppendOrEditProduct(productList, product, &counter, "loadSetting");
+
+      Log("User '%s' add product '%s' to the cart(2).", user->username, product.name);
+      Log("User add %d product(s) to the cart.", product.remain);
+
+      amount += product.remain;
 
       printf("   Do you want to buy more? (Y/N): ");
       scanf(" %[^\n]s", choose);
@@ -361,7 +479,7 @@ void purcheaseProductPanel(User* user) {
                   scanf(" %[^\n]s", choose);
 
                   if (!strcmp(choose, "Y") || !strcmp(choose, "y")) {
-                     if (useCouponPanel(user, productList, &total)) {
+                     if (useCouponPanel(user, productList, &total, &amount)) {
                         printf("   Coupon has been used.\n");
                         delay(2);
                         clearScreen();
@@ -376,7 +494,8 @@ void purcheaseProductPanel(User* user) {
                   }
                   else if (!strcmp(choose, "N") || !strcmp(choose, "n")) {
                      delay(1);
-                     purchaseMultipleProduct(productList, &total);
+                     purchaseMultipleProductWithName(productList, &total);
+                     updateDailySummary(total, amount, "no coupon");
                      delay(1);
                      clearScreen();
                      delay(1);
@@ -405,7 +524,7 @@ void purcheaseProductPanel(User* user) {
    }
 }
 
-int useCouponPanel(User* user, ProductList* productList, double* total) {
+int useCouponPanel(User* user, ProductList* productList, double* total, int* amount) {
    char *choose;
    Coupon coupon;
 
@@ -420,7 +539,7 @@ int useCouponPanel(User* user, ProductList* productList, double* total) {
       return 0;
    }
 
-   purchaseMultipleProduct(productList, total);
+   purchaseMultipleProductWithName(productList, total);
 
    while (1) {
       clearScreen();
@@ -430,6 +549,8 @@ int useCouponPanel(User* user, ProductList* productList, double* total) {
       printf("   Coupon\n");
       printf("   Code: ");
       scanf(" %[^\n]s", coupon.code);
+
+      Log("User '%s' use coupon '%s'", user->username, coupon.code);
 
       coupon = getCouponByCode(coupon.code);
 
@@ -461,7 +582,7 @@ int useCouponPanel(User* user, ProductList* productList, double* total) {
             continue;
          }
          discounted = coupon.discount;
-         printf("    You will get %.2f THB discount.\n", discounted);
+         printf("   You will get %.2f THB discount.\n", discounted);
       }
 
       printf("   Do you want to use this coupon? (Y/N): ");
@@ -473,6 +594,7 @@ int useCouponPanel(User* user, ProductList* productList, double* total) {
          free(choose);
 
          printf("   Total: %.2f THB\n", *total);
+         updateDailySummary(*total, *amount, "coupon");
          delay(2);
          return 1;
       }
@@ -650,10 +772,9 @@ void adminPanel(User* user, Setting* setting) {
       borderup();
       printf("   Admin Panel\n");
       printf("   1. Product\n");
-      printf("   2. User\n");
-      printf("   3. Coupon\n");
-      printf("   4. Setting\n");
-      printf("   5. Logout\n");
+      printf("   2. Coupon\n");
+      printf("   3. View Daily Summary\n");
+      printf("   4. Logout\n");
       printf("   Choose: ");
       scanf(" %d", &choose);
       borderdown();
@@ -665,17 +786,16 @@ void adminPanel(User* user, Setting* setting) {
             productAdminSeleted(setting);
             break;
          case 2:
-            // printUser();
-            break;
-         case 3:
             delay(1);
             clearScreen();
             couponAdminSeleted();
             break;
-         case 4:
-            // printSetting();
+         case 3:
+            delay(1);
+            clearScreen();
+            askDailySummary();
             break;
-         case 5:
+         case 4:
             Log("Admin '%s' has been logged out.", user->username);
             logout(user);
             return;
@@ -734,6 +854,24 @@ void couponAdminSeleted() {
          clearScreen();
       }
    }
+}
+
+void askDailySummary() {
+   char day[99];
+   char month[99];
+   char year[99];
+
+   borderup();
+   printf("   Select Report Date: \n");
+   printf("   Day: ");
+   scanf(" %[^,\n]s", day);
+   printf("   Month: ");
+   scanf(" %[^,\n]s", month);
+   printf("   Year: ");
+   scanf(" %[^,\n]s", year);
+   borderdown();
+
+   displayDailySummary(atoi(day), atoi(month), atoi(year));
 }
 
 // void createCouponPanel() {

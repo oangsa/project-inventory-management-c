@@ -117,7 +117,7 @@ int canPurchase(Product targetProduct, char* mode) {
    while (!feof(file)) {
       fscanf(file, "%d,%[^,],%f,%d,%d\n", &id, name, &price, &remain, &sold);
 
-      // Log("Product (CanPurchase): %d, %s, %.2f, %d, %d", id, name, price, remain, sold);
+      Log("Product (CanPurchase): %d, %s, %.2f, %d, %d", id, name, price, remain, sold);
 
       if (!Mode) {
          if (targetProduct.id == id) {
@@ -140,6 +140,7 @@ int canPurchase(Product targetProduct, char* mode) {
                return 1;
             }
 
+            printf("You are no longer be purchase this product as if I out of stock (%s).\n", name);
             fclose(file);
             free(name);
             return 0;
@@ -193,7 +194,10 @@ ProductList *AppendOrEditProduct(ProductList *productList, Product targetProduct
                // Log("Target Product remain: %d", targetProduct.remain);
 
                productList->product.remain += targetProduct.remain;
-
+               if(!canPurchase(targetProduct, "loadSetting")) {
+                  printf("   Product is out of stock or the provided amount is greater than the stock..\n");
+                  return head;
+               }
                return head;
             }
             if (productList->next == NULL) break;
@@ -218,6 +222,8 @@ ProductList *AppendOrEditProduct(ProductList *productList, Product targetProduct
 
          // newNode->product.name = malloc(999 * sizeof(char));
 
+         Log("Product: %s", targetProduct.name);
+
          newNode->product.name = copyString(targetProduct.name, strlen(targetProduct.name) + 1);
          newNode->product.remain = targetProduct.remain;
          newNode->next = NULL;
@@ -226,6 +232,7 @@ ProductList *AppendOrEditProduct(ProductList *productList, Product targetProduct
             productList->next = newNode;
          }
          else {
+            Log("Head: %s", newNode->product.name);
             head = newNode;
          }
       }
@@ -454,7 +461,8 @@ int setup(User* user) {
 
       if (!isFileExists(dirDate)) {
          file = fopen(dirDate, "a+");
-         fprintf(file, "Earning without coupon,Earning with coupon,Total Earning,Total Product Sold,Top Sold Product,Least Sold Product\n");
+         fprintf(file, "Earning without coupon,Earning with coupon,Total Earning,Total Product Sold\n");
+         fprintf(file, "0.00,0.00,0.00,0\n");
          fclose(file);
       }
    }
@@ -474,7 +482,8 @@ int setup(User* user) {
 
       if (!isFileExists(dirDate)) {
          file = fopen(dirDate, "a+");
-         fprintf(file, "Earning without coupon,Earning with coupon,Total Earning,Total Product Sold,Top Sold Product,Least Sold Product\n");
+         fprintf(file, "Earning without coupon,Earning with coupon,Total Earning,Total Product Sold\n");
+         fprintf(file, "0.00,0.00,0.00,0\n");
          fclose(file);
       }
    }

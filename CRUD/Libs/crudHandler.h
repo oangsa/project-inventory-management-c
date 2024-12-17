@@ -44,9 +44,9 @@ typedef struct UserSettingList {
 // Product Handling
 void cacheProduct();
 
-void printProductFilterByName(char *name);
+int printProductFilterByName(char *name, char *mode);
 
-void printProductFilterByPrice(float min, float max);
+int printProductFilterByPrice(float min, float max, char *mode);
 
 int printProduct(char *mode);
 
@@ -73,7 +73,7 @@ void autoRestock(Setting *setting);
 // User Handling
 int createUserSetting(UserSetting *setting, char* username);
 
-ProductList *LoadUserSettingList(int* ctr, char *username);
+ProductList *LoadUserSettingList(int* ctr, char* username, int* total);
 
 UserSettingList* AppendAndEditUserSettingList(UserSettingList *userSettingList, UserSetting userSetting);
 
@@ -92,3 +92,10 @@ int checkSetting(Setting *targetSetting);
 int createSetting(Setting setting);
 
 int updateSetting(Setting *setting);
+
+
+// Daily Summary
+
+void updateDailySummary(float Price, int amount, char *mode);
+
+void displayDailySummary(int day, int month, int year);

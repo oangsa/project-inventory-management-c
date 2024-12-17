@@ -51,7 +51,7 @@ void displayCoupons(const char *filename) {
          printf("|  %-3d| %-28s | %3.2f%2s             | %2s%-6s | %-13s |    %-13s |\n", tmp.id, tmp.code, tmp.discount, "%", " ", "PER", "-", buffer);
          // printf("| %-3d | %-28s | %-19.2f THB | %-8s | %-13s | %-16s |\n", tmp.id, tmp.code, tmp.discount, "PER", "-", buffer);
       } else if (strcmp(type, "MINIMUM") == 0) {
-         printf("|  %-3d| %-28s | %3.2f%2s             | %2s%-6s | %3.2f%4s    |    %-13s |\n", tmp.id, tmp.code, tmp.discount, "THB", " ", "MIN", minAmount, "THB", buffer);
+         printf("|  %-3d| %-28s | %3.2f%4s           | %2s%-6s | %3.2f%4s    |    %-13s |\n", tmp.id, tmp.code, tmp.discount, "THB", " ", "MIN", minAmount, "THB", buffer);
          // printf("| %-3d | %-28s | %-19.2f THB | %-8s | %-13.2f THB | %-16s |\n", tmp.id, tmp.code, tmp.discount, "MIN", minAmount, buffer);
       } else {
          printf("| %-3d | %-28s | %-19.2f THB | %-8s | %-13s | %-16s |\n", tmp.id, tmp.code, tmp.discount, "UKN", "-", buffer);
@@ -350,6 +350,9 @@ Coupon getCouponByCode(char* couponCode) {
 
       // อ่านข้อมูลจากบรรทัด
       int fieldsRead = sscanf(line, "%d,%19[^,],%f,%ld,%19[^,],%f", &coupon.id, coupon.code, &coupon.discount, &coupon.expirationDate, coupon.type, &minAmount);
+
+      Log("Coupon code: %s", coupon.code);
+      Log("Coupon minAmount: %.2f", minAmount);
 
       if (fieldsRead < 4) continue;
 
