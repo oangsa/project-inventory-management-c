@@ -403,7 +403,7 @@ int setup(User* user) {
       fprintf(file, "%s,%s,%s\n", u, p, r);
       fclose(file);
 
-      isUserExist = 1;
+      isUserExist = 0;
    }
    else {
       if (!isFileExists("Cache/__MockUpProduct.csv")) {
@@ -412,10 +412,6 @@ int setup(User* user) {
       }
 
       if (!isFileExists("Cache/__users.csv")) {
-         file = fopen("Cache/__users.csv", "a+");
-         fprintf(file, "%s,%s,%s\n", u, p, r);
-         fclose(file);
-
          isUserExist = 1;
       }
    }
@@ -527,6 +523,8 @@ int setup(User* user) {
 
       return 0;
    }
+
+   user->username = NULL;
 
    Log("No user found");
 

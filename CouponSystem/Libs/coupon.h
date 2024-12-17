@@ -14,7 +14,7 @@ typedef struct {
 } Coupon;
 
 // Function prototypes
-void displayCoupons(const char *filename);
+int displayCoupons(const char *filename);
 void addCoupon(const char *filename);
 void deleteCoupon(const char *filename);
 void selectCoupon(const char *filename);

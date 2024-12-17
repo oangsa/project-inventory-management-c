@@ -1043,7 +1043,7 @@ void getProduct(int productId, Product* product) {
    return;
 }
 
-void Restock(Setting *setting) {
+void Restock(Setting *setting, char* mode) {
    /*
       Restocking the product that have the remaining stock below
       the threshold
@@ -1098,8 +1098,13 @@ void Restock(Setting *setting) {
    while (!feof(file)) {
       fscanf(file, "%d,%[^,],%f,%d,%d\n", &id, name, &price, &remain, &sold);
 
-      if (expectLeastStock > (float) remain) {
-         remain = setting->fullStock;
+      if (expectLeastStock > (float) remain || !strcmp(mode, "force")) {
+         if (remain >= setting->fullStock) {
+            remain = remain;
+         }
+         else {
+            remain = setting->fullStock;
+         }
       }
 
       products[i].id = id;
@@ -1185,7 +1190,7 @@ void checkStock(Setting *setting) {
          fclose(file);
 
          printf("Restocking...\n");
-         Restock(setting);
+         Restock(setting, "normal");
       }
    }
    else {
@@ -1935,22 +1940,28 @@ void displayDailySummary(int day, int month, int year) {
 
    if (day == 0 || month == 0 || year == 0) {
       printf("Invalid date\n");
-      printf("Press enter to continue...");
+      printf("Press enter to continue...\n");
       getch();
+      clearScreen();
+      delay(1);
       return;
    }
 
    if (day > 31 || month > 12 || year < 1900) {
       printf("Invalid date\n");
-      printf("Press enter to continue...");
+      printf("Press enter to continue...\n");
       getch();
+      clearScreen();
+      delay(1);
       return;
    }
 
-   if (day == d || month == m || year == y) {
+   if (day == d && month == m && year == y) {
       printf("There's no report for today yet.\n");
-      printf("Press enter to continue...");
+      printf("Press enter to continue...\n");
       getch();
+      clearScreen();
+      delay(1);
       return;
    }
 
@@ -1964,8 +1975,10 @@ void displayDailySummary(int day, int month, int year) {
 
    if (!isFileExists(dirDate)) {
       printf("There is no report for %02d-%02d-%04d\n", day, month, year);
-      printf("Press enter to continue...");
+      printf("Press enter to continue...\n");
       getch();
+      clearScreen();
+      delay(1);
       return;
    }
 

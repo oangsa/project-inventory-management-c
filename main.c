@@ -63,6 +63,16 @@ int main(void) {
       if (isLogin == 0 && logOrReg == 1) {
          if (loginPanel("Login", username, password, &user)) {
             isLogin = 1;
+            delay(1);
+            Log("Work");
+            Log("%s", user.role);
+            if (!strcmp(user.role, "admin")) autoRestock(&setting);
+            if (!strcmp(user.role, "customer")) {
+               clearScreen();
+               printf("Attempting to auto purchase...\n");
+               autoPurchase(user.username);
+               delay(1);
+            }
             continue;
          }
 

@@ -66,7 +66,7 @@ void getProduct(int productId, Product* product);
 
 void checkStock(Setting *setting);
 
-void Restock(Setting *setting);
+void Restock(Setting *setting, char* mode);
 
 void autoRestock(Setting *setting);
 

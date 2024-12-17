@@ -15,6 +15,7 @@ int setupPanel(Setting* setting, User* user, int* isUser) {
    Log("System is starting...");
    clearScreen();
    if (!setup(user)) *isUser = 2;
+   Log("%d", *isUser);
    delay(1);
    printf("Done.\n");
    delay(1);
@@ -60,16 +61,19 @@ int setupPanel(Setting* setting, User* user, int* isUser) {
    printf("Done.\n");
    Log("Product has been cached.");
 
-   delay(1);
-   Log("Work");
-   Log("%s", user->role);
-   if (!strcmp(user->role, "admin")) autoRestock(setting);
-   if (!strcmp(user->role, "customer")) {
-      clearScreen();
-      printf("Attempting to auto purchase...\n");
-      autoPurchase(user->username);
+   if (user->username != NULL) {
       delay(1);
+      Log("Work");
+      Log("%s", user->role);
+      if (!strcmp(user->role, "admin")) autoRestock(setting);
+      if (!strcmp(user->role, "customer")) {
+         clearScreen();
+         printf("Attempting to auto purchase...\n");
+         autoPurchase(user->username);
+         delay(1);
+      }
    }
+
    clearScreen();
    delay(2);
    printf("Welcome to the system.\n");
@@ -110,10 +114,10 @@ int registerPanel(char* text, char* username, char* password, char* role) {
    borderup();
    printf("   %s       \n",text);
    printf("   Username: ");
-   scanf(" %s", username);
+   scanf(" %[^,\n]", username);
 
    printf("   Password: ");
-   scanf(" %s", password);
+   scanf(" %[^,\n]", password);
 
    if (!reg(username, password, role)) {
       printf("   Register successfully.\n");
@@ -140,10 +144,10 @@ int loginPanel(char* text, char* username, char* password, User* user) {
    borderup();
    printf("   %s       \n",text);
    printf("   Username: ");
-   scanf(" %s", username);
+   scanf(" %[^,\n]", username);
 
    printf("   Password: ");
-   scanf(" %s", password);
+   scanf(" %[^,\n]", password);
 
    if (!login(username, password, user)) {
       printf("   Login successfully.\n");
@@ -196,7 +200,15 @@ void userPanel(User* user, char* reportDate) {
             productUserSeleted(user);
             break;
          case 2:
-            // printCoupon();
+            Log("Coupon panel has been selected.");
+            printf("Redirecting to the coupon panel...\n");
+            delay(1);
+            clearScreen();
+            displayCoupons("Data/Coupon.csv");
+            printf("Press enter to continue...\n");
+            getch();
+            clearScreen();
+            delay(1);
             break;
          case 3:
             Log("Setting auto purchase panel has been selected.");
@@ -423,9 +435,15 @@ void purcheaseProductPanel(User* user) {
 
       clearScreen();
       printProduct("customer");
-      printf("   Product\n");
+      printf("   Product(Press E or e to exit)\n");
       printf("   Name: ");
       scanf(" %[^\n]s", id);
+
+      if (!strcmp(id, "E") || !strcmp(id, "e")) {
+         delay(1);
+         clearScreen();
+         return;
+      }
 
       Log("User '%s' add product '%s' to the cart.", user->username, id);
 
@@ -443,10 +461,10 @@ void purcheaseProductPanel(User* user) {
       }
 
       if (!canPurchase(product, "loadSetting")) {
-         delay(2);
-         clearScreen();
-         printf("   Product is out of stock or the provided amount is greater than the stock..\n");
          delay(1);
+         clearScreen();
+         printf("Product is out of stock, the provided amount is greater than the stock, or the product is not exist..\n");
+         delay(2);
          continue;
       }
 
@@ -488,6 +506,7 @@ void purcheaseProductPanel(User* user) {
                      }
                      else {
                         printf("   Coupon failed to be used.\n");
+                        updateDailySummary(total, amount, "no coupon");
                         delay(2);
                         clearScreen();
                      }
@@ -543,10 +562,14 @@ int useCouponPanel(User* user, ProductList* productList, double* total, int* amo
 
    while (1) {
       clearScreen();
-      displayCoupons("Data/Coupon.csv");
+      if (displayCoupons("Data/Coupon.csv")) {
+         printf("Press enter to continue...\n");
+         getch();
+         return 0;
+      }
       borderup();
       printf("   Total: %.2f THB\n", *total);
-      printf("   Coupon\n");
+      printf("   Coupon (Press E or e to exit.)\n");
       printf("   Code: ");
       scanf(" %[^\n]s", coupon.code);
 
@@ -722,6 +745,11 @@ void askAutoPurchasePanel(User* user) {
          delay(1);
          selectCouponAutoPurchasePanel(user);
       }
+      else if (!strcmp(choose, "3")) {
+         clearScreen();
+         delay(1);
+         return;
+      }
       else {
          printf("   Wrong input.\n");
          delay(2);
@@ -741,7 +769,11 @@ void setUpAutoPurchasePanel(User* user) {
    while (1) {
       clearScreen();
       delay(1);
-      printProduct("customer");
+      if (printProduct("customer")) {
+         clearScreen();
+         delay(1);
+         return;
+      }
       printf("   Product (Auto Purchase)\n");
       printf("   Name: ");
       scanf(" %[^\n]", userSetting.product.name);
@@ -951,12 +983,20 @@ void productAdminSeleted(Setting* setting) {
          case 4:
             delay(1);
             clearScreen();
-            checkStock(setting);
+            printProduct("admin");
+            printf("Press enter to continue...\n");
+            getch();
             delay(1);
             clearScreen();
             break;
          case 5:
-            // Restock();
+            delay(1);
+            clearScreen();
+            delay(1);
+            printf("Restocking...\n");
+            Restock(setting, "force");
+            delay(1);
+            clearScreen();
             break;
          case 6:
             delay(1);
@@ -984,7 +1024,7 @@ void createProductPanel() {
    borderup();
    printf("   Create Product(Type E or e to exit.)\n");
    printf("   Name: ");
-   scanf(" %s", product.name);
+   scanf(" %[^,\n]", product.name);
 
    if (!strcmp(product.name, "E") || !strcmp(product.name, "e") || !strcmp(product.name, "E or e")) {
       free(product.name);

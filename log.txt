@@ -2686,3 +2686,115 @@
 [11:25:37] admin
 [11:25:37] Time: 110.000000
 [11:25:37] Expect: 86400
+[16:44:12] System is starting...
+[16:44:13] TEST
+[16:44:13] User 'admin1' login
+[16:44:13] 2
+[16:44:15] Setting Loaded....
+[16:44:18] Product has been cached.
+[16:44:19] Work
+[16:44:19] admin
+[16:44:19] Time: 19232.000000
+[16:44:19] Expect: 86400
+[16:44:28] Admin 'admin1' has been logged out.
+[16:44:34] User 'test' has been logged in.
+[16:44:38] Work
+[16:44:38] customer
+[16:44:38] Attempting to auto purchase
+[16:44:38] Opening UserSetting/test_setting.csv
+[16:44:38] Time: 74946.000000
+[16:44:38] Expect: 86400
+[16:44:38] Loaded user setting list
+[16:44:49] Product panel has been selected.
+[16:45:06] Buy product triggered
+[16:45:12] User 'test' add product 'kuy' to the cart.
+[16:45:13] Product (CanPurchase): 1, Tom Yum Goong, 59.00, 58, 42
+[16:45:13] Product (CanPurchase): 2, Pad Krapao Moo, 99.99, 88, 12
+[16:45:13] Product (CanPurchase): 3, Stewed Eel with Spicy Soup, 150.00, 30, 0
+[16:45:13] Product (CanPurchase): 4, Lab Ka Pom, 80.00, 98, 2
+[16:45:13] Product (CanPurchase): 5, Dancing Shrimp, 49.00, 59, 0
+[16:45:13] Product (CanPurchase): 6, Fried Rice, 23.00, 30, 0
+[16:45:13] Product (CanPurchase): 7, Instant Noodle, 20.00, 50, 50
+[16:45:13] Product (CanPurchase): 8, Ramen, 99.99, 58, 132
+[16:54:26] System is starting...
+[16:54:27] TEST
+[16:54:27] User 'test' login
+[16:54:27] 2
+[16:54:29] Setting Loaded....
+[16:54:32] Product has been cached.
+[16:54:33] Work
+[16:54:33] customer
+[16:54:33] Attempting to auto purchase
+[16:54:33] Opening UserSetting/test_setting.csv
+[16:54:33] Time: 75541.000000
+[16:54:33] Expect: 86400
+[16:54:33] Loaded user setting list
+[16:54:47] Setting auto purchase panel has been selected.
+[16:55:37] System is starting...
+[16:55:38] TEST
+[16:55:38] User 'test' login
+[16:55:38] 2
+[16:55:40] Setting Loaded....
+[16:55:43] Product has been cached.
+[16:55:44] Work
+[16:55:44] customer
+[16:55:44] Attempting to auto purchase
+[16:55:44] Opening UserSetting/test_setting.csv
+[16:55:44] Time: 75612.000000
+[16:55:44] Expect: 86400
+[16:55:44] Loaded user setting list
+[16:55:58] Setting auto purchase panel has been selected.
+[16:56:08] Coupon panel has been selected.
+[16:56:09] Display coupon triggered.
+[16:56:09] Time: 80617.000000
+[16:56:09] Expect: 0
+[16:56:09] Time: -790711.000000
+[16:56:09] Expect: 0
+[16:57:37] System is starting...
+[16:57:38] TEST
+[16:57:38] User 'test' login
+[16:57:38] 2
+[16:57:40] Setting Loaded....
+[16:57:43] Product has been cached.
+[16:57:44] Work
+[16:57:44] customer
+[16:57:44] Attempting to auto purchase
+[16:57:44] Opening UserSetting/test_setting.csv
+[16:57:44] Time: 75732.000000
+[16:57:44] Expect: 86400
+[16:57:44] Loaded user setting list
+[16:58:01] Setting auto purchase panel has been selected.
+[16:58:09] Coupon panel has been selected.
+[16:58:10] Display coupon triggered.
+[16:58:10] Time: 80738.000000
+[16:58:10] Expect: 0
+[16:58:10] Time: -790590.000000
+[16:58:10] Expect: 0
+[16:58:26] User 'test' has been logged out.
+[16:58:33] User 'admin1' has been logged in.
+[16:58:37] Work
+[16:58:37] admin
+[16:58:37] Time: 20090.000000
+[16:58:37] Expect: 86400
+[16:59:11] Product 'Singh' has been created.
+[17:04:01] Product id '9' has been deleted.
+[17:07:18] System is starting...
+[17:07:19] TEST
+[17:07:19] User 'admin1' login
+[17:07:19] 2
+[17:07:21] Setting Loaded....
+[17:07:24] Product has been cached.
+[17:07:25] Work
+[17:07:25] admin
+[17:07:25] Time: 20618.000000
+[17:07:25] Expect: 86400
+[17:09:46] System is starting...
+[17:09:47] TEST
+[17:09:47] User 'admin1' login
+[17:09:47] 2
+[17:09:49] Setting Loaded....
+[17:09:52] Product has been cached.
+[17:09:53] Work
+[17:09:53] admin
+[17:09:53] Time: 20766.000000
+[17:09:53] Expect: 86400

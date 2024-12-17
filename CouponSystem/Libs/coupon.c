@@ -7,7 +7,7 @@
 #include <string.h>
 
 // Display all coupons
-void displayCoupons(const char *filename) {
+int displayCoupons(const char *filename) {
    Log("Display coupon triggered.");
    char header[256];
 
@@ -21,14 +21,14 @@ void displayCoupons(const char *filename) {
    FILE *file = fopen(filename, "r"); // Use "r" since you’re reading data
    if (!file) {
       perror("Error opening file");
-      return;
+      return -1;
    }
 
    // Read and log the header line
    if (fgets(header, sizeof(header), file) == NULL) {
       perror("Error reading header");
       fclose(file);
-      return;
+      return -1;
    }
 
    // Read and display coupon data
@@ -65,6 +65,8 @@ void displayCoupons(const char *filename) {
    printf("+--------------------------------------------------------------------------------------------------------+\n");
 
    fclose(file);
+
+   return isNoCoupon;
 }
 
 int getTotalCoupons(const char *filename) {
