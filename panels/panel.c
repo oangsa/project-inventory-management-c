@@ -119,28 +119,52 @@ int registerPanel(char* text, char* username, char* password, char* role) {
    printf("   Password: ");
    scanf(" %[^,\n]", password);
 
+   if (strlen(username) > 20 || strlen(password) > 20) {
+      printf("   Username and password must be\n   less than 20 characters.\n");
+      borderdown();
+      delay(2);
+      clearScreen();
+      return 0;
+   }
+
+   if (password == NULL || username == NULL) {
+      printf("   Username and password must not be empty.\n");
+      borderdown();
+      delay(2);
+      clearScreen();
+      return 0;
+   }
+
+   if (strlen(password) < 8) {
+      printf("   Password must be at least 8 characters.\n");
+      borderdown();
+      delay(2);
+      clearScreen();
+      return 0;
+   }
+
    if (!reg(username, password, role)) {
       printf("   Register successfully.\n");
       printf("   Please Login again\n");
       Log("User '%s' has been registered as a %s.", username, role);
       borderdown();
       printf("Redirecting to the login page...\n");
-      delay(3);
+      delay(2);
       clearScreen();
 
       return 1;
    }
    else {
-      printf("   Username already exist.\n  (Please wait for 3 second to re-enter.)\n");
+      printf("   Username already exist.\n");
       borderdown();
-      delay(3);
+      delay(2);
       clearScreen();
 
       return 0;
    }
 }
 
-int loginPanel(char* text, char* username, char* password, User* user) {
+int loginPanel(char* text, char* username, char* password, User* user, int* loginAttempt) {
    borderup();
    printf("   %s       \n",text);
    printf("   Username: ");
@@ -155,16 +179,17 @@ int loginPanel(char* text, char* username, char* password, User* user) {
       Log("User '%s' has been logged in.", username);
       borderdown();
       printf("Redirecting to the main page...\n");
-      delay(3);
+      delay(2);
       clearScreen();
 
       return 1;
    }
    else {
-      printf("   Wrong username or password.\n  (Please wait for 3 second to re-enter.)\n");
+      (*loginAttempt)++;
+      printf("   Wrong username or password.\n");
       Log("User '%s' attempted to login.", username);
       borderdown();
-      delay(3);
+      delay(2);
       clearScreen();
 
       return 0;

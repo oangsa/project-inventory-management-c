@@ -1,9 +1,9 @@
 NO,Name,Price,Remain,Sold
-1,Tom Yum Goong,59.00,30,42
-2,Pad Krapao Moo,99.99,30,12
-3,Stewed Eel with Spicy Soup,150.00,30,0
-4,Lab Ka Pom,80.00,30,2
-5,Dancing Shrimp,49.00,30,0
-6,Fried Rice,23.00,30,0
-7,Instant Noodle,20.00,30,50
+1,Tom Yum Goong,59.00,100,42
+2,Pad Krapao Moo,99.99,100,12
+3,Stewed Eel with Spicy Soup,150.00,100,0
+4,Lab Ka Pom,80.00,100,2
+5,Dancing Shrimp,49.00,100,0
+6,Fried Rice,23.00,100,0
+7,Instant Noodle,20.00,100,50
 8,Ramen,99.99,101,132

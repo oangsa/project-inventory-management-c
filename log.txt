@@ -2798,3 +2798,64 @@
 [17:09:53] admin
 [17:09:53] Time: 20766.000000
 [17:09:53] Expect: 86400
+[19:16:18] System is starting...
+[19:16:19] TEST
+[19:16:19] User 'admin1' login
+[19:16:19] 2
+[19:16:21] Setting Loaded....
+[19:16:25] Product has been cached.
+[19:16:26] Work
+[19:16:26] admin
+[19:16:26] Time: 28359.000000
+[19:16:26] Expect: 86400
+[19:16:58] User 'aaa' attempted to login.
+[19:26:01] System is starting...
+[19:26:02] TEST
+[19:26:02] User 'admin1' login
+[19:26:02] 2
+[19:26:04] Setting Loaded....
+[19:26:07] Product has been cached.
+[19:26:08] Work
+[19:26:08] admin
+[19:26:08] Time: 28941.000000
+[19:26:08] Expect: 86400
+[19:26:22] User 'aa' attempted to login.
+[19:26:28] User 'aa' attempted to login.
+[19:26:33] User 'aa' attempted to login.
+[19:27:12] System is starting...
+[19:27:13] TEST
+[19:27:13] User 'admin1' login
+[19:27:13] 2
+[19:27:15] Setting Loaded....
+[19:27:18] Product has been cached.
+[19:27:19] Work
+[19:27:19] admin
+[19:27:19] Time: 29012.000000
+[19:27:19] Expect: 86400
+[19:27:28] User 'test' has been logged in.
+[19:27:31] Work
+[19:27:31] customer
+[19:27:31] Attempting to auto purchase
+[19:27:31] Opening UserSetting/test_setting.csv
+[19:27:31] Time: 84719.000000
+[19:27:31] Expect: 86400
+[19:27:31] Loaded user setting list
+[19:29:08] System is starting...
+[19:29:09] TEST
+[19:29:09] User 'admin1' login
+[19:29:09] 2
+[19:29:11] Setting Loaded....
+[19:29:14] Product has been cached.
+[19:29:15] Work
+[19:29:15] admin
+[19:29:15] Time: 29128.000000
+[19:29:15] Expect: 86400
+[19:29:27] Admin 'admin1' has been logged out.
+[19:29:32] User 'test' has been logged in.
+[19:29:35] Work
+[19:29:35] customer
+[19:29:35] Attempting to auto purchase
+[19:29:35] Opening UserSetting/test_setting.csv
+[19:29:35] Time: 84843.000000
+[19:29:35] Expect: 86400
+[19:29:35] Loaded user setting list

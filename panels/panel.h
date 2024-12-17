@@ -4,7 +4,7 @@
 
 int setupPanel(Setting* setting, User* user, int* isUser);
 
-int loginPanel(char* text, char* username, char* password, User* user);
+int loginPanel(char* text, char* username, char* password, User* user, int* loginAttempt);
 
 int askLoginOrRegister(int* logOrReg, int* isLogin);
 

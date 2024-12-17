@@ -40,14 +40,17 @@ int main(void) {
 
    int logOrReg;
 
+   int loginAttempt = 0;
+
    // Setup the system
    if (setupPanel(&setting, &user, &isLogin)) {
       return 1;
    }
 
-   askLoginOrRegister(&logOrReg, &isLogin);
 
    while (1) {
+      askLoginOrRegister(&logOrReg, &isLogin);
+
       if (user.username == NULL) {
          isLogin = 0;
          clearScreen();
@@ -61,7 +64,14 @@ int main(void) {
       }
 
       if (isLogin == 0 && logOrReg == 1) {
-         if (loginPanel("Login", username, password, &user)) {
+         if (loginAttempt == 3) {
+            clearScreen();
+            delay(1);
+            printf("Too many login attempts. Exiting...\n");
+            delay(1);
+            break;
+         }
+         if (loginPanel("Login", username, password, &user, &loginAttempt)) {
             isLogin = 1;
             delay(1);
             Log("Work");
@@ -92,7 +102,7 @@ int main(void) {
          if (isLogin == 2) {
             printf("Welcome back, Admin %s!\n", user.username);
          }
-         delay(2);
+         delay(1);
          clearScreen();
          delay(1);
          adminPanel(&user, &setting);
@@ -101,7 +111,7 @@ int main(void) {
          if (isLogin == 2) {
             printf("Welcome back, %s!\n", user.username);
          }
-         delay(2);
+         delay(1);
          clearScreen();
          delay(1);
          userPanel(&user, reportName);
