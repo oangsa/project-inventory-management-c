@@ -100,7 +100,7 @@ void cacheProduct() {
 int printProduct(char *mode) {
    char* name;
    float price;
-   int id, remain, sold;
+   int id = 0, remain, sold;
 
    int isNoProduct = 1;
 
@@ -126,6 +126,7 @@ int printProduct(char *mode) {
    fscanf(file, "%d,%[^,],%f,%d,%d\n", &id, name, &price, &remain, &sold);
 
    while (!feof(file)) {
+
       if (isNoProduct) {
          printf("+--------------------------------[Products]---------------------------------+\n");
          printf("| %-2s  | %16s%-13s|%9s%-3s|%9s%-3s|%8s%-4s|\n", "Id", test.name," ", test.price, " ", test.remain, " ", test.sold, " ");
@@ -138,6 +139,13 @@ int printProduct(char *mode) {
 
       if (remain == 0 && strcmp(mode, "customer") == 0) continue;
 
+   }
+
+   if (id && isNoProduct) {
+      printf("+--------------------------------[Products]---------------------------------+\n");
+      printf("| %-2s  | %16s%-13s|%9s%-3s|%9s%-3s|%8s%-4s|\n", "Id", test.name," ", test.price, " ", test.remain, " ", test.sold, " ");
+      printf("|%s|%16s|%12s|%8s|%6s|\n", "-----", "------------------------------", "------------", "------------", "------------");
+      isNoProduct = 0;
    }
 
    if (!isNoProduct) {
@@ -211,9 +219,9 @@ int printProductFilterByName(char *name, char *mode) {
          printf("+--------------------------------[Products]---------------------------------+\n");
          printf("| %-2s  | %16s%-13s|%9s%-3s|%9s%-3s|%8s%-4s|\n", "Id", test.name," ", test.price, " ", test.remain, " ", test.sold, " ");
          printf("|%s|%16s|%12s|%8s|%6s|\n", "-----", "------------------------------", "------------", "------------", "------------");
+         printf("|  %-2d | %-28s | %-7.2f%s | %-4d%6s | %-4d%6s |\n", id, name, price, "THB", remain, "Items", sold, "Items");
       }
       isNoProduct = 0;
-      printf("|  %-2d | %-28s | %-7.2f%s | %-4d%6s | %-4d%6s |\n", id, name, price, "THB", remain, "Items", sold, "Items");
       printf("+---------------------------------------------------------------------------+\n");
    }
 
@@ -281,9 +289,9 @@ int printProductFilterByPrice(float min, float max, char *mode) {
          printf("+--------------------------------[Products]---------------------------------+\n");
          printf("| %-2s  | %16s%-13s|%9s%-3s|%9s%-3s|%8s%-4s|\n", "Id", test.name," ", test.price, " ", test.remain, " ", test.sold, " ");
          printf("|%s|%16s|%12s|%8s|%6s|\n", "-----", "------------------------------", "------------", "------------", "------------");
+         printf("|  %-2d | %-28s | %-7.2f%s | %-4d%6s | %-4d%6s |\n", id, Name, price, "THB", remain, "Items", sold, "Items");
          isNoProduct = 0;
       }
-      printf("|  %-2d | %-28s | %-7.2f%s | %-4d%6s | %-4d%6s |\n", id, Name, price, "THB", remain, "Items", sold, "Items");
       printf("+---------------------------------------------------------------------------+\n");
    }
 

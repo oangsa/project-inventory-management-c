@@ -2859,3 +2859,227 @@
 [19:29:35] Time: 84843.000000
 [19:29:35] Expect: 86400
 [19:29:35] Loaded user setting list
+[21:29:40] System is starting...
+[21:29:41] TEST
+[21:29:41] User 'test' login
+[21:29:41] 2
+[21:29:43] Setting Loaded....
+[21:29:46] Product has been cached.
+[21:29:47] Work
+[21:29:47] customer
+[21:29:47] Attempting to auto purchase
+[21:29:47] Opening UserSetting/test_setting.csv
+[21:29:47] Time: 92055.000000
+[21:29:47] Expect: 86400
+[21:29:47] Flag: 0
+[21:29:47] Counter: 1
+[21:29:47] Product: 1
+[21:29:47] Head: 1
+[21:29:47] Loaded user setting list
+[21:29:47] (tmp) Product '1' has been purchased.
+[21:29:47] (tmp) Product '1' has been purchased.
+[21:29:47] (tmp) Product '1' has been purchased.
+[21:29:47] (tmp) Product '1' has been purchased.
+[21:29:47] (tmp) Product '1' has been purchased.
+[21:29:47] (tmp) Product '1' has been purchased.
+[21:29:47] (tmp) Product '1' has been purchased.
+[21:29:47] (tmp) Product '1' has been purchased.
+[21:29:47] Coupon code: à@
+[21:29:47] Coupon minAmount: 0.00
+[21:29:47] Coupon code: AAA
+[21:29:47] Coupon minAmount: 0.00
+[21:29:47] Coupon code: NIG
+[21:29:47] Coupon minAmount: 100.00
+[21:29:47] Earning without coupon: 2058.80
+[21:29:47] Earning with coupon: 989.90
+[21:29:47] Total Earning: 989.90
+[21:29:47] Total Product Sold: 10
+[21:29:51] Auto purchase done!
+[21:29:51] //Product 'Ramen' has been purchased.
+[21:29:51] //(tmp) Product '1' has been purchased.
+[21:29:51] //Product 'Ramen' has been purchased.
+[21:29:51] //(tmp) Product '1' has been purchased.
+[21:29:51] //Product '1' has been purchased.
+[21:29:51] //(tmp) Product '1' has been purchased.
+[21:29:51] //Product 'Tom Yum Goong' has been purchased.
+[21:29:51] //(tmp) Product '1' has been purchased.
+[21:33:15] Product panel has been selected.
+[21:33:19] Buy product triggered
+[21:33:37] User 'test' add product 'Ramen' to the cart.
+[21:33:38] Product (CanPurchase): 1, Tom Yum Goong, 59.00, 100, 42
+[21:33:38] Product (CanPurchase): 2, Pad Krapao Moo, 99.99, 100, 12
+[21:33:38] Product (CanPurchase): 3, Stewed Eel with Spicy Soup, 150.00, 100, 0
+[21:33:38] Product (CanPurchase): 4, Lab Ka Pom, 80.00, 100, 2
+[21:33:38] Product (CanPurchase): 5, Dancing Shrimp, 49.00, 100, 0
+[21:33:38] Product (CanPurchase): 6, Fried Rice, 23.00, 100, 0
+[21:33:38] Product (CanPurchase): 7, Instant Noodle, 20.00, 100, 50
+[21:33:38] Product (CanPurchase): 8, Ramen, 99.99, 101, 132
+[21:33:38] Flag: 0
+[21:33:38] Counter: 1
+[21:33:38] Product: Ramen
+[21:33:38] Head: Ramen
+[21:33:38] User 'test' add product 'Ramen' to the cart(2).
+[21:33:38] User add 10 product(s) to the cart.
+[21:33:47] User 'test' add product 'Fried Rice' to the cart.
+[21:33:54] Product (CanPurchase): 1, Tom Yum Goong, 59.00, 100, 42
+[21:33:54] Product (CanPurchase): 2, Pad Krapao Moo, 99.99, 100, 12
+[21:33:54] Product (CanPurchase): 3, Stewed Eel with Spicy Soup, 150.00, 100, 0
+[21:33:54] Product (CanPurchase): 4, Lab Ka Pom, 80.00, 100, 2
+[21:33:54] Product (CanPurchase): 5, Dancing Shrimp, 49.00, 100, 0
+[21:33:54] Product (CanPurchase): 6, Fried Rice, 23.00, 100, 0
+[21:33:54] Flag: 0
+[21:33:54] Counter: 2
+[21:33:54] Product: Fried Rice
+[21:33:54] User 'test' add product 'Fried Rice' to the cart(2).
+[21:33:54] User add 10 product(s) to the cart.
+[21:34:05] (tmp) Product 'Ramen' has been purchased.
+[21:34:05] (tmp) Product 'Fried Rice' has been purchased.
+[21:34:05] (tmp) Product 'Ramen' has been purchased.
+[21:34:05] (tmp) Product 'Fried Rice' has been purchased.
+[21:34:05] (tmp) Product 'Ramen' has been purchased.
+[21:34:05] (tmp) Product 'Fried Rice' has been purchased.
+[21:34:05] (tmp) Product 'Ramen' has been purchased.
+[21:34:05] (tmp) Product 'Fried Rice' has been purchased.
+[21:34:05] (tmp) Product 'Ramen' has been purchased.
+[21:34:05] (tmp) Product 'Fried Rice' has been purchased.
+[21:34:05] (tmp) Product 'Ramen' has been purchased.
+[21:34:05] (tmp) Product 'Fried Rice' has been purchased.
+[21:34:05] (tmp) Product 'Ramen' has been purchased.
+[21:34:05] (tmp) Product 'Fried Rice' has been purchased.
+[21:34:05] (tmp) Product 'Ramen' has been purchased.
+[21:34:05] Display coupon triggered.
+[21:34:05] Time: 97293.000000
+[21:34:05] Expect: 0
+[21:34:05] Time: -774035.000000
+[21:34:05] Expect: 0
+[21:34:15] User 'test' use coupon 'NIG'
+[21:34:15] Coupon code: Düb
+[21:34:15] Coupon minAmount: 0.00
+[21:34:15] Coupon code: AAA
+[21:34:15] Coupon minAmount: 0.00
+[21:34:15] Coupon code: NIG
+[21:34:15] Coupon minAmount: 100.00
+[21:34:15] Time: -774025.000000
+[21:34:15] Expect: 0
+[21:34:20] User 'test' use coupon 'NIG' with discount of 10.00 THB
+[21:34:20] Earning without coupon: 2058.80
+[21:34:20] Earning with coupon: 989.90
+[21:34:20] Total Earning: 989.90
+[21:34:20] Total Product Sold: 10
+[21:34:24] User 'test' purchase product(s) with total 1219.90 THB
+[21:36:10] Setting auto purchase panel has been selected.
+[21:37:04] Failed to open the user setting file for test
+[21:37:04] Lab Ka Pom
+[21:37:04] User 'test' has been set up auto purchase.
+[21:44:01] System is starting...
+[21:44:02] TEST
+[21:44:02] User 'test' login
+[21:44:02] 2
+[21:44:04] Setting Loaded....
+[21:44:07] Product has been cached.
+[21:44:08] Work
+[21:44:08] customer
+[21:44:08] Attempting to auto purchase
+[21:44:08] Opening UserSetting/test_setting.csv
+[21:44:08] Time: 857.000000
+[21:44:08] Expect: 86400
+[21:44:08] Time: 424.000000
+[21:44:08] Expect: 86400
+[21:44:08] Loaded user setting list
+[21:44:20] Product panel has been selected.
+[21:44:24] Search product triggered
+[21:44:28] Name: Tom Yum Goong, name: Ramen
+[21:44:28] Name: Pad Krapao Moo, name: Ramen
+[21:44:28] Name: Stewed Eel with Spicy Soup, name: Ramen
+[21:44:28] Name: Lab Ka Pom, name: Ramen
+[21:44:28] Name: Dancing Shrimp, name: Ramen
+[21:44:28] Name: Fried Rice, name: Ramen
+[21:44:28] Name: Instant Noodle, name: Ramen
+[21:44:33] Search product triggered
+[21:44:42] Name: Tom Yum Goong, name: Tom Yum Goong
+[21:44:42] Name: Pad Krapao Moo, name: Tom Yum Goong
+[21:44:42] Name: Stewed Eel with Spicy Soup, name: Tom Yum Goong
+[21:44:42] Name: Lab Ka Pom, name: Tom Yum Goong
+[21:44:42] Name: Dancing Shrimp, name: Tom Yum Goong
+[21:44:42] Name: Fried Rice, name: Tom Yum Goong
+[21:44:42] Name: Instant Noodle, name: Tom Yum Goong
+[21:46:41] System is starting...
+[21:46:42] TEST
+[21:46:42] User 'test' login
+[21:46:42] 2
+[21:46:44] Setting Loaded....
+[21:46:47] Product has been cached.
+[21:46:48] Work
+[21:46:48] customer
+[21:46:48] Attempting to auto purchase
+[21:46:48] Opening UserSetting/test_setting.csv
+[21:46:48] Time: 1017.000000
+[21:46:48] Expect: 86400
+[21:46:48] Time: 584.000000
+[21:46:48] Expect: 86400
+[21:46:48] Loaded user setting list
+[21:47:00] Product panel has been selected.
+[21:47:03] Search product triggered
+[21:47:08] Name: Tom Yum Goong, name: Tom Yum Goong
+[21:47:08] Name: Pad Krapao Moo, name: Tom Yum Goong
+[21:47:08] Name: Stewed Eel with Spicy Soup, name: Tom Yum Goong
+[21:47:08] Name: Lab Ka Pom, name: Tom Yum Goong
+[21:47:08] Name: Dancing Shrimp, name: Tom Yum Goong
+[21:47:08] Name: Fried Rice, name: Tom Yum Goong
+[21:47:08] Name: Instant Noodle, name: Tom Yum Goong
+[21:47:13] Search product triggered
+[21:47:16] Name: Tom Yum Goong, name: Ramen
+[21:47:16] Name: Pad Krapao Moo, name: Ramen
+[21:47:16] Name: Stewed Eel with Spicy Soup, name: Ramen
+[21:47:16] Name: Lab Ka Pom, name: Ramen
+[21:47:16] Name: Dancing Shrimp, name: Ramen
+[21:47:16] Name: Fried Rice, name: Ramen
+[21:47:16] Name: Instant Noodle, name: Ramen
+[21:47:32] Filter product by price triggered
+[21:48:03] System is starting...
+[21:48:04] TEST
+[21:48:04] User 'test' login
+[21:48:04] 2
+[21:48:06] Setting Loaded....
+[21:48:09] Product has been cached.
+[21:48:10] Work
+[21:48:10] customer
+[21:48:10] Attempting to auto purchase
+[21:48:10] Opening UserSetting/test_setting.csv
+[21:48:10] Time: 1099.000000
+[21:48:10] Expect: 86400
+[21:48:10] Time: 666.000000
+[21:48:10] Expect: 86400
+[21:48:10] Loaded user setting list
+[21:48:24] Product panel has been selected.
+[21:48:28] Filter product by price triggered
+[23:13:06] System is starting...
+[23:13:07] TEST
+[23:13:07] User 'test' login
+[23:13:07] 2
+[23:13:09] Setting Loaded....
+[23:13:12] Product has been cached.
+[23:13:13] Work
+[23:13:13] customer
+[23:13:13] Attempting to auto purchase
+[23:13:13] Opening UserSetting/test_setting.csv
+[23:13:13] Time: 6202.000000
+[23:13:13] Expect: 86400
+[23:13:13] Time: 5769.000000
+[23:13:13] Expect: 86400
+[23:13:13] Loaded user setting list
+[23:13:29] Product panel has been selected.
+[23:13:32] Search product triggered
+[23:13:39] Name: Tom Yum Goong, name: Tom Yum Goong
+[23:13:39] Name: Pad Krapao Moo, name: Tom Yum Goong
+[23:13:39] Name: Stewed Eel with Spicy Soup, name: Tom Yum Goong
+[23:13:39] Name: Lab Ka Pom, name: Tom Yum Goong
+[23:13:39] Name: Dancing Shrimp, name: Tom Yum Goong
+[23:13:39] Name: Fried Rice, name: Tom Yum Goong
+[23:13:39] Name: Instant Noodle, name: Tom Yum Goong
+[23:26:36] User 'test' has been logged out.
+[23:26:43] User 'admin1' has been logged in.
+[23:26:46] Work
+[23:26:46] admin
+[23:26:46] Time: 43379.000000
+[23:26:46] Expect: 86400

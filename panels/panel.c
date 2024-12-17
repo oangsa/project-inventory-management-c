@@ -292,7 +292,6 @@ void productUserSeleted(User* user) {
          case 3:
             Log("Buy product triggered");
             clearScreen();
-            // clearScreen();
             delay(1);
             if (printProduct("customer")) {
                clearScreen();
@@ -809,8 +808,22 @@ void setUpAutoPurchasePanel(User* user) {
 
       if (!createUserSetting(&userSetting, user->username)) {
          printf("   Auto purchase has been set up.\n");
-
          Log("User '%s' has been set up auto purchase.", user->username);
+
+         char choose[99];
+
+         printf("   Do you want to select another products? (Y/N): ");
+         scanf(" %[^,\n]", choose);
+
+         if (!strcmp(choose, "N") || !strcmp(choose, "n")) {
+            clearScreen();
+            delay(2);
+            return;
+         }
+         else {
+            continue;
+         }
+
          clearScreen();
       }
       else {

@@ -83,8 +83,6 @@ void updateAutoPurchase(ProductList *products, char* username);
 
 int writeCouponAutoPurchase(Coupon coupon, char* username);
 
-// Coupon Handling
-
 
 // Setting Handling
 int checkSetting(Setting *targetSetting);
@@ -94,8 +92,7 @@ int createSetting(Setting setting);
 int updateSetting(Setting *setting);
 
 
-// Daily Summary
-
+// Daily Summary Handling
 void updateDailySummary(float Price, int amount, char *mode);
 
 void displayDailySummary(int day, int month, int year);
