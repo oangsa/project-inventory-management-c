@@ -1924,6 +1924,37 @@ void displayDailySummary(int day, int month, int year) {
       return nothing
    */
 
+   time_t currentTime;
+   time(&currentTime);
+
+   struct tm *tm_local = localtime(&currentTime);
+
+   int d = tm_local->tm_mday;
+   int m = tm_local->tm_mon + 1;
+   int y = tm_local->tm_year + 1900;
+
+   if (day == 0 || month == 0 || year == 0) {
+      printf("Invalid date\n");
+      printf("Press enter to continue...");
+      getch();
+      return;
+   }
+
+   if (day > 31 || month > 12 || year < 1900) {
+      printf("Invalid date\n");
+      printf("Press enter to continue...");
+      getch();
+      return;
+   }
+
+   if (day == d || month == m || year == y) {
+      printf("There's no report for today yet.\n");
+      printf("Press enter to continue...");
+      getch();
+      return;
+   }
+
+
    delay(1);
    clearScreen();
 
