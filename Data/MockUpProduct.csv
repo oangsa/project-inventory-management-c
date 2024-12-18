@@ -4,6 +4,7 @@ NO,Name,Price,Remain,Sold
 3,Stewed Eel with Spicy Soup,150.00,100,0
 4,Lab Ka Pom,80.00,100,2
 5,Dancing Shrimp,49.00,100,0
-6,Fried Rice,23.00,90,10
+6,Fried Rice,23.00,100,10
 7,Instant Noodle,20.00,100,50
-8,Ramen,99.99,91,142
+8,Ramen,99.99,100,142
+9,GG,99.00,100,0

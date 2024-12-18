@@ -3083,3 +3083,14 @@
 [23:26:46] admin
 [23:26:46] Time: 43379.000000
 [23:26:46] Expect: 86400
+[18:06:19] System is starting...
+[18:06:20] TEST
+[18:06:20] User 'admin1' login
+[18:06:20] 2
+[18:06:22] Setting Loaded....
+[18:06:25] Product has been cached.
+[18:06:26] Work
+[18:06:26] admin
+[18:06:26] Time: 110559.000000
+[18:06:26] Expect: 86400
+[18:07:19] Product 'GG' has been created.

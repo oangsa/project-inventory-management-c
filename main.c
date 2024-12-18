@@ -7,9 +7,6 @@
 int main(void) {
    Setting setting;
    User user;
-   Product *purchasedProduct;
-
-   UserSetting userSetting;
 
    char *reportName;
 

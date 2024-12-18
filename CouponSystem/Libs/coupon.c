@@ -144,11 +144,12 @@ void addCoupon(const char *filename) {
    float discount, minAmount = 0;
    int validDays, choice;
    Coupon newCoupon;
+   int isError = 0;
 
    while (1) {
       borderup();
       printf("   Enter coupon code: ");
-      scanf("%s", code);
+      scanf("%[^,\n]s", code);
 
       printf("   Choose coupon type:\n");
       printf("      1. Percentage Discount\n");
@@ -161,9 +162,10 @@ void addCoupon(const char *filename) {
             printf("   Enter discount percentage: ");
             scanf("%f", &discount);
             if(discount <= 0 || discount > 100) {
-                  printf("   Invalid discount percentage! Try again.\n");
-                  delay(1);
-                  break;
+               printf("   Invalid discount percentage! Try again.\n");
+               isError = 1;
+               delay(1);
+               break;
             }
             strcpy(newCoupon.type, "PERCENTAGE");
             newCoupon.discount = discount;
@@ -175,11 +177,13 @@ void addCoupon(const char *filename) {
             scanf("%f", &minAmount);
             printf("   Enter discount amount: ");
             scanf("%f", &discount);
+
             if( minAmount <= 0 || discount <= 0 ) {
                printf("   Invalid values! Try again..\n");
                delay(1);
                break;
             }
+
             strcpy(newCoupon.type, "MINIMUM");
             newCoupon.discount = discount;
             newCoupon.minAmount = minAmount;
@@ -189,6 +193,11 @@ void addCoupon(const char *filename) {
             printf("   Invalid choice! Try again..\n");
             delay(1);
             break;
+      }
+
+      if (isError) {
+         isError = 0;
+         continue;
       }
 
       printf("   Enter validity in days: ");

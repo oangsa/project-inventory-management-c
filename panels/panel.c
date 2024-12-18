@@ -1072,8 +1072,25 @@ void createProductPanel() {
 
    printf("   Price: ");
    scanf(" %f", &product.price);
+
+   if (product.price <= 0) {
+      printf("   Price must be greater than 0.\n");
+      free(product.name);
+      delay(2);
+      clearScreen();
+      return;
+   }
+
    printf("   Remain: ");
    scanf(" %d", &product.remain);
+
+   if (product.remain <= 0) {
+      printf("   Remain must be greater than 0.\n");
+      free(product.name);
+      delay(2);
+      clearScreen();
+      return;
+   }
 
    if (createProduct(product) == 0) {
       printf("   Product has been created.\n");
@@ -1178,10 +1195,28 @@ void updateProductPanel() {
    printf("   Price: ");
    scanf(" %f", &product.price);
 
+   if (product.price <= 0) {
+      printf("   Product price must be greater than 0.\n");
+      free(productId);
+      free(product.name);
+      delay(2);
+      clearScreen();
+      return;
+   }
+
    printf("   '%.2f' --> '%.2f' (%.2f%s %s)\n", targetProduct.price, product.price, (targetProduct.price > product.price) ? (product.price / targetProduct.price) * 100 : ((product.price - targetProduct.price) / product.price) * 100, "%",(targetProduct.price > product.price) ? "Decrease" : "Increase");
 
    printf("   Remain: ");
    scanf(" %d", &product.remain);
+
+   if (product.remain <= 0) {
+      printf("   Product stock must be greater than 0.\n");
+      free(productId);
+      free(product.name);
+      delay(2);
+      clearScreen();
+      return;
+   }
 
    printf("   '%d' --> '%d' (%.2f%s %s)\n", targetProduct.remain, product.remain, ((float) targetProduct.remain > (float) product.remain) ? ((float) product.remain / (float) targetProduct.remain) * 100 : ((float) targetProduct.remain / (float) product.remain), "%",(targetProduct.remain > product.remain) ? "Decrease" : "Increase");
 

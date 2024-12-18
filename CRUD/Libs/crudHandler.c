@@ -959,6 +959,13 @@ int purchaseMultipleProductWithName(ProductList *products, double *totalPrice) {
 
    free(name);
    free(writeProducts);
+
+   while (products != NULL) {
+      ProductList* temp = products;
+      products = products->next;
+      free(temp);
+   }
+
    fclose(file);
    fclose(tmpFile);
 

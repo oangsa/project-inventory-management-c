@@ -162,8 +162,6 @@ ProductList *AppendOrEditProduct(ProductList *productList, Product targetProduct
    */
       ProductList *head = productList;
       int flag = 0;
-      // Log("Product: %d", targetProduct.id);
-
 
       // Loop until the end of the list
       if (!strcmp(mode, "userBuy")) {
@@ -174,25 +172,18 @@ ProductList *AppendOrEditProduct(ProductList *productList, Product targetProduct
                   printf("   Product is out of stock or the provided amount is greater than the stock..\n");
                   return head;
                }
-               Log("HOW");
                productList->product.remain += targetProduct.remain;
                flag = 1;
                break;
-         }
-         if (productList->next == NULL) break;
+            }
+            if (productList->next == NULL) break;
             productList = productList->next;
          }
       }
 
       if (!strcmp(mode, "loadSetting")) {
          while (productList != NULL) {
-            // Log("ProductList: %s", productList->product.name);
-            // Log("Target Product: %s", targetProduct.name);
             if (!strcmp(productList->product.name, targetProduct.name)) {
-
-               // Log("Product List remain: %d", productList->product.remain);
-               // Log("Target Product remain: %d", targetProduct.remain);
-
                productList->product.remain += targetProduct.remain;
                if(!canPurchase(targetProduct, "loadSetting")) {
                   printf("   Product is out of stock or the provided amount is greater than the stock..\n");
@@ -214,15 +205,8 @@ ProductList *AppendOrEditProduct(ProductList *productList, Product targetProduct
          if (newNode == NULL) {
             perror("Failed to allocate memory");
          }
-
          // Increase the product count by 1 for every new product
          ++*counter;
-
-         Log("Counter: %d", *counter);
-
-         // newNode->product.name = malloc(999 * sizeof(char));
-
-         Log("Product: %s", targetProduct.name);
 
          newNode->product.name = copyString(targetProduct.name, strlen(targetProduct.name) + 1);
          newNode->product.remain = targetProduct.remain;
@@ -510,12 +494,20 @@ int setup(User* user) {
       char Username[99];
       char Password[99];
       char Role[99];
-
       fscanf(file, "%[^,],%[^,],%[^,\n]\n", Username, Password, Role);
 
       user->username = copyString(Username, strlen(Username));
       user->password = copyString(Password, strlen(Password));
       user->role = copyString(Role, strlen(Role));
+
+      if (strcmp(user->role, "admin") && strcmp(user->role, "customer")) {
+         fclose(file);
+         printf("File corrupted\n");
+         printf("Please re-open again\n");
+         remove("Cache/__users.csv");
+         delay(2);
+         exit(1);
+      }
 
       fclose(file);
 
